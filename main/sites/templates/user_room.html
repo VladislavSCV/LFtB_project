@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ userName }}</title>
+    <style>
+        {% if u_theme == "theme1" or u_theme == None%}
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #07026e;
+            color: #fff;
+            padding: 20px;
+            background: url("https://catherineasquithgallery.com/uploads/posts/2021-02/1613306037_181-p-sinii-morskoi-fon-256.jpg"), url("https://catherineasquithgallery.com/uploads/posts/2021-02/1613260876_73-p-sinii-fon-tsifri-120.jpg");
+            background-position: left top, left top;
+            background-repeat: no-repeat, repeat;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        main {
+            padding: 20px;
+            margin-left: 220px;
+            margin-right: 220px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #07026e;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .addTOpro {
+            color: white;
+        }
+
+        .cyber-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #6b00e6;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(191, 0, 255, 0.5);
+        }
+
+        .cyber-button:hover {
+            background-color: #7f39c9;
+        }
+
+        .cyber-button:active {
+            background-color: #00378f;
+        }
+
+        .elseTable {
+            border-radius: 10px;
+            width: 700px;
+            background-color: rgb(224, 224, 224);
+            padding-bottom: 10px;
+            margin: 10px;
+            padding-left: 10px;
+            padding-top: 10px;
+            padding-right: 10px;
+        }
+
+        .course {
+            flex-basis: calc(33.33% - 20px);
+            margin: 10px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .course img {
+            width: 10%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .course h3 {
+            margin-top: 10px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .course p {
+            margin-top: 5px;
+            font-size: 16px;
+        }
+
+        .course a {
+            display: block;
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: #ffffff;
+            height: 130px;
+            background: url(#0f0a2f), url('https://img1.fonwall.ru/o/er/stock-original-background-artist.jpeg?route=mid&h=750');
+            background-position: left top, left top;
+            background-repeat: no-repeat, repeat;
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        @media screen and (min-width: 600px) {
+            .card {
+                max-width: 600px;
+            }
+        }
+{% comment %} 2 {% endcomment %}
+        {% elif u_theme == "theme2"%}
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #07026e;
+            color: #fff;
+            padding: 20px;
+            background: url("https://catherineasquithgallery.com/uploads/posts/2021-02/1614390853_58-p-temnii-fon-na-noutbuke-70.jpg");
+            background-position: left top, left top;
+            background-repeat: no-repeat, repeat;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        main {
+            padding: 20px;
+            margin-left: 220px;
+            margin-right: 220px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: black;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .addTOpro {
+            color: white;
+        }
+
+        .cyber-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: rgb(70, 33, 78);
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(191, 0, 255, 0.5);
+        }
+
+        .cyber-button:hover {
+            background-color: #390875;
+        }
+
+        .cyber-button:active {
+            background-color: #00378f;
+        }
+
+        .elseTable {
+            border-radius: 10px;
+            width: 700px;
+            background-color: rgb(224, 224, 224);
+            padding-bottom: 10px;
+            margin: 10px;
+            padding-left: 10px;
+            padding-top: 10px;
+            padding-right: 10px;
+        }
+
+        .course {
+            flex-basis: calc(33.33% - 20px);
+            margin: 10px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .course img {
+            width: 10%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .course h3 {
+            margin-top: 10px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .course p {
+            margin-top: 5px;
+            font-size: 16px;
+        }
+
+        .course a {
+            display: block;
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: #ffffff;
+            height: 130px;
+            background: url(#0f0a2f), url('https://gas-kvas.com/uploads/posts/2023-02/1675451736_gas-kvas-com-p-temnii-fonovii-risunok-na-rabochii-stol-na-39.jpg');
+            background-position: left top, left top;
+            background-repeat: no-repeat, repeat;
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        @media screen and (min-width: 600px) {
+            .card {
+                max-width: 600px;
+            }
+        }
+{% comment %} 3 {% endcomment %}
+        {% elif u_theme == "theme3" %}
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #07026e;
+            color: #fff;
+            padding: 20px;
+            background: url("https://catherineasquithgallery.com/uploads/posts/2021-02/1612201117_4-p-fioletovii-fon-kod-4.jpg");
+            background-position: left top, left top;
+            background-repeat: no-repeat, repeat;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        main {
+            padding: 20px;
+            margin-left: 220px;
+            margin-right: 220px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #520255;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .addTOpro {
+            color: white;
+        }
+
+        .cyber-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #6b00e6;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(191, 0, 255, 0.5);
+        }
+
+        .cyber-button:hover {
+            background-color: #7f39c9;
+        }
+
+        .cyber-button:active {
+            background-color: #00378f;
+        }
+
+        .elseTable {
+            border-radius: 10px;
+            width: 700px;
+            background-color: rgb(224, 224, 224);
+            padding-bottom: 10px;
+            margin: 10px;
+            padding-left: 10px;
+            padding-top: 10px;
+            padding-right: 10px;
+        }
+
+        .course {
+            flex-basis: calc(33.33% - 20px);
+            margin: 10px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .course img {
+            width: 10%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .course h3 {
+            margin-top: 10px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .course p {
+            margin-top: 5px;
+            font-size: 16px;
+        }
+
+        .course a {
+            display: block;
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: #ffffff;
+            height: 130px;
+            background: url(#0f0a2f), url('https://catherineasquithgallery.com/uploads/posts/2021-02/1612154120_30-p-tsifri-na-fioletovom-fone-48.jpg');
+            background-position: left top, left top;
+            background-repeat: no-repeat, repeat;
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        @media screen and (min-width: 600px) {
+            .card {
+                max-width: 600px;
+            }
+        }
+        {% endif %}
+    </style>
+</head>
+
+<body>
+    <header>
+        <!-- <h1>{{ userName }}</h1> -->
+        <div class="user_nai">
+
+            <img src="{{ img_src }}" style="
+            width: 130px;border-radius: 100px; height: 125px;">
+
+            <br>
+
+            <h1 style="
+            padding-bottom: 10px;
+        ">{{ userName }}</h1>
+
+        </div>
+        <nav style="
+        position: absolute;
+        top: 20px;
+        left: 60px;
+    ">
+            <ul>
+                <li><a href="http://127.0.0.1:8000/Главная_страница./">
+                        <h2>Главная</h2>
+                    </a></li>
+                <li><a href="http://127.0.0.1:8000/Каталог_курсов/">
+                        <h2>Каталог</h2>
+                    </a></li>
+
+            </ul>
+        </nav>
+        <nav style="
+        position: absolute;
+        right: 45px;
+        top: 20px;
+    ">
+            <ul>
+                <li><a href="Квесты/">
+                        <h2>Квесты</h2>
+                    </a></li>
+                <li><a href="Настройки/">
+                        <h2>Настройки</h2>
+                    </a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="about">
+            <h2>О пользователе</h2>
+        </section>
+
+        {{ desc }} | {{ xp }} XP
+
+        <br>
+        <hr><br>
+        {% if add == True %}
+
+        {% else %}
+        <center>
+            <div class="card">
+                <h2>LFtB PRO</h2>
+                <p>Получите доступ ко всем продвинутым функциям!</p>
+                <a href="PRO/">
+                    <div class="cyber-button">Узнать больше</div>
+                </a>
+            </div>
+        </center>
+        <br>
+        {% endif %}
+
+        <div class="elseTable">
+            <h2>Курсы</h2>
+            <ul>
+                {% for course in courses %}
+                <li>{{ course }}</li>
+                {% empty %}
+                <p>Тут пока что пусто(</p>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="elseTable">
+            <h2>Сертификаты</h2>
+            <ul>
+                {% for cert in user_certific %}
+                <li>{{ cert }}</li>
+
+                {% empty %}
+                <p>Странно, но тут пусто.</p>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="elseTable">
+            <h2>Достижения</h2>
+            <ul>
+                {% for achiv in user_achievments %}
+                <li>{{ achiv }}</li>
+                {% empty %}
+                <p>Пусто.</p>
+                {% endfor %}
+            </ul>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2023 LFtB</p>
+    </footer>
+</body>
+
+</html>

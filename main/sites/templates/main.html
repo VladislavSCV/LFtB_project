@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Courses LFtB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Global Styles */
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 50px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 32px;
+}
+
+.btn {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  border: 2px solid transparent;
+  border-radius: 30px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #fff;
+  border-color: #3f51b5;
+  color: #3f51b5;
+}
+
+.btn-secondary {
+  background-color: #fff;
+  color: #3f51b5;
+  border-color: #3f51b5;
+}
+
+.btn-secondary:hover {
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+/* Header Styles */
+.header {
+  background-color: #252a5c;
+  color: #fff;
+  padding: 40px 0;
+  position: relative;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+}
+
+.menu-item {
+  margin-right: 20px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-heading {
+  margin-bottom: 20px;
+  margin-top: 0;
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.hero-text {
+  margin-top: 0;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.hero-form {
+  display: flex;
+  width: 100%;
+  max-width: 500px;
+}
+
+.hero-form input[type="text"] {
+  padding: 16px;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 90px;
+  border: none;
+  flex-grow: 1;
+}
+
+.hero-form button[type="submit"] {
+  padding: 16px 32px;
+}
+
+/* Features Styles */
+.features {
+  padding: 80px 0;
+  background-color: #4661f7;
+}
+
+.features-grid {
+display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.feature {
+  flex: 0 1 300px;
+  background-color: #fff;
+  padding: 40px;
+  margin: 20px;
+  text-align: center;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.feature i {
+  font-size: 64px;
+  color: #25345c;
+  margin-bottom: 20px;
+}
+
+.feature-heading {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.feature-text {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+/* Popular Courses Styles */
+.popular-courses {
+  padding: 80px ;
+}
+
+.popular-courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 40px;
+  justify-items: center;
+  align-items: center;
+}
+
+.course {
+  background-color: #fff;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.course-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.course-heading {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.course-description {
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.course-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #cbc6c6;
+}
+
+.course-info {
+  display: flex;
+  align-items: center;
+}
+
+.course-length {
+  margin-right: 20px;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.course-rating {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Testimonial Styles */
+.testimonial {
+  padding: 80px 0;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 40px;
+  justify-items: center;
+  align-items: center;
+}
+
+.testimonial-item {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 400px;
+}
+
+.testimonial-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.testimonial-text {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.student-name {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.student-course {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 18px;
+  font-weight: 400;
+  color: #7e7e7e;
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #25345c;
+  color: #fff;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.footer-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.footer-menu .menu {
+  margin-left: 20px;
+}
+
+.footer-menu .menu-item {
+  margin-right: 20px;
+}
+
+.footer-text {
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+  </style>
+</head>
+<!-- vladnety134@gmail.com -->
+<body>
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <img src="https://ie.wampi.ru/2023/07/19/ClipDropImage1689779800774.png" style="width: 125px;">
+        <ul class="menu">
+          <li class="menu-item"><a href="Каталог_курсов/">Курсы</a></li>
+          <li class="menu-item"><a href="PRO/">PRO</a></li>
+          <li class="menu-item"><a href="Квесты/">Квесты</a></li>
+          <li class="menu-item"><a href="Авторизация/" class="btn btn-primary">Авторизация</a>
+          <li class="menu-item"><a href="Регистрация/" class="btn btn-primary">Регистрация</a>
+        </ul>
+      </nav>
+      
+      {% csrf_token %}
+      <div class="hero">
+        <h1 class="hero-heading">LFtB - Learn From the Best</h1>
+        <p class="hero-text">Получите доступ к сотням онлайн-курсов, от ведущих экспертов отрасли</p>
+        <form class="hero-form" method="post" action="Search/">
+          {% csrf_token %}
+          {{ forms }}
+          <button class="btn btn-secondary">Search</button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <section class="features">
+    <div class="container">
+      <h2 class="section-heading">НАШИ ОСОБЕННОСТИ</h2>
+      <div class="features-grid">
+        <div class="feature">
+          <i class="fas fa-play-circle"></i>
+          <h3 class="feature-heading">Видео уроки</h3>
+          <p class="feature-text">Смотрите видеоуроки от экспертов отрасли в своем собственном темпе.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-user-graduate"></i>
+          <h3 class="feature-heading">Планы от экспертов</h3>
+          <p class="feature-text">Учитесь у инструкторов, которые являются лидерами в своей области.</p>
+       </div>
+        <div class="feature">
+          <i class="fas fa-certificate"></i>
+          <h3 class="feature-heading">Сертификат</h3>
+          <p class="feature-text">Получите реальные сертификаты, демонстрирующие ваши навыки.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="popular-courses">
+    <div class="container">
+      <h2 class="section-heading">Популярные курсы</h2>
+      <div class="popular-courses-grid">
+        <div class="course">
+            <img src="https://www.itreeni.com/wp-content/uploads/2017/07/frontend-development.png" alt="Course Image" class="course-image">
+            <h3 class="course-heading">Frontend Development</h3>
+            <p class="course-description">Изучите HTML, CSS и JS. И Напишите свой первый сайт!</p>
+            <div class="course-footer">
+              <div class="course-info">
+                <span class="course-length">6+ Hours</span>
+                <span class="course-rating">4.7</span>
+              </div>
+              <a href="http://127.0.0.1:8000/Каталог_курсов/Frontend_разработка/" class="btn btn-primary">Подробнее</a>
+            </div>
+          </div>
+        <div class="course">
+          <img src="https://repository-images.githubusercontent.com/440900695/d868cd36-0a8e-447d-ba62-9a4935716d80" alt="Course Image" class="course-image">
+          <h3 class="course-heading">Data Science для начинающих</h3>
+          <p class="course-description">Изучите основы Data Science и машинного обучения с помощью Python.</p>
+          <div class="course-footer">
+            <div class="course-info">
+              <span class="course-length">10+ Hours</span>
+              <span class="course-rating">4.6</span>
+            </div>
+            <a href="http://127.0.0.1:8000/Каталог_курсов/Data_science/" class="btn btn-primary">Подробнее</a>
+          </div>
+        </div>
+
+          <div class="course" >
+            <img src="https://sun9-41.userapi.com/impg/Ehhuv9PUq7Aq0QcLgKewQxG-QZir-csfh2gpGw/eY05m0u4h6E.jpg?size=1200x520&quality=96&sign=9aaeeea7c6c56b886834d07e85ac90c9&type=album" alt="Course Image" class="course-image">
+            <h3 class="course-heading">Backend Development</h3>
+            <p class="course-description">Начните работать с python. Вы Изучите множество библиотек, фреймворков и SQL</p>
+            <div class="course-footer">
+              <div class="course-info">
+                <span class="course-length">9+ Hours</span>
+                <span class="course-rating">4.9</span>
+              </div>
+              <a href="http://127.0.0.1:8000/Каталог_курсов/Backend_разработка/" class="btn btn-primary">Подробнее</a>
+            </div>
+          </div>
+      </div>
+      <a href="Каталог_курсов/" class="btn btn-secondary">Все курсы</a>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="container">
+      <nav class="nav">
+        <a href="#" class="logo">LFtB</a>
+        <ul class="menu">
+          <li class="menu-item"><a href="Каталог_курсов/">Курсы</a></li>
+          <li class="menu-item"><a href="#">PRO</a></li>
+          <li class="menu-item"><a href="#">Квесты</a></li>
+        </ul>
+      </nav>
+      <p class="footer-text">© 2023. LFtB. Все права защищены</p>
+    </div>
+  </footer>
+</body>
+</html>

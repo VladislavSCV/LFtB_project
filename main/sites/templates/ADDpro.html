@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <title>LFtB Подписка</title>
+ <style>
+  {% if u_theme == "theme1" %}
+  body {
+   font-family: Arial, sans-serif;
+   margin: 0;
+   padding: 0;
+  }
+  
+  header {
+   background-color: #28009d;
+   color: #fff;
+   padding: 20px;
+   text-align: center;
+  }
+  
+  h1 {
+   font-size: 36px;
+   margin: 0;
+  }
+  
+  main {
+   margin: 20px auto;
+   max-width: 800px;
+   padding: 0 20px;
+  }
+  
+  h2 {
+   font-size: 24px;
+   margin-bottom: 10px;
+  }
+  
+  p {
+   font-size: 18px;
+   line-height: 1.5;
+   margin-bottom: 20px;
+  }
+  
+  ul {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+  }
+  
+  li {
+   font-size: 18px;
+   line-height: 1.5;
+   margin-bottom: 10px;
+   position: relative;
+   padding-left: 30px;
+  }
+  
+  li:before {
+   content: "\2022";
+   position: absolute;
+   left: 0;
+   top: 0;
+   font-size: 24px;
+   line-height: 1.5;
+  }
+  
+  .button {
+   background-color: #032ea9;
+   color: #fff;
+   display: inline-block;
+   font-size: 18px;
+   padding: 10px 20px;
+   text-align: center;
+   text-decoration: none;
+   transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+   background-color: #0345ff;
+  }
+  
+  @media screen and (max-width: 600px) {
+   h1 {
+    font-size: 24px;
+   }
+   
+   h2 {
+    font-size: 20px;
+   }
+   
+   p,
+   li {
+    font-size: 16px;
+   }
+   
+   .button {
+    font-size: 16px;
+    padding: 8px 16px;
+   }
+  }
+  {% elif u_theme == "theme2"%}
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #333333;
+    color: #fff;
+   }
+   
+   header {
+    background-color: #000000;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+   }
+   
+   h1 {
+    font-size: 36px;
+    margin: 0;
+   }
+   
+   main {
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 0 20px;
+   }
+   
+   h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+   }
+   
+   p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+   }
+   
+   ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+   }
+   
+   li {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 30px;
+   }
+   
+   li:before {
+    content: "\2022";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 24px;
+    line-height: 1.5;
+   }
+   
+   .button {
+    background-color: #000000;
+    color: #fff;
+    display: inline-block;
+    font-size: 18px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+   }
+   
+   .button:hover {
+    background-color: #1e1e1e;
+   }
+   
+   @media screen and (max-width: 600px) {
+    h1 {
+     font-size: 24px;
+    }
+    
+    h2 {
+     font-size: 20px;
+    }
+    
+    p,
+    li {
+     font-size: 16px;
+    }
+    
+    .button {
+     font-size: 16px;
+     padding: 8px 16px;
+    }
+   }
+  {% elif u_theme == "theme3"%}
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    background-color: #240343;
+   }
+   
+   header {
+    background-color: #240343;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+   }
+   
+   h1 {
+    font-size: 36px;
+    margin: 0;
+   }
+   
+   main {
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 0 20px;
+   }
+   
+   h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+   }
+   
+   p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+   }
+   
+   ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+   }
+   
+   li {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 30px;
+   }
+   
+   li:before {
+    content: "\2022";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 24px;
+    line-height: 1.5;
+   }
+   
+   .button {
+    background-color: #3c036b;
+    color: #fff;
+    display: inline-block;
+    font-size: 18px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+   }
+   
+   .button:hover {
+    background-color: #4e03a5;
+   }
+   
+   @media screen and (max-width: 600px) {
+    h1 {
+     font-size: 24px;
+    }
+    
+    h2 {
+     font-size: 20px;
+    }
+    
+    p,
+    li {
+     font-size: 16px;
+    }
+    
+    .button {
+     font-size: 16px;
+     padding: 8px 16px;
+    }
+   }
+  {% endif %}
+ </style>
+</head>
+<body>
+ <header>
+  <h1>Инвестируй в свое обучение с LFtB!</h1>
+ </header>
+ {% if u_theme == "theme3"%}
+ <img src="https://im.wampi.ru/2023/08/26/ClipDropImage1693075241003.png" style="
+    width: 50px;
+    left: 20px;
+    position: absolute;
+    top: 100px;
+    cursor: pointer;" id="backP" onmouseover="changeCursor()">
+    {% else %}
+    <img src="https://im.wampi.ru/2023/06/19/angle-left.png" style="
+    width: 50px;
+    left: 20px;
+    position: absolute;
+    top: 100px;
+    cursor: pointer;" id="backP" onmouseover="changeCursor()">
+    {% endif %}
+
+ <main>
+  <h2>Преимущества подписки:</h2>
+  <ul>
+   <li>Более подробный анализ вашего профиля и рекомендации курсов, которые наиболее подходят именно вам.</li>
+   <li>Бесплатный доступ к эксклюзивным курсам, которые недоступны в бесплатной версии.</li>
+   <li>Более быстрый и качественный технический саппорт.</li>
+   <li>Скидки на платные курсы и сертификаты.</li>
+  </ul>
+  
+  <p>Кроме того, про версия позволяет вам получить максимальную отдачу от нашего сервиса и достичь успеха в вашей карьере.</p>
+  <a href="Оплата/" class="button">Приобрести</a>
+  
+ </main>
+</body>
+<script>
+    document.getElementById('backP').addEventListener('click', () => {
+      history.back();
+    });
+  </script>
+</html>

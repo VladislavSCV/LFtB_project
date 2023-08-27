@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Выбор темы сайта</title>
+    <style>
+        {% if u_theme == "theme1"%}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #135cb5;
+        }
+        button{
+      border-radius: 10px;
+      transition: background-color 0.3s ease; /* Плавный переход для hover */
+      appearance: none;
+      border: 0;
+      background: #4676D7;
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 16px;
+    }
+    
+    button:hover{
+      background-color: #065ac8;
+    }
+    
+    button:active{
+      background-color: #054496;
+    }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .theme-select {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .theme-button {
+            border: none;
+            background-color: transparent;
+            color: #333;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .theme-button:hover {
+            color: #007bff;
+        }
+
+        .theme-button.selected {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        {% elif u_theme == "theme2"%}
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #272727;
+        }
+        button{
+      border-radius: 10px;
+      transition: background-color 0.3s ease; /* Плавный переход для hover */
+      appearance: none;
+      border: 0;
+      background: #323232;
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 16px;
+    }
+    
+    button:hover{
+      background-color: #4f4f4f;
+    }
+    
+    button:active{
+      background-color: #4e4e4e;
+    }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .theme-select {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .theme-button {
+            border: none;
+            background-color: transparent;
+            color: #333;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .theme-button:hover {
+            color: #202020;
+        }
+
+        .theme-button.selected {
+            font-weight: bold;
+            color: #343434;
+        }
+        {% elif u_theme == "theme3"%}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #3a0060;
+        }
+        button{
+      border-radius: 10px;
+      transition: background-color 0.3s ease; /* Плавный переход для hover */
+      appearance: none;
+      border: 0;
+      background: #5900b7;
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 16px;
+    }
+    
+    button:hover{
+      background-color: #47006d;
+    }
+    
+    button:active{
+      background-color: #24005e;
+    }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .theme-select {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .theme-button {
+            border: none;
+            background-color: transparent;
+            color: #333;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .theme-button:hover {
+            color: #007bff;
+        }
+
+        .theme-button.selected {
+            font-weight: bold;
+            color: #007bff;
+        }
+        {% endif %}
+    </style>
+</head>
+
+<body>
+    {% if u_theme == "theme1" or u_theme == "theme2"%}
+
+    {% else %}
+    <img src="https://im.wampi.ru/2023/06/19/angle-left.png" style="
+    width: 50px;
+    left: 20px;
+    position: absolute;
+    top: 40px;
+    cursor: pointer;" id="backP" onmouseover="changeCursor()">
+    {% endif %}
+    <div class="container">
+        <h1>Настройки</h1>
+        <div class="theme-select">
+            
+            
+            <form method="post">
+                {% csrf_token %}
+
+                {{ form.as_p }}
+                
+                <button type="submit">Сохранить</button>
+
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+</body>
+<script>
+    document.getElementById('backP').addEventListener('click', () => {
+      history.back();
+    });
+  </script>
+</html>

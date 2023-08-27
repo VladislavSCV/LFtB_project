@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" style="font-family: sans-serif;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог LFtB</title>
+    <style>
+      {% if u_theme == "theme1"%}
+      body{
+        background-color: #4661f7;
+      }
+        .course-section {
+  max-width: 1200px;
+  margin: auto;
+  text-align: center;
+}
+
+.course-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.course {
+  flex-basis: calc(33.33% - 20px);
+  margin: 10px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  text-align: left;
+}
+
+.course img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.course h3 {
+  margin-top: 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.course p {
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+.course a {
+  display: block;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  .course {
+    flex-basis: calc(50% - 20px);
+  }
+}
+{% elif u_theme == "theme2"%}
+body{
+  background: url('https://catherineasquithgallery.com/uploads/posts/2021-02/1614441352_95-p-temnii-fon-dlya-chata-114.jpg');
+  
+}
+  .course-section {
+max-width: 1200px;
+margin: auto;
+text-align: center;
+}
+
+.course-container {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+margin-top: 20px;
+}
+
+.course {
+flex-basis: calc(33.33% - 20px);
+margin: 10px;
+padding: 20px;
+background-color: #f9f9f9;
+box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+border-radius: 5px;
+text-align: left;
+}
+
+.course img {
+width: 100%;
+height: auto;
+border-radius: 5px;
+}
+
+.course h3 {
+margin-top: 10px;
+font-size: 24px;
+font-weight: bold;
+}
+
+.course p {
+margin-top: 5px;
+font-size: 16px;
+}
+
+.course a {
+display: block;
+margin-top: 10px;
+font-size: 18px;
+font-weight: bold;
+color: #007bff;
+text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+.course {
+flex-basis: calc(50% - 20px);
+}
+}
+{% elif u_theme == "theme3"%}
+body{
+  background: url('https://catherineasquithgallery.com/uploads/posts/2021-02/1612201117_5-p-fioletovii-fon-kod-5.jpg');
+}
+  .course-section {
+max-width: 1200px;
+margin: auto;
+text-align: center;
+}
+
+.course-container {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+margin-top: 20px;
+}
+
+.course {
+flex-basis: calc(33.33% - 20px);
+margin: 10px;
+padding: 20px;
+background-color: #f9f9f9;
+box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+border-radius: 5px;
+text-align: left;
+}
+
+.course img {
+width: 100%;
+height: auto;
+border-radius: 5px;
+}
+
+.course h3 {
+margin-top: 10px;
+font-size: 24px;
+font-weight: bold;
+}
+
+.course p {
+margin-top: 5px;
+font-size: 16px;
+}
+
+.course a {
+display: block;
+margin-top: 10px;
+font-size: 18px;
+font-weight: bold;
+color: #007bff;
+text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+.course {
+flex-basis: calc(50% - 20px);
+}
+}
+{% endif %}
+    </style>
+</head>
+<body>
+  {% if u_theme == "theme2"%}
+  <img src="https://im.wampi.ru/2023/08/26/ClipDropImage1693075241003.png" style="
+width: 50px;
+left: 20px;
+position: absolute;
+top: 40px;
+cursor: pointer;" id="backP" onmouseover="changeCursor()">
+{% else %}
+<img src="https://im.wampi.ru/2023/06/19/angle-left.png" style="
+width: 50px;
+left: 20px;
+position: absolute;
+top: 40px;
+cursor: pointer;" id="backP" onmouseover="changeCursor()">
+{% endif %}
+
+<div class="course-section">
+  {% if u_theme == "theme2"%}
+  <h1 style="color: aliceblue;">Каталог курсов</h1>
+  {% else %}
+  <h1>Каталог курсов</h1>
+  {% endif %}
+  {% for element in collection %} 
+ <div class="course">
+    <h3>{{ element.0 }}</h3>
+    <p>{{ element.1 }}</p>
+    <a href={{ element.2 }}>Узнать больше</a>
+ </div>
+  {% endfor %}
+</div>
+</body>
+<script>
+  document.getElementById('backP').addEventListener('click', () => {
+    history.back();
+  });
+</script>
+</html>

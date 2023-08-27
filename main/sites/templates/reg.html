@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Регистрация LFtB</title>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <style>
+  body {
+   font-family: Arial, sans-serif;
+   background-color: #125dff;
+  }
+
+  .container {
+   background-color: #ffffff;
+   padding: 20px;
+   border-radius: 10px;
+   box-shadow: 0px 0px 20px #000000;
+   margin: auto;
+   margin-top: 100px;
+   max-width: 500px;
+  }
+
+  h1 {
+   text-align: center;
+   color: #333333;
+   margin-bottom: 30px;
+  }
+
+  input[type=text], input[type=password], input[type=email] {
+   width: 100%;
+   padding: 12px 20px;
+   margin: 8px 0;
+   display: inline-block;
+   border: 1px solid #ccc;
+   border-radius: 10px;
+   box-sizing: border-box;
+  }
+
+  button {
+   background-color: #162dff;
+   color: rgb(223, 0, 0);
+   padding: 14px 20px;
+   margin: 8px 0;
+   border: none;
+   border-radius: 10px;
+   cursor: pointer;
+   width: 100%;
+  }
+
+  button:hover {
+   background-color: #2b00ff;
+  }
+
+  .imgcontainer {
+   text-align: center;
+   margin: 24px 0 12px 0;
+   position: relative;
+  }
+
+  .signup {
+   background-color: #f1f1f1;
+   text-align: center;
+   padding: 16px;
+   border-radius: 10px;
+   margin-top: 16px;
+   margin-bottom: 16px;
+   font-size: 18px;
+  }
+
+ 
+ </style>
+</head>
+<body style="
+font-family: sans-serif;">
+
+<img src="https://im.wampi.ru/2023/06/19/angle-left.png" style="
+width: 50px;
+left: 20px;
+position: absolute;
+top: 40px;
+cursor: pointer;" id="backP" onmouseover="changeCursor()">
+
+<div class="container">
+
+    <h2>Регистрация</h2>
+
+    <form method="post" action="Подтверждение_почты/">
+      {% csrf_token %}
+      {{ form }}
+      <button type="submit" value="Send" style="color: #ffffff;">Войти</button>
+</form>
+
+</div>
+
+</body>
+<script>
+  document.getElementById('backP').addEventListener('click', () => {
+    history.back();
+  });
+</script>
+</html>
+
+<!-- <div class="input-box"><label>Username</label>
+            <input type="text" id="userName" required="" name="user_name_" placeholder="Введите имя">
+            
+        </div>
+        <div class="input-box">
+          <label>Email</label>
+          <input type="text" id="userName" required="" name="user_email_" placeholder="Введите Email">
+          
+      </div>
+        <div class="input-box">
+          <label>Password</label>
+            <input type="password" required="" id="password" name="password_" placeholder="Введите пароль">
+            
+            <div id="toggle" onclick="userlogin()"></div>
+        </div> -->
