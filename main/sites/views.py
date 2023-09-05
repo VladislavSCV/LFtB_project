@@ -14,16 +14,20 @@ import string
 import spacy
 import psycopg2
 
+# Опиши общими словами импорт из твоих модулей(файлов)
 from .forms import userFormREG, userSearchEngine, userFormAUTH, select_theme
 
 # Удалить session object
 # del request.session['userName']
 
+""" Глобальные переменные можно записывать в config.ini
+Удобная библиотека configparser
+"""
 
 # Изображение пользователя если нет своего фото
 img_src = "https://brend-mebel.ru/image/no_image.jpg"
 
-
+# Словари и списки в json и в config.ini
 dct_courses = {
     ("Frontend Development", "Фронтенд разработка", "Разработка пользовательского интерфейса", "Фронтенд программирование", "Фронтэнд верстка", "HTML", "CSS"): 0,
     ("Data Science", "Анализ данных", "Машинное обучение", "Статистика", "Нейронные сети", "Большие данные", "Python"): '',
@@ -50,6 +54,8 @@ dct_res_text = {
     9: ["Кибербезопасность", "Направление связанное с разработкой и управлением систем информационной безопасности в организации.", "Ccyber_security.html"]
 }
 
+# Добавь здесь комментарий об пустых словарях
+
 dct_res = {}
 
 dct = {}
@@ -57,7 +63,9 @@ dct = {}
 
 def MainPage(request):
     """ Вывод обычной главной страницы """
+    # dct_res и так глобальный 
     global dct_courses, dct_res_text, dct_res
+    # use -> user, не сокращай названия переменных, но сокращай код в них👆
     use = userSearchEngine()
     if request.method == "POST":
         if use.is_valid():
@@ -72,7 +80,7 @@ def res_search(request):
     global dct_res, dct_courses, dct_res_text
 
     userNameSession = request.session.get("userName")
-
+	# Все запросы в utils/db_api/{имя таблицы}.py
     conn = psycopg2.connect(dbname="LFtB", user="postgres",
                             password="31415926", host="127.0.0.1")
     cursor = conn.cursor()
@@ -81,21 +89,23 @@ def res_search(request):
         """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
 
     conn.commit()
-
+	# u_theme -> ¿¿¿ без сокращений
     u_theme = cursor.fetchone()[0] or "theme1"
-    print(u_theme)
+    print(u_theme) # а сказать в выводе что это, f"{u_theme=}" лучше использую loguru.logger
     cursor.close()
     conn.close()
 
     
-    lst = []
+    lst = [] # Инфоомативнее!
     if request.method == "POST":
+        # Всё хорошо? userReqqq -> userReq; nlp -> ¿¿¿; word1 -> word/word_....
         userReqqq = userSearchEngine(request.POST)
         if userReqqq.is_valid():
             user_req = userReqqq.cleaned_data['search_engine']
             nlp = spacy.load("en_core_web_sm")
             word1 = nlp(user_req)
 
+            # Так dct_res у тебя глобальный 
             dct_res = {}  # добавлено объявление словаря dct_res
             for i in dct_courses.keys():
                 res_num = 0
@@ -105,6 +115,8 @@ def res_search(request):
                     res_num += k
                 dct_courses[i] = str(res_num)
 
+            # Вложенный цикл с range(0,10) для 118 строки
+            # и немного не понятна механика этого цикла, жду комментарии 
             for k, v in dct_courses.items():
                 if k[0] == "Frontend Development" and float(v) > 2.5:
                     lst.append(dct_res_text[0])
