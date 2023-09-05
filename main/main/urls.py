@@ -36,12 +36,14 @@ urlpatterns = [
     re_path(r".*IOS_разработка/$", siVi.catalog_IOS),
     re_path(r".*SQL_разработка/$", siVi.catalog_SQL),
     re_path(r".*UX_UI_дизайн/$", siVi.catalog_UX),
+    # Выход из учет. записи
+    re_path(r".*Выход/$", siVi.quit),
     # Темы
     re_path(r".*Настройки/$", siVi.theme),
     # Страница с PRO
     re_path(r".*PRO/$", siVi.pro),
     # Оплата и ввод данных с карты
-    # re_path(r".*Оплата/$", siVi.payments),
+    re_path(r".*Оплата/$", siVi.payments),
     # Результаты поиска
     re_path(r".*Search/$", siVi.res_search),
     # Квесты

@@ -38,16 +38,16 @@ dct_courses = {
 }
 
 dct_res_text = {
-    0: ["Frontend Development", "Фронтенд-разработчики занимаются созданием пользовательского интерфейса для веб-приложений и сайтов, используя языки программирования HTML, CSS и JavaScript.", "CFrontend.html"],
-    1: ["Data Science", "Этот курс расскажет о базовых принципах анализа данных и машинного обучения. Студенты изучат методы сбора, обработки и интерпретации данных, а также научатся применять статистические модели для прогнозирования и принятия решений.", "Cdata_science.html"],
-    2: ["Backend Development", "Этот курс предлагает изучение серверной разработки, языков программирования и инструментов для создания мощных веб-приложений. Вы освоите Python, Ruby или Node.js, а также научитесь работать с базами данных, разрабатывать API и обеспечивать безопасность приложения.", "Cbackend.html"],
-    3: ["Цифровой маркетинг", "Курс по цифровому маркетингу научит вас использовать социальные сети, контент-маркетинг и SEO для привлечения трафика и достижения бизнес-целей. Вы освоите создание и оптимизацию цифровых маркетинговых кампаний.", "Ccm.html"],
-    4: ["Финансовый анализ", "Этот курс представляет изучение основ финансового анализа и оценки состояния компаний. Студенты освоят различные инструменты и модели, необходимые для принятия обоснованных финансовых решений.", "Cfa.html"],
-    5: ["Blockchain и криптовалюты", "Курс, который позволяет понять концепции и технологии блокчейн, а также различные типы криптовалют. Вы научитесь использовать блокчейн для создания безопасных и надежных систем передачи данных и управления с децентрализованной структурой.", "Cb.html"],
-    6: ["UX/UI дизайн", "Этот курс научит создавать удобные и привлекательные пользовательские интерфейсы. Обучение включает основы UI/UX-дизайна, а также применение современных инструментов и методов для создания и тестирования дизайна.", "CuxUi.html"],
-    7: ["IOS разработчик", "Курс по разработке мобильных приложений для устройств iOS с использованием языка программирования Swift и инструментов Apple. Студенты научатся создавать, поддерживать и обновлять приложения для iPhone, iPad и других устройств, работающих на iOS.", "Cios.html"],
-    8: ["SQL", "Декларативный язык программирования, применяемый для создания, модификации и управления данными в реляционной базе данных, управляемой соответствующей системой управления базами данных.", "Csal.html"],
-    9: ["Кибербезопасность", "Направление связанное с разработкой и управлением систем информационной безопасности в организации.", "Ccyber_security.html"]
+    0: ["Frontend Development", "Фронтенд-разработчики занимаются созданием пользовательского интерфейса для веб-приложений и сайтов, используя языки программирования HTML, CSS и JavaScript.", "Frontend_разработка/"],
+    1: ["Data Science", "Этот курс расскажет о базовых принципах анализа данных и машинного обучения. Студенты изучат методы сбора, обработки и интерпретации данных, а также научатся применять статистические модели для прогнозирования и принятия решений.", "Data_science/"],
+    2: ["Backend Development", "Этот курс предлагает изучение серверной разработки, языков программирования и инструментов для создания мощных веб-приложений. Вы освоите Python, Ruby или Node.js, а также научитесь работать с базами данных, разрабатывать API и обеспечивать безопасность приложения.", "Backend_разработка/"],
+    3: ["Цифровой маркетинг", "Курс по цифровому маркетингу научит вас использовать социальные сети, контент-маркетинг и SEO для привлечения трафика и достижения бизнес-целей. Вы освоите создание и оптимизацию цифровых маркетинговых кампаний.", "Цифровой_маркетинг/"],
+    4: ["Финансовый анализ", "Этот курс представляет изучение основ финансового анализа и оценки состояния компаний. Студенты освоят различные инструменты и модели, необходимые для принятия обоснованных финансовых решений.", "Финансовый_анализ/"],
+    5: ["Blockchain и криптовалюты", "Курс, который позволяет понять концепции и технологии блокчейн, а также различные типы криптовалют. Вы научитесь использовать блокчейн для создания безопасных и надежных систем передачи данных и управления с децентрализованной структурой.", "Blockchain/"],
+    6: ["UX/UI дизайн", "Этот курс научит создавать удобные и привлекательные пользовательские интерфейсы. Обучение включает основы UI/UX-дизайна, а также применение современных инструментов и методов для создания и тестирования дизайна.", "UX_UI_дизайн/"],
+    7: ["IOS разработчик", "Курс по разработке мобильных приложений для устройств iOS с использованием языка программирования Swift и инструментов Apple. Студенты научатся создавать, поддерживать и обновлять приложения для iPhone, iPad и других устройств, работающих на iOS.", "IOS_разработка/"],
+    8: ["SQL", "Декларативный язык программирования, применяемый для создания, модификации и управления данными в реляционной базе данных, управляемой соответствующей системой управления базами данных.", "SQL_разработка/"],
+    9: ["Кибербезопасность", "Направление связанное с разработкой и управлением систем информационной безопасности в организации.", "Cyber_security/"]
 }
 
 dct_res = {}
@@ -57,7 +57,6 @@ dct = {}
 
 def MainPage(request):
     """ Вывод обычной главной страницы """
-    global dct_courses, dct_res_text, dct_res
     use = userSearchEngine()
     if request.method == "POST":
         if use.is_valid():
@@ -230,7 +229,7 @@ def end_user_course(request, course):
 
     if course == "Blockchain_и_криптовалюты" and "Blockchain и криптовалюты" not in set_end_courses:
         courses.remove("Blockchain и криптовалюты")
-        course_set = str(course_set)
+        courses = str(courses)
 
         cursor.execute(
             """UPDATE users SET user_courses = %s WHERE user_name = %s""", (courses, userNameSession))
@@ -262,9 +261,9 @@ def end_user_course(request, course):
         conn.close()
         return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
 
-    if course == "Цифровой маркетинг" and "Цифровой маркетинг" not in set_end_courses:
+    if course == "Цифровой_маркетинг" and "Цифровой маркетинг" not in set_end_courses:
         courses.remove("Цифровой маркетинг")
-        course_set = str(course_set)
+        courses = str(courses)
 
         cursor.execute(
             """UPDATE users SET user_courses = %s WHERE user_name = %s""", (courses, userNameSession))
@@ -298,7 +297,7 @@ def end_user_course(request, course):
 
     if course == "Кибербезопасность" and "Кибербезопасность" not in set_end_courses:
         courses.remove("Кибербезопасность")
-        course_set = str(course_set)
+        courses = str(courses)
 
         cursor.execute(
             """UPDATE users SET user_courses = %s WHERE user_name = %s""", (courses, userNameSession))
@@ -470,7 +469,7 @@ def end_user_course(request, course):
 
     if course == "SQL" and "SQL" not in set_end_courses:
         courses.remove("SQL")
-        course_set = str(courses)
+        courses = str(courses)
 
         cursor.execute(
             """UPDATE users SET user_courses = %s WHERE user_name = %s""", (courses, userNameSession))
@@ -536,7 +535,8 @@ def end_user_course(request, course):
         conn.close()
         return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
     else:
-        return render(request, "exception.html")
+        u_excp = "Произошла какая-то ошибка. Попробуйте позже."
+        return render(request, "exception.html", context={"u_excp": u_excp})
 
 
 def send_user_courses(request, course):
@@ -599,18 +599,21 @@ def send_user_courses(request, course):
                                                            "course_url": "Закончить_UX/UI_дизайн", "u_theme": u_theme})
     
     if course == "Backend":
-        course_set.add("Backend разработка")
-        course_set = str(course_set)
-        cursor.execute("""UPDATE users SET user_courses = %s WHERE user_name = %s""",
-                       (course_set, userNameSession))
+        if course not in end_user_course:
+            course_set.add("Backend разработка")
+            course_set = str(course_set)
+            cursor.execute("""UPDATE users SET user_courses = %s WHERE user_name = %s""", (course_set, userNameSession))
 
-        conn.commit()
+            conn.commit()
 
-        cursor.close()
-        conn.close()
-        
-        return render(request, "study_courses_page.html", {"course_name": "Backend разработка", 
-                                                           "course_url": "Закончить_Backend", "u_theme": u_theme})
+            cursor.close()
+            conn.close()
+            return render(request, "study_courses_page.html", {"course_name": "Backend разработка", 
+                                    "course_url": "Закончить_Backend", "u_theme": u_theme})
+
+        else:
+            return render(request, "study_courses_page.html", {"course_name": "Backend разработка", 
+                                                            "course_url": "Закончить_Backend", "u_theme": u_theme})
 
     if course == "Blockchain_и_криптовалюты":
         course_set.add("Blockchain и криптовалюты")
@@ -755,17 +758,21 @@ def User_page(request):
         """SELECT photo_url FROM users WHERE user_name = %s""", (userNameSession, ))
 
     conn.commit()
-    res_img = cursor.fetchall()
+    img_src = "https://brend-mebel.ru/image/no_image.jpg"
+    res_img = cursor.fetchall()[0][0]
+    print(res_img, "res_img")
     if res_img:
-        img_src = res_img[0][0]
+        img_src = res_img
 
     cursor.close()
     conn.close()
 
-    # Передача контекста в шаблон
+# ...Вывод описания профиля
+    
     func_desc = take_desc(userNameSession)
-    print(func_desc)
-    if func_desc == None:
+
+    print(func_desc, "desc_")
+    if func_desc is None:
         func_desc = "Hello world!"
 
 # ...Вывод курсов пользователя
@@ -886,7 +893,7 @@ def User_page(request):
         if func_desc:
             print("Есть описание")
             data = {"userName": userNameSession, "add": True,
-                    "desc": func_desc[0], "img_src": img_src, "courses": user_courses, 
+                    "desc": func_desc, "img_src": img_src, "courses": user_courses, 
                     "user_certific": user_certific, "xp": xp, "user_achievments": user_achievments,
                     "u_theme": u_theme}
             return render(request, "user_room.html", context=data)
@@ -901,7 +908,7 @@ def User_page(request):
         if func_desc:
             print("Есть функция, без pro")
             data = {"userName": userNameSession, "add": False,
-                    "desc": func_desc[0], "img_src": img_src, "courses": user_courses, 
+                    "desc": func_desc, "img_src": img_src, "courses": user_courses, 
                     "user_certific":user_certific, "xp": xp, "user_achievments": user_achievments,
                     "u_theme": u_theme}
             return render(request, "user_room.html", context=data)
@@ -909,7 +916,7 @@ def User_page(request):
         print("Нет описания")
         data = {"userName": userNameSession, "add": False,
                 "img_src": "https://uhd.name/uploads/posts/2023-03/1678237559_uhd-name-p-kris-massolia-vkontakte-95.jpg", 
-                "courses": user_courses, "user_certific":user_certific, "xp": xp, "user_achievments": user_achievments,
+                "courses": user_courses, "user_certific": user_certific, "xp": xp, "user_achievments": user_achievments,
                 "u_theme": u_theme}
         return render(request, "user_room.html", context=data)
 
@@ -917,7 +924,6 @@ def User_page(request):
 def Auth(request):
     """ Страница аутенцикации """
     ufa = userFormAUTH()
-    usa = userSearchEngine()
     if request.method == "POST":
         userName = request.POST.get("_user_name")
         userPassword = request.POST.get("_password")
@@ -929,14 +935,15 @@ def Auth(request):
         cursor = conn.cursor()
 
         user_data = (userName, userPassword)
+
         cursor.execute(
             "SELECT 1 FROM users WHERE user_name = %s AND user_passw = %s", user_data)
         result = cursor.fetchone()
 
         if result:
             return HttpResponseRedirect("http://127.0.0.1:8000/Главная_страница./")
-
-        return render(request, "exception.html")
+        u_excp = "Проверьте правильность ввода."
+        return render(request, "exception.html", context={"u_excp": u_excp})
 
     return render(request, "auth.html", {"forms": ufa})
 
@@ -984,42 +991,43 @@ def conf_to_reg(request):
 
                 if res[0] >= 1:
                     return render(request, "email_InDB_exception.html")
-                from_email = ''  #email
-                to_email = userEmail
-                password = ""  # пароль двухфакторной аутенцикации
+                
+                # from_email = 'justkiddingboat@gmail.com'  #email
+                # to_email = userEmail
+                # password = "just123kidding"  # пароль двухфакторной аутенцикации
 
                 # Рандомные 6 символов. Нужны для отправки и подтверждения email пользователя
                 random_code = ''.join(random.choices(
                     string.ascii_uppercase + string.digits, k=6))
                 
-                # Эта часть кода нужна для тестирования. 
-                # Все сообщения при использовании этого кода будут появлятся в консоли
-                """ subject = 'Test Email'
+                # # Эта часть кода нужна для тестирования. 
+                # # Все сообщения при использовании этого кода будут появлятся в консоли
+                subject = 'Ключ доступа LFtB'
                 from_email = 'vladnety134@gmail.com'
                 recipient_list = [userEmail]
                 send_mail(subject, random_code, from_email,
-                          recipient_list, fail_silently=False) """
+                          recipient_list, fail_silently=False)
                 
-                smtp_server = smtplib.SMTP('smtp.gmail.com', 587)
-                smtp_server.starttls()
-                smtp_server.login(from_email, password)
+                # smtp_server = smtplib.SMTP('smtp.gmail.com', 587)
+                # smtp_server.starttls()
+                # smtp_server.login(from_email, password)
 
-                mime = MIMEText(f'Ваш код подтверждения: {random_code}', 'plain', 'utf-8')
-                print("CODE1111111", random_code)
+                # mime = MIMEText(f'Ваш код подтверждения: {random_code}', 'plain', 'utf-8')
+                # print("CODE1111111", random_code)
+                
+                # # smtp_server.sendmail(from_email, to_email, mime.as_string())
+                # # smtp_server.quit()
                 request.session['generated_password'] = random_code
                 request.session['userNameREG'] = userName
                 request.session['userEmailREG'] = userEmail
                 request.session['userPasswREG'] = userPassw
-
-                # smtp_server.sendmail(from_email, to_email, mime.as_string())
-                # smtp_server.quit()
-
                 data = {"userName": userName}
                 return render(request, "confirmTOreg.html", context=data)
 
     except Exception as exc:
         print(f"Exception: {exc}")
-        return render(request, "exception.html")
+        u_excp = "Произошла какая-то ошибка. Попробуйте позже."
+        return render(request, "exception.html", context={"u_excp": u_excp})
 
 
 def confirm(request):
@@ -1065,10 +1073,11 @@ def confirm(request):
             else:
                 print("Пароль не подошел!(")
                 # Коды не совпадают, выводим ошибку
-                return render(request, "exception.html")
-        return HttpResponse("Ghjdthrf")
+                u_excp = "Неверный код."
+                return render(request, "exception.html", context={"u_excp": u_excp})
     except Exception:
-        return render(request, "exception.html")
+        u_excp = "Произошла какая-то ошибка. Попробуйте позже."
+        return render(request, "exception.html", context={"u_excp": u_excp})
 
 
 def main_b_a(request):
@@ -1102,23 +1111,31 @@ def main_b_a(request):
 def catalog(request):
     """ Каталог курсов """
     userNameSession = request.session.get("userName")
+    if userNameSession:
+        try:
+            conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                                    password="31415926", host="127.0.0.1")
+            cursor = conn.cursor()
 
-    conn = psycopg2.connect(dbname="LFtB", user="postgres",
-                            password="31415926", host="127.0.0.1")
-    cursor = conn.cursor()
+            cursor.execute(
+                """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
 
-    cursor.execute(
-        """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
+            conn.commit()
 
-    conn.commit()
+            u_theme = cursor.fetchone()[0] or "theme1"
+            print(u_theme)
+            cursor.close()
+            conn.close()
+            return render(request, "catalog.html", {"userName": userNameSession, "u_theme": u_theme})
+        except Exception as e:
+            print(e)
+            # http://127.0.0.1:8000/Регистрация/
+            u_excp = "Произошла какая-то ошибка."
+            return render(request, "exception.html", context={"u_excp": u_excp})
+    else:
+        return render(request, 'catalog_exc.html')
+    
 
-    u_theme = cursor.fetchone()[0] or "theme1"
-    print(u_theme)
-    cursor.close()
-    conn.close()
-    return render(request, "catalog.html", {"userName": userNameSession, "u_theme": u_theme})
-
-          
 def catalog_Frontend(request):
     userNameSession = request.session.get("userName")
     conn = psycopg2.connect(dbname="LFtB", user="postgres",
@@ -1129,7 +1146,13 @@ def catalog_Frontend(request):
         """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
     conn.commit()
 
-    u_theme = cursor.fetchone()[0] or "theme1"
+    u_theme = cursor.fetchone()
+    print(u_theme)
+    if u_theme is None:
+        u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
+
     print(u_theme)
     cursor.close()
     conn.close()
@@ -1146,8 +1169,12 @@ def catalog_Cyber_security(request):
         """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
     conn.commit()
 
-    u_theme = cursor.fetchone()[0] or "theme1"
+    u_theme = cursor.fetchone()
     print(u_theme)
+    if u_theme is None:
+        u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
     cursor.close()
     conn.close()
     conn = psycopg2.connect(dbname="LFtB", user="postgres",
@@ -1176,8 +1203,12 @@ def catalog_Backend(request):
         """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
     conn.commit()
 
-    u_theme = cursor.fetchone()[0] or "theme1"
+    u_theme = cursor.fetchone()
     print(u_theme)
+    if u_theme is None:
+        u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
     cursor.close()
     conn.close()
     conn = psycopg2.connect(dbname="LFtB", user="postgres",
@@ -1206,8 +1237,12 @@ def catalog_Cifra_marketing(request):
         """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
     conn.commit()
 
-    u_theme = cursor.fetchone()[0] or "theme1"
+    u_theme = cursor.fetchone()
     print(u_theme)
+    if u_theme is None:
+        u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
     cursor.close()
     conn.close()
     conn = psycopg2.connect(dbname="LFtB", user="postgres",
@@ -1235,8 +1270,12 @@ def catalog_Data_scince(request):
         """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
     conn.commit()
 
-    u_theme = cursor.fetchone()[0] or "theme1"
+    u_theme = cursor.fetchone()
     print(u_theme)
+    if u_theme is None:
+        u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
     cursor.close()
     conn.close()
     conn = psycopg2.connect(dbname="LFtB", user="postgres",
@@ -1252,7 +1291,7 @@ def catalog_Data_scince(request):
 
     if result:
         return render(request, r"all_courses/Cdata_science.html", context={"u_theme": u_theme})
-    return render(request, "exception.html")
+    return render(request, "exception.html", context={'u_excp': "Приобретите Pro версию."})
 
 
 def catalog_Fin_analitic(request):
@@ -1265,8 +1304,12 @@ def catalog_Fin_analitic(request):
         """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
     conn.commit()
 
-    u_theme = cursor.fetchone()[0] or "theme1"
+    u_theme = cursor.fetchone()
     print(u_theme)
+    if u_theme is None:
+        u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
     cursor.close()
     conn.close()
     return render(request, r"all_courses/Cfa.html", context={"u_theme": u_theme})
@@ -1282,8 +1325,12 @@ def catalog_IOS(request):
         """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
     conn.commit()
 
-    u_theme = cursor.fetchone()[0] or "theme1"
+    u_theme = cursor.fetchone()
     print(u_theme)
+    if u_theme is None:
+        u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
     cursor.close()
     conn.close()
     return render(request, r"all_courses/Cios.html", context={"u_theme": u_theme})
@@ -1299,12 +1346,16 @@ def catalog_SQL(request):
         """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
     conn.commit()
 
-    u_theme = cursor.fetchone()[0] or "theme1"
+    u_theme = cursor.fetchone()
     print(u_theme)
+    if u_theme is None:
+        u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
     cursor.close()
     conn.close()
     conn = psycopg2.connect(dbname="LFtB", user="postgres",
-                        password="31415926", host="127.0.0.1")
+                            password="31415926", host="127.0.0.1")
     cursor = conn.cursor()
     cursor.execute(
         "SELECT 1 FROM users WHERE user_name = %s and pro = true", (username, ))
@@ -1327,8 +1378,12 @@ def catalog_UX(request):
         """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
     conn.commit()
 
-    u_theme = cursor.fetchone()[0] or "theme1"
+    u_theme = cursor.fetchone()
     print(u_theme)
+    if u_theme is None:
+        u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
     cursor.close()
     conn.close()
     return render(request, r"all_courses/CuxUi.html", context={"u_theme": u_theme})
@@ -1344,8 +1399,12 @@ def catalog_Blockchain(request):
         """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
     conn.commit()
 
-    u_theme = cursor.fetchone()[0] or "theme1"
+    u_theme = cursor.fetchone()
     print(u_theme)
+    if u_theme is None:
+        u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
     cursor.close()
     conn.close()
 
@@ -1368,41 +1427,65 @@ def catalog_Blockchain(request):
 
 
 def pro(request):
-    userNameSession = request.session.get("userName")
+    try:
+        userNameSession = request.session.get("userName")
 
-    conn = psycopg2.connect(dbname="LFtB", user="postgres",
-                            password="31415926", host="127.0.0.1")
-    cursor = conn.cursor()
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                                password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
 
-    cursor.execute(
-        """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
+        cursor.execute(
+            """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
 
-    conn.commit()
+        conn.commit()
 
-    u_theme = cursor.fetchone()[0] or "theme1"
-    print(u_theme)
-    cursor.close()
-    conn.close()
-    return render(request, "ADDpro.html", context={"u_theme": u_theme})
+        u_theme = cursor.fetchone()
+        print(u_theme)
+        if u_theme is None:
+            u_theme = "theme1"
+        else:
+            u_theme = u_theme[0]
+        cursor.close()
+        conn.close()
+        return render(request, "ADDpro.html", context={"u_theme": u_theme})
+    
+    except Exception as e:
+        print(e)
+        u_excp = "Пожалуйста, войдите в учетную запись."
+        return render(request, "exception.html", context={"u_excp": u_excp})
 
 
 def quest(request):
     userNameSession = request.session.get("userName")
 
-    conn = psycopg2.connect(dbname="LFtB", user="postgres",
-                            password="31415926", host="127.0.0.1")
-    cursor = conn.cursor()
+    if userNameSession:
+        try:
+            print(userNameSession)
 
-    cursor.execute(
-        """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
+            conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                                    password="31415926", host="127.0.0.1")
+            cursor = conn.cursor()
 
-    conn.commit()
+            cursor.execute(
+                """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
 
-    u_theme = cursor.fetchone()[0] or "theme1"
-    print(u_theme)
-    cursor.close()
-    conn.close()
-    return render(request, "quest.html", context={"u_theme": u_theme})
+            conn.commit()
+
+            u_theme = cursor.fetchone()
+            print(u_theme)
+            if u_theme is None:
+                u_theme = "theme1"
+            else:
+                u_theme = u_theme[0]
+            cursor.close()
+            conn.close()
+            return render(request, "quest.html", context={"u_theme": u_theme})
+        except Exception as e:
+            print(e)
+            u_excp = "Произошла какая-то ошибка."
+            return render(request, "exception.html", context={"u_excp": u_excp})
+    else:
+        return render(request, 'quest.html', context={"u_theme": "theme1"})
 
 
 def theme(request):
@@ -1481,8 +1564,8 @@ def take_desc(username):
     cursor.execute(
         "SELECT user_desc FROM users WHERE user_name = %s", (username, ))
 
-    result = cursor.fetchone()
-    print(result)
+    result = cursor.fetchone()[0]
+    print(result, "desc_res")
 
     cursor.close()
     conn.close()
@@ -1490,44 +1573,22 @@ def take_desc(username):
     return result
 
 
-def check_operation(request, labelq, username):
-    token = "YOUR_TOKEN"
-    client = Client(token)
-    history = client.operation_history(label=labelq)
-    print("List of operations:")
-    print("Next page starts with: ", history.next_record)
-    for operation in history.operations:
-        if operation.status == "success":
-            conn = psycopg2.connect(dbname="LFtB", user="postgres",
-                            password="31415926", host="127.0.0.1")
-            cursor = conn.cursor()
+def quit(request):
+    del request.session['userName']
+    return HttpResponseRedirect("http://127.0.0.1:8000/")
 
-            cursor.execute(
-                "UPDATE users SET pro = true WHERE user_name = %s", (username, ))
-
-            result = cursor.fetchone()
-            print(result)
-
-            cursor.close()
-            conn.close()
-            HttpResponseRedirect("http://127.0.0.1:8000/Главная_страница./Профиль/")
-        return render(request, "exception.html")
-            
 
 def payments(request):
-    username = request.session.get("userName")
-
-    labelQp = random_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
-    
-    quickpay = Quickpay(
-            receiver="...",
-            quickpay_form="shop",
-            targets="LFtB + PRO = ❤️",
-            paymentType="SB",
-            sum=350,
-            label=labelQp
-            )
-    if request.method == "POST":
-        check_operation(request, labelQp, username)
-    return HttpResponseRedirect(quickpay.base_url)
-    
+    # username = request.session.get("userName")
+    try:
+        userNameSession = request.session.get("userName")
+        print("UserNameSession", userNameSession)
+        
+        if userNameSession is not None:
+            return render(request, "payments.html")
+        else:
+            u_excp = "Перед покупкой нужно зарегистрироваться!"
+            return render(request, "exception.html", context={"u_excp": u_excp})
+    except Exception as e:
+        print(e)
+        return render(request, "exception.html", context={"u_excp": "Произошла какая-то ошибка!"})
