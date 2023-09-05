@@ -89,9 +89,9 @@ def res_search(request):
         """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
 
     conn.commit()
-	# u_theme -> ¿¿¿ без сокращений
+				# u_theme -> ¿¿¿ без сокращений
     u_theme = cursor.fetchone()[0] or "theme1"
-    print(u_theme) # а сказать в выводе что это, f"{u_theme=}" лучше использую loguru.logger
+    print(u_theme) # а сказать в выводе что это, f"{u_theme=}" лучше используй loguru.logger
     cursor.close()
     conn.close()
 
@@ -110,6 +110,7 @@ def res_search(request):
             for i in dct_courses.keys():
                 res_num = 0
                 for j in i:
+                    # что за word2
                     word2 = nlp(j)
                     k = word1.similarity(word2)
                     res_num += k
