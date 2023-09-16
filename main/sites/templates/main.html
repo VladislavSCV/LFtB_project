@@ -83,6 +83,16 @@ a {
   margin-bottom: 30px;
 }
 
+.new_nav {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  width: 90%;
+  background-color: #252a5c;
+}
+
 .logo {
   font-size: 24px;
   font-weight: 700;
@@ -145,6 +155,15 @@ a {
   background-color: #4661f7;
 }
 
+.new_features {
+  opacity: 0;
+  animation: ani 3s forwards;
+}
+@keyframes ani {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
 .features-grid {
 display: flex;
   flex-wrap: wrap;
@@ -160,6 +179,7 @@ display: flex;
   text-align: center;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  display: none;
 }
 
 .feature i {
@@ -202,6 +222,15 @@ display: flex;
   overflow: hidden;
 }
 
+.new_features {
+  opacity: 0;
+  animation: mation 3s forwards;
+}
+
+@keyframes mation {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
 .course-image {
   width: 100%;
   height: 200px;
@@ -337,7 +366,7 @@ display: flex;
 <body>
   <header class="header">
     <div class="container">
-      <nav class="nav">
+      <nav class="nav" id='nav'>
         <img src="https://ie.wampi.ru/2023/07/19/ClipDropImage1689779800774.png" style="width: 125px;">
         <ul class="menu">
           <li class="menu-item"><a href="Каталог_курсов/">Курсы</a></li>
@@ -365,17 +394,17 @@ display: flex;
     <div class="container">
       <h2 class="section-heading">НАШИ ОСОБЕННОСТИ</h2>
       <div class="features-grid">
-        <div class="feature">
+        <div class="feature" id="feature">
           <i class="fas fa-play-circle"></i>
           <h3 class="feature-heading">Видео уроки</h3>
           <p class="feature-text">Смотрите видеоуроки от экспертов отрасли в своем собственном темпе.</p>
         </div>
-        <div class="feature">
+        <div class="feature" id="feature1">
           <i class="fas fa-user-graduate"></i>
           <h3 class="feature-heading">Планы от экспертов</h3>
           <p class="feature-text">Учитесь у инструкторов, которые являются лидерами в своей области.</p>
        </div>
-        <div class="feature">
+        <div class="feature" id="feature2">
           <i class="fas fa-certificate"></i>
           <h3 class="feature-heading">Сертификат</h3>
           <p class="feature-text">Получите реальные сертификаты, демонстрирующие ваши навыки.</p>
@@ -387,7 +416,7 @@ display: flex;
     <div class="container">
       <h2 class="section-heading">Популярные курсы</h2>
       <div class="popular-courses-grid">
-        <div class="course">
+        <div class="course" id="course" style="display: none;">
             <img src="https://www.itreeni.com/wp-content/uploads/2017/07/frontend-development.png" alt="Course Image" class="course-image">
             <h3 class="course-heading">Frontend Development</h3>
             <p class="course-description">Изучите HTML, CSS и JS. И Напишите свой первый сайт!</p>
@@ -399,7 +428,7 @@ display: flex;
               <a href="http://127.0.0.1:8000/Каталог_курсов/Frontend_разработка/" class="btn btn-primary">Подробнее</a>
             </div>
           </div>
-        <div class="course">
+        <div class="course" id="course1" style="display: none;">
           <img src="https://repository-images.githubusercontent.com/440900695/d868cd36-0a8e-447d-ba62-9a4935716d80" alt="Course Image" class="course-image">
           <h3 class="course-heading">Data Science для начинающих</h3>
           <p class="course-description">Изучите основы Data Science и машинного обучения с помощью Python.</p>
@@ -412,7 +441,7 @@ display: flex;
           </div>
         </div>
 
-          <div class="course" >
+          <div class="course" id="course2" style="display: none;">
             <img src="https://sun9-41.userapi.com/impg/Ehhuv9PUq7Aq0QcLgKewQxG-QZir-csfh2gpGw/eY05m0u4h6E.jpg?size=1200x520&quality=96&sign=9aaeeea7c6c56b886834d07e85ac90c9&type=album" alt="Course Image" class="course-image">
             <h3 class="course-heading">Backend Development</h3>
             <p class="course-description">Начните работать с python. Вы Изучите множество библиотек, фреймворков и SQL</p>
@@ -442,4 +471,60 @@ display: flex;
     </div>
   </footer>
 </body>
+<script>
+  // {% comment %} Наши ОСОБЕННОСТИ {% endcomment %}
+  const header_nav = document.getElementById('feature')
+  const header_nav1 = document.getElementById('feature1')
+  const header_nav2 = document.getElementById('feature2')
+  let actionDone = false;
+  let actionDone1 = false;
+  let actionDone2 = false;
+  window.addEventListener('scroll', () => {
+    scroll_y = window.scrollY
+    console.log(scroll_y)
+    if (scroll_y > 180 && !actionDone){
+      header_nav.style.display = 'block';
+      header_nav.classList.toggle("new_features");
+      actionDone = true;
+    };
+    if (scroll_y > 180 && !actionDone1){
+      header_nav1.style.display = 'block';
+      header_nav1.classList.toggle("new_features");
+      actionDone1 = true;
+    };
+    if (scroll_y > 350 && !actionDone2){
+      header_nav2.style.display = 'block';
+      header_nav2.classList.toggle("new_features");
+      actionDone2 = true;
+    };
+      
+  });
+// {% comment %} Популярные Курсы {% endcomment %}
+  const course = document.getElementById('course')
+  const course1 = document.getElementById('course1')
+  const course2 = document.getElementById('course2')
+  let actionCDone = false;
+  let actionCDone1 = false;
+  let actionCDone2 = false;
+  window.addEventListener('scroll', () => {
+    scroll_y = window.scrollY
+    console.log(scroll_y)
+    if (scroll_y > 900 && !actionCDone){
+      course.style.display = 'block';
+      course.classList.toggle("new_features");
+      actionCDone = true;
+    };
+    if (scroll_y > 1000 && !actionCDone1){
+      course1.style.display = 'block';
+      course1.classList.toggle("new_features");
+      actionCDone1 = true;
+    };
+    if (scroll_y > 900 && !actionCDone2){
+      course2.style.display = 'block';
+      course2.classList.toggle("new_features");
+      actionCDone2 = true;
+    };
+      
+  });
+</script>
 </html>

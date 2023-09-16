@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        {% if u_theme == "theme1" %}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0970ff;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .greyform {
+            word-break: break-all;
+            display: block;
+            background-color: #897ee3;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+            width: 300px;
+            padding-bottom: 90px;
+            position: relative;
+            margin: 0 auto;
+        }
+        ul, ol {
+            font-size: 16px;
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .main {
+            background-color: #ffffff;
+            border-radius: 10px;
+            width: 700px;
+            height: 500px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-right: 50px;
+        }
+        button{
+      border-radius: 10px;
+      transition: background-color 0.3s ease; /* Плавный переход для hover */
+      appearance: none;
+      border: 0;
+      background: #4676D7;
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 16px;
+    }
+    
+    button:hover{
+      background-color: #065ac8;
+    }
+    
+    button:active{
+      background-color: #054496;
+    }
+        {% elif u_theme == "theme2" %}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #303030;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .greyform {
+            word-break: break-all;
+            display: block;
+            background-color: #777777;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+            width: 300px;
+            padding-bottom: 90px;
+            position: relative;
+            margin: 0 auto;
+        }
+        ul, ol {
+            font-size: 16px;
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .main {
+            background-color: #ffffff;
+            border-radius: 10px;
+            width: 700px;
+            height: 500px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-right: 50px;
+        }
+        button{
+      border-radius: 10px;
+      transition: background-color 0.3s ease; /* Плавный переход для hover */
+      appearance: none;
+      border: 0;
+      background: #4d4d4d;
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 16px;
+    }
+    
+    button:hover{
+      background-color: #6b6b6b;
+    }
+    
+    button:active{
+      background-color: #919191;
+    }
+        {% elif u_theme == "theme3" %}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #31006e;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .greyform {
+            word-break: break-all;
+            display: block;
+            background-color: #897ee3;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+            width: 60%;
+            padding-bottom: 90px;
+            position: relative;
+            margin: 0 auto;
+        }
+        ul, ol {
+            font-size: 16px;
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .main {
+            background-color: #ffffff;
+            border-radius: 10px;
+            /* Изменил width и height */
+            width: 70%;
+            height: 120%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-right: 50px;
+        }
+        button{
+      border-radius: 10px;
+      transition: background-color 0.3s ease; /* Плавный переход для hover */
+      appearance: none;
+      border: 0;
+      background: #5500aa;
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 16px;
+    }
+    
+    button:hover{
+      background-color: #5d00ff;
+    }
+    
+    button:active{
+      background-color: #652aa8;
+    }
+        {% endif %}
+    </style>
+</head>
+<body>
+    {% if u_theme == "theme2" or "theme3"%}
+    <a href="http://127.0.0.1:8000/Авторизация/Профиль/"><img src="https://im.wampi.ru/2023/08/26/ClipDropImage1693075241003.png" style="
+    width: 50px;
+    left: 20px;
+    position: absolute;
+    top: 40px;
+    cursor: pointer;"></a>
+    {% else %}
+    <a href="http://127.0.0.1:8000/Авторизация/Профиль/"><img src="https://im.wampi.ru/2023/06/19/angle-left.png" style="
+        width: 50px;
+        left: 20px;
+        position: absolute;
+        top: 40px;
+        cursor: pointer;"></a>
+    {% endif %}
+    <center>
+        <h2>{{ course_name }}</h2>
+    </center>
+    <div class="main">
+        
+        <ul>
+            <li><div class="greyform">{{ course_state1 }}</div></li>
+            <li><div class="greyform">{{ course_state2 }}</div></li>
+            <li><div class="greyform">{{ course_state3 }}</div></li>
+        </ul>
+    </div>
+    <center>
+        <br>
+        <br>
+    <a href="{{ course_url }}"><button type="button">Закончить изучение</button></a></center>
+</body>
+{% comment %} <script>
+    document.getElementById('backP').addEventListener('click', () => {
+      history.back();
+    });
+  </script> {% endcomment %}
+</html>

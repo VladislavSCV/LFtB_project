@@ -330,6 +330,8 @@
       color: rgb(255, 255, 255);
     }
     .greyform{
+      word-break: break-all;
+            display: block;
       background-color: #897ee3;
       padding: 10px;
       border-radius: 5px;
@@ -384,24 +386,16 @@
   <div class="content">
       <div class="contentMain">
         <div class="centerGO">
-
-            <!-- <ul>
-              <li><div class="greyform">Урок 1: Введение</div></li>
-              <li><div class="greyform">Урок 2: Основы</div></li>
-              <li><div class="greyform">Урок 3: Продвинутые темы</div></li>
-            </ul> -->
-            <img src="">
-            <br>
+          
             <a href="{% url 'send_user_courses' course='Frontend' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->
         </div>
-
     
         <h2 style="
         position: relative;
         left: -400px;
     ">Материалы и ресурсы</h2>
         <ul>
-          <div class="greyform" style="padding-bottom: 10px;padding-right: 120px;">
+          <div class="greyform" style="padding-bottom: 10px;padding-right: 20px;height: 100px;width: 450px;">
             <li><a href="https://habr.com/ru/companies/otus/articles/674748/" style="color: black;">Фронтенд-разработка: ключевые технологии и понятия</a></li>
             <li><a href="https://ru.hexlet.io/blog/posts/chto-takoe-frontend-razrabotka" style="color: black;">Что такое фронтенд-разработка и с чего начать ее изучать</a></li>
             <li><a href="https://skillbox.ru/media/code/kto-takoy-frontendrazrabotchik-i-kak-im-stat/" style="color: black;">Фронтенд-разработчик: кто это, чем он занимается и как...</a></li>
