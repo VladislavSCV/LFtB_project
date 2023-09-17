@@ -38,12 +38,14 @@ from .forms import userFormREG, userSearchEngine, userFormAUTH, select_theme
 5. На этом пока все!)
 """
 
+
 """ Задачи LFtB для WhatIsLove """
 """
 1. По возможности создать бота (Над этим еще стоит порассуждать)(Будем делать вместе) 
 2. Продолжать украшать страницы с помощью frontend стека(html, css, js)
 3. Буду начинать создавать модель для поисковой строки 
-4. Нужно будет поработать с бд(Уйма изменений)"""
+4. Нужно будет поработать с бд(Уйма изменений)
+"""
 
 # Изображение пользователя если нет своего фото
 img_src = "https://brend-mebel.ru/image/no_image.jpg"
@@ -85,15 +87,12 @@ def MainPage(request):
     """ Вывод главной страницы курса.
     Когда пользователь еще не зарегистрирован или не вошел в уч запись"""
 
-    
-
     use = userSearchEngine()
     if request.method == "POST":
         if use.is_valid():
             # userRequest = use.cleaned_data["search_engine"]
             return render(request, "search_results.html")
-    if HttpResponseServerError:
-            return render(request, "main.html", {'forms': use})
+
     return render(request, "main.html", {'forms': use})
 
 
