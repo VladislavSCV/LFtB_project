@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import send_mail
+from django.http import HttpResponseServerError
 
 # Импорты для рассылки email
 from email.mime.multipart import MIMEMultipart
@@ -27,6 +28,22 @@ from .forms import userFormREG, userSearchEngine, userFormAUTH, select_theme
 # Строка для удаления сессии
 # del request.session['userName']
 
+
+""" Задачи LFtB для Максимки """
+""" 
+1. Нужно постараться сделать версии страниц сайта для телефона, планшета 
+2. Исправить ошибки и pep8 в коде views
+3. Через некоторое время создать датасет
+4. По возможности создать бота (Над этим еще стоит порассуждать)(Будем делать вместе) 
+5. На этом пока все!)
+"""
+
+""" Задачи LFtB для WhatIsLove """
+"""
+1. По возможности создать бота (Над этим еще стоит порассуждать)(Будем делать вместе) 
+2. Продолжать украшать страницы с помощью frontend стека(html, css, js)
+3. Буду начинать создавать модель для поисковой строки 
+4. Нужно будет поработать с бд(Уйма изменений)"""
 
 # Изображение пользователя если нет своего фото
 img_src = "https://brend-mebel.ru/image/no_image.jpg"
@@ -68,12 +85,15 @@ def MainPage(request):
     """ Вывод главной страницы курса.
     Когда пользователь еще не зарегистрирован или не вошел в уч запись"""
 
+    
+
     use = userSearchEngine()
     if request.method == "POST":
         if use.is_valid():
             # userRequest = use.cleaned_data["search_engine"]
             return render(request, "search_results.html")
-
+    if HttpResponseServerError:
+            return render(request, "main.html", {'forms': use})
     return render(request, "main.html", {'forms': use})
 
 
@@ -924,6 +944,7 @@ def User_page(request):
 
 # 3 круга ада
 # Дай бог разобраться 
+# Я думаю это стоит упростить, хотя кода может прибавиться
     if pro:
         print("Есть pro")
         if func_desc:
@@ -1108,34 +1129,39 @@ def confirm(request):
 
 def main_b_a(request):
     """ Главная страница после регестрации """
-    use = userSearchEngine()
+    try:
+        use = userSearchEngine()
 
-    userNameSession = request.session.get("userName")
-    
-    conn = psycopg2.connect(dbname="LFtB", user="postgres",
-                            password="31415926", host="127.0.0.1")
-    cursor = conn.cursor()
+        userNameSession = request.session.get("userName")
+        
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                                password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
 
-    cursor.execute(
-        """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
+        cursor.execute(
+            """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
 
-    conn.commit()
+        conn.commit()
 
-    u_theme = cursor.fetchone()
-    print(u_theme)
-    if u_theme[0] is None:
-        u_theme = "theme1"
-    else:
-        u_theme = u_theme[0]
-    cursor.close()
-    conn.close()
-    data = {"forms": use, "userName": userNameSession, "u_theme": u_theme}
-    if request.method == "POST":
-        if use.is_valid():
-            # userRequest = use.cleaned_data["search_engine"]
-            return render(request, "search_results.html")
+        u_theme = cursor.fetchone()
+        print(u_theme)
+        if u_theme[0] is None:
+            u_theme = "theme1"
+        else:
+            u_theme = u_theme[0]
+        cursor.close()
+        conn.close()
+        data = {"forms": use, "userName": userNameSession, "u_theme": u_theme}
+        if request.method == "POST":
+            if use.is_valid():
+                # userRequest = use.cleaned_data["search_engine"]
 
-    return render(request, "main_before_reg.html", context=data)
+                return render(request, "search_results.html")
+
+        return render(request, "main_before_reg.html", context=data)
+    except HttpResponseServerError("Server Error") as e:
+        print(e)
+        HttpResponseServerError("Server Error")
 
 
 def catalog(request):
@@ -1170,6 +1196,7 @@ def catalog(request):
 
             return render(request, "exception.html", context={"u_excp": u_excp})
     else:
+
         return render(request, 'catalog_exc.html')
     
 
@@ -1230,8 +1257,10 @@ def catalog_Cyber_security(request):
 
     print(result)
     if result is not None:
+
         return render(request, r"all_courses/Ccyber_security.html", context={"u_theme": u_theme})
     else:
+
         return render(request, "exception.html")
 
 
@@ -1265,7 +1294,9 @@ def catalog_Backend(request):
     conn.close()
 
     if result:
+
         return render(request, r"all_courses/Cbackend.html", context={"u_theme": u_theme})
+    
     return render(request, "exception.html")
 
 
@@ -1299,6 +1330,7 @@ def catalog_Cifra_marketing(request):
     conn.close()
 
     print(result)
+
     return render(request, r"all_courses/Ccm.html", context={"u_theme": u_theme})
 
 
@@ -1333,7 +1365,9 @@ def catalog_Data_scince(request):
     conn.close()
 
     if result:
+
         return render(request, r"all_courses/Cdata_science.html", context={"u_theme": u_theme})
+    
     return render(request, "exception.html", context={'u_excp': "Приобретите Pro версию."})
 
 
@@ -1355,6 +1389,7 @@ def catalog_Fin_analitic(request):
 
     cursor.close()
     conn.close()
+    
     return render(request, r"all_courses/Cfa.html", context={"u_theme": u_theme})
 
 
@@ -1376,6 +1411,7 @@ def catalog_IOS(request):
 
     cursor.close()
     conn.close()
+
     return render(request, r"all_courses/Cios.html", context={"u_theme": u_theme})
 
 
@@ -1409,6 +1445,7 @@ def catalog_SQL(request):
     cursor.close()
     conn.close()
     print(result)
+
     return render(request, r"all_courses/Csql.html", context={"u_theme": u_theme})
 
 
@@ -1431,6 +1468,7 @@ def catalog_UX(request):
         u_theme = u_theme[0]
     cursor.close()
     conn.close()
+
     return render(request, r"all_courses/CuxUi.html", context={"u_theme": u_theme})
 
 
@@ -1468,7 +1506,9 @@ def catalog_Blockchain(request):
     conn.close()
     
     if result:
+
         return render(request, r"all_courses/Cbc.html", context={"u_theme": u_theme})
+    
     return render(request, "exception.html")
 
 
@@ -1494,11 +1534,13 @@ def pro(request):
             u_theme = u_theme[0]
         cursor.close()
         conn.close()
+
         return render(request, "ADDpro.html", context={"u_theme": u_theme})
     
     except Exception as e:
         print(e)
         u_excp = "Пожалуйста, войдите в учетную запись."
+
         return render(request, "exception.html", context={"u_excp": u_excp})
 
 
@@ -1527,12 +1569,15 @@ def quest(request):
                 u_theme = u_theme[0]
             cursor.close()
             conn.close()
+
             return render(request, "quest.html", context={"u_theme": u_theme})
         except Exception as e:
             print(e)
             u_excp = "Произошла какая-то ошибка."
+
             return render(request, "exception.html", context={"u_excp": u_excp})
     else:
+
         return render(request, 'quest.html', context={"u_theme": "theme1"})
 
 
@@ -1587,6 +1632,7 @@ def theme(request):
 
         cursor.close()
         conn.close()
+
         return HttpResponseRedirect("http://127.0.0.1:8000/Главная_страница./Профиль/")
 
     return render(request, "themes.html", {"form": st, "u_theme": u_theme})
@@ -1620,9 +1666,11 @@ def take_desc(username):
 
     return result
 
+
 # Выход из учетной записи на главной странице
 def quit(request):
     del request.session['userName']
+
     return HttpResponseRedirect("http://127.0.0.1:8000/")
 
 
@@ -1637,7 +1685,9 @@ def payments(request):
             return render(request, "payments.html")
         else:
             u_excp = "Перед покупкой нужно зарегистрироваться!"
+
             return render(request, "exception.html", context={"u_excp": u_excp})
     except Exception as e:
         print(e)
+
         return render(request, "exception.html", context={"u_excp": "Произошла какая-то ошибка!"})
