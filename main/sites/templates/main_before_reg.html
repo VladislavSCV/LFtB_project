@@ -1013,6 +1013,9 @@ display: flex;
 button{
   border-radius: 10px;
 }
+.user_name_exit{
+  text-align: right;
+}
 {% endif %} 
   </style>
 </head>
@@ -1023,18 +1026,18 @@ button{
       <div class="stage">
       <nav class="nav">
         <img src="https://ie.wampi.ru/2023/07/19/ClipDropImage1689779800774.png" style="width: 125px;">
+      <div class="user_name_exit">
+        <!-- Нужно адаптировать Имя и выход -->
+        </div>
         <ul class="menu">
           <li class="menu-item"><a href="Каталог_курсов/">Курсы</a></li>
           <li class="menu-item"><a href="PRO/">PRO</a></li>
           <li class="menu-item"><a href="Квесты/">Квесты</a></li>
-          <a href = "Профиль/"><h1>{{ userName }}</h1></a>
-          
+          <a href = "Профиль/"><h2>{{ userName }}</h2></a>
         </ul>
         
       </nav>
-      <a href="http://127.0.0.1:8000/Выход" style="position: absolute;
-      top: 125px;
-      left: 1270px;">Выйти</a>
+      
     </div>
       {% csrf_token %}
       <div class="hero">

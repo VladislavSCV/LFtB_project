@@ -151,6 +151,8 @@ a {
 
 /* Features Styles */
 .features {
+  min-height: 600px;
+  max-height: 100%;
   padding: 80px 0;
   background-color: #4661f7;
 }
@@ -205,9 +207,12 @@ display: flex;
 /* Popular Courses Styles */
 .popular-courses {
   padding: 80px ;
+  min-height: 600px;
+  max-height: 100%;
 }
 
 .popular-courses-grid {
+  
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 40px;
@@ -232,9 +237,10 @@ display: flex;
   100% {opacity: 1;}
 }
 .course-image {
-  width: 100%;
   height: 200px;
+  width: 100%;
   object-fit: cover;
+  overflow: hidden;
 }
 
 .course-heading {
@@ -277,6 +283,7 @@ display: flex;
 .course-rating {
   font-size: 18px;
   font-weight: 700;
+  margin-right: 10px;
 }
 
 /* Testimonial Styles */
@@ -360,6 +367,8 @@ display: flex;
   margin-top: 0;
   margin-bottom: 0;
 }
+@media screen and (min-width:200px) and (max-width:1024px) {
+}
   </style>
 </head>
 <!-- vladnety134@gmail.com -->
@@ -372,9 +381,9 @@ display: flex;
           <li class="menu-item"><a href="Каталог_курсов/">Курсы</a></li>
           <li class="menu-item"><a href="PRO/">PRO</a></li>
           <li class="menu-item"><a href="Квесты/">Квесты</a></li>
-          <li class="menu-item"><a href="Авторизация/" class="btn btn-primary">Авторизация</a>
-          <li class="menu-item"><a href="Регистрация/" class="btn btn-primary">Регистрация</a>
         </ul>
+        <a href="Авторизация/" class="btn btn-primary">Авторизация</a>
+        <a href="Регистрация/" class="btn btn-primary">Регистрация</a>
       </nav>
       
       {% csrf_token %}
@@ -453,8 +462,9 @@ display: flex;
               <a href="http://127.0.0.1:8000/Каталог_курсов/Backend_разработка/" class="btn btn-primary">Подробнее</a>
             </div>
           </div>
-      </div>
-      <a href="Каталог_курсов/" class="btn btn-secondary">Все курсы</a>
+      
+      <!-- <a href="Каталог_курсов/" class="btn btn-secondary" style="margin-top: auto;">Все курсы</a> -->
+    </div>
     </div>
   </section>
   <footer class="footer">
@@ -463,8 +473,8 @@ display: flex;
         <a href="#" class="logo">LFtB</a>
         <ul class="menu">
           <li class="menu-item"><a href="Каталог_курсов/">Курсы</a></li>
-          <li class="menu-item"><a href="#">PRO</a></li>
-          <li class="menu-item"><a href="#">Квесты</a></li>
+          <li class="menu-item"><a href="PRO/">PRO</a></li>
+          <li class="menu-item"><a href="Квесты/">Квесты</a></li>
         </ul>
       </nav>
       <p class="footer-text">© 2023. LFtB. Все права защищены</p>
@@ -509,17 +519,17 @@ display: flex;
   window.addEventListener('scroll', () => {
     scroll_y = window.scrollY
     console.log(scroll_y)
-    if (scroll_y > 900 && !actionCDone){
+    if (scroll_y >= 900 && !actionCDone){
       course.style.display = 'block';
       course.classList.toggle("new_features");
       actionCDone = true;
     };
-    if (scroll_y > 1000 && !actionCDone1){
+    if (scroll_y >= 900 && !actionCDone1){
       course1.style.display = 'block';
       course1.classList.toggle("new_features");
       actionCDone1 = true;
     };
-    if (scroll_y > 900 && !actionCDone2){
+    if (scroll_y >= 900 && !actionCDone2){
       course2.style.display = 'block';
       course2.classList.toggle("new_features");
       actionCDone2 = true;

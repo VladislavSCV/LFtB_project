@@ -16,7 +16,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-CSRF_TRUSTED_ORIGINS = ["https://...", 'https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000", 'https://127.0.0.1']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-sbwdn39%9c7gejwwl3igwttm4%utj9wek-m(tc12)&ui%y^$_5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['', "127.0.0.1"]
+ALLOWED_HOSTS = ['6508-188-94-34-55.ngrok-free.app', "127.0.0.1"]
 
 
 # Application definition
