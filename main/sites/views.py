@@ -1,4 +1,4 @@
-# Hello world!!!
+""" Hello, world! This is main branch!!!"""
 # Импорты django
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
@@ -18,8 +18,6 @@ import random
 # Либа для работы со строками
 import string
 
-# Либа для модели ml
-import spacy
 # Либа для postgresql
 import psycopg2
 
@@ -90,17 +88,44 @@ def MainPage(request):
     """ Вывод главной страницы курса.
     Когда пользователь еще не зарегистрирован или не вошел в уч запись"""
 
-    use = userSearchEngine()
+    use = userSearchEngine(request.POST)
 # Если юзер зайдет через обычную ссылку и не выйдет из учетной записи, то 
 # перейдет сразу на страницу после регистрации
 # В общем работае как авто сохранение в учетке
     try:
-        request.session["userName"]
-        return HttpResponseRedirect("http://127.0.0.1:8000/Главная_страница./")
+        if request.session["userName"]:
+            return HttpResponseRedirect("http://127.0.0.1:8000/Главная_страница./")
     except Exception as e:
         print(e)
         return render(request, "main.html", {'forms': use})
     
+
+def levenshtein_distance(word1, word2):
+    m = len(word1)
+    n = len(word2)
+    # Создаем матрицу для хранения расстояний Левенштейна между префиксами слов
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+    # Инициализируем первую строку и первый столбец матрицы
+    for i in range(m + 1):
+        dp[i][0] = i
+    for j in range(n + 1):
+        dp[0][j] = j
+
+    # Заполняем оставшуюся часть матрицы
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if word1[i - 1] == word2[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1]
+            else:
+                dp[i][j] = min(
+                    dp[i - 1][j] + 1,   # Удаление символа
+                    dp[i][j - 1] + 1,   # Вставка символа
+                    dp[i - 1][j - 1] + 1  # Замена символа
+                )
+
+    return dp[m][n]
+
 
 def res_search(request):
     """ Вывод результатов поиска """
@@ -136,46 +161,18 @@ def res_search(request):
         # Обработка данных, полученных из формы
         userReqqq = userSearchEngine(request.POST)
         if userReqqq.is_valid():
-            # Получение введенного пользователем запроса
-            user_req = userReqqq.cleaned_data['search_engine']
+            user_word = userReqqq.cleaned_data['search_engine']
 
-            # Загрузка модели NLP
-            nlp = spacy.load("en_core_web_sm")
-            word1 = nlp(user_req)
-
-            # Создание пустого словаря dct_res
-
-            for i in dct_courses.keys():
-                res_num = 0
-                for j in i:
-                    word2 = nlp(j)
-                    k = word1.similarity(word2)
-                    res_num += k
-                dct_courses[i] = str(res_num)
-
-            # Проверка результатов поиска и добавление соответствующих текстов в список lst
+            # Алгоритм Левенштейна работает с введенным словом
             for k, v in dct_courses.items():
-                if k[0] == "Frontend Development" and float(v) > 2.5:
-                    lst.append(dct_res_text[0])
-                if k[0] == "Data Science" and float(v) > 2.5:
-                    lst.append(dct_res_text[1])
-                if k[0] == "Backend Development" and float(v) > 2.5:
-                    lst.append(dct_res_text[2])
-                if k[0] == "Цифровой маркетинг" and float(v) > 2.5:
-                    lst.append(dct_res_text[3])
-                if k[0] == "Финансовый анализ" and float(v) > 2.5:
-                    lst.append(dct_res_text[4])
-                if k[0] == "Blockchain и криптовалюты" and float(v) > 2.5:
-                    lst.append(dct_res_text[5])
-                if k[0] == "UX/UI дизайн" and float(v) > 2.5:
-                    lst.append(dct_res_text[6])
-                if k[0] == "IOS разработчик" and float(v) > 2.5:
-                    lst.append(dct_res_text[7])
-                if k[0] == "SQL" and float(v) > 2.5:
-                    lst.append(dct_res_text[8])
-                if k[0] == "Кибербезопасность" and float(v) > 2.5:
-                    lst.append(dct_res_text[9])               
-
+                keys_list = list(dct_courses.keys())
+                for i in range(len(keys_list)):
+                    koef = levenshtein_distance(user_word, keys_list[i])
+                    dct_courses[k] = koef
+                print(koef)
+                if v < 200:
+                    lst.append(dct_res_text[i])
+                    
             # Возвращение шаблона "search_results.html" с передачей списка lst и темы пользователя u_theme
             return render(request, "search_results.html", {"collection": lst, "u_theme": u_theme})
 
@@ -1145,7 +1142,7 @@ def pro(request):
         if u_theme is None:
             u_theme = "theme1"
         else:
-            u_theme = u_theme[0]
+            u_theme = u_theme
         cursor.close()
         conn.close()
 
@@ -1180,7 +1177,7 @@ def quest(request):
             if u_theme is None:
                 u_theme = "theme1"
             else:
-                u_theme = u_theme[0]
+                u_theme = u_theme
             cursor.close()
             conn.close()
 
