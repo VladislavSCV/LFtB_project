@@ -215,6 +215,8 @@ cursor: pointer;" id="backP" onmouseover="changeCursor()">
     <p>{{ element.1 }}</p>
     <a href={{ element.2 }}>Узнать больше</a>
  </div>
+{% empty %}
+<h2>Sorry</h2>
   {% endfor %}
 </div>
 </body>
