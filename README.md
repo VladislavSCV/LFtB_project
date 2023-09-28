@@ -1,3 +1,5 @@
 # LFtB_project
 Hello world!
-If you want to start write this "remove sys64"
+# Для запуска проекта:
+cd main
+python manage.py runserver
