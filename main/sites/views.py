@@ -29,7 +29,8 @@ from .forms import userFormREG, userSearchEngine, userFormAUTH, select_theme
 
 
 """ Задачи """
-""" Нормализовать словари в json и собрать нормальное кол-во слов в них """
+""" 1. Нормализовать словари в json и собрать нормальное кол-во слов 
+2. Решить все проблемы безопасности"""
 
 # Изображение пользователя если нет своего фото
 img_src = "https://brend-mebel.ru/image/no_image.jpg"
@@ -73,13 +74,35 @@ def MainPage(request):
     """ Вывод главной страницы курса.
     Когда пользователь еще не зарегистрирован или не вошел в уч запись"""
 
-    use = userSearchEngine(request.POST)
+#     # Создание бд | После добавления бд на сервер. Нужно УДАЛИТЬ эту часть кода
+
+#     conn = psycopg2.connect(security_db)
+#     cursor = conn.cursor()
+#     cursor.execute("""CREATE TABLE IF NOT EXISTS public.users
+# (
+#     id integer NOT NULL DEFAULT nextval('users_id_seq'::regclass),
+#     user_name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+#     user_email character varying COLLATE pg_catalog."default" NOT NULL,
+#     user_passw character varying(50) COLLATE pg_catalog."default" NOT NULL,
+#     pro boolean DEFAULT false,
+#     photo_url text COLLATE pg_catalog."default",
+#     user_desc text COLLATE pg_catalog."default",
+#     user_courses text COLLATE pg_catalog."default",
+#     user_certific text COLLATE pg_catalog."default",
+#     xp integer,
+#     user_achiv text COLLATE pg_catalog."default",
+#     user_theme text COLLATE pg_catalog."default",
+#     PRIMARY KEY (id)
+# )""")
+    
+    use = userSearchEngine()
 # Если юзер зайдет через обычную ссылку и не выйдет из учетной записи, то 
 # перейдет сразу на страницу после регистрации
 # В общем работае как авто сохранение в учетке
     try:
         if request.session["userName"]:
             return HttpResponseRedirect("http://127.0.0.1:8000/Главная_страница./")
+
     except Exception as e:
         print(e)
         return render(request, "main.html", {'forms': use})
@@ -130,7 +153,6 @@ def res_search(request):
     conn.commit()
 
     u_theme = cursor.fetchone()
-    print(u_theme)
     if u_theme is None:
         u_theme = "theme1"
     else:
@@ -141,7 +163,6 @@ def res_search(request):
     conn.close()
 
     lst = []
-    print(f"lst: {lst}")
     if request.method == "POST":
         # Обработка данных, полученных из формы
         userReqqq = userSearchEngine(request.POST)
@@ -164,11 +185,7 @@ def res_search(request):
 
             for i in lst:
                 lst_result.append(dct_res_text[i])
-            print(lst)
-            print(dct_courses)
-            print(lst_result)
 
-    
             # Возвращение шаблона "search_results.html" с передачей списка lst и темы пользователя u_theme
             return render(request, "search_results.html", {"collection": lst_result, "u_theme": u_theme})
 
@@ -182,7 +199,8 @@ def end_user_course(request, course):
     # Получение ника из сессий
     userNameSession = request.session.get("userName")
 
-    conn = psycopg2.connect(**security_db)
+
+    conn = psycopg2.connect(dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1")
     cursor = conn.cursor()
 
     # Запрос к бд для вывода
@@ -198,9 +216,10 @@ def end_user_course(request, course):
     cursor.close()
     conn.close()
 
-    conn = psycopg2.connect(**security_db)
+
+    conn = psycopg2.connect(dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1")
     cursor = conn.cursor()
-    # async
+# async
     # Получаем set курсов из бд. Тип данных: str
     cursor.execute("""SELECT user_courses FROM users WHERE user_name = %s""", (userNameSession, ))
 
@@ -215,7 +234,8 @@ def end_user_course(request, course):
     cursor.close()
     conn.close()
 
-    conn = psycopg2.connect(**security_db)
+
+    conn = psycopg2.connect(dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1")
     cursor = conn.cursor()
 # async
     # Получаем set законченных курсов из бд. Тип данных: str
@@ -239,27 +259,26 @@ def end_user_course(request, course):
     cursor.close()
     conn.close()
 
-    conn = psycopg2.connect(**security_db)
+    conn = psycopg2.connect(dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1")
     cursor = conn.cursor()
 
-    def close_course(name_course):
-        global exp_num
+    if course == "Backend" and "Backend разработка" not in set_end_courses:
         # Мы удаляем его из действующих курсов
-        courses.remove(name_course)
+        courses.remove("Backend разработка")
         # множество курсов переводим в str формат для бд
         courses = str(courses)
         # Вносим изменения в бд
         cursor.execute("""UPDATE users SET user_courses = %s WHERE user_name = %s""", (courses, userNameSession))
         conn.commit()
-        
+
         # Закрытие курсора и подключения
         cursor.close()
         conn.close()
 
-        conn = psycopg2.connect(**security_db)
+        conn = psycopg2.connect(dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1")
         cursor = conn.cursor()
 
-        set_end_courses.add(name_course)
+        set_end_courses.add("Backend разработка")
         set_end_courses = str(set_end_courses)
         # Добавляем в законченные курсы, чтобы пользователь мог получить сертификат
         cursor.execute("""UPDATE users SET user_certific = %s WHERE user_name = %s""", (set_end_courses, userNameSession))
@@ -269,7 +288,7 @@ def end_user_course(request, course):
         cursor.close()
         conn.close()
 
-        conn = psycopg2.connect(**security_db)
+        conn = psycopg2.connect(dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1")
         cursor = conn.cursor()
         # За прохождение курса полльзователю +1000 к xp
         exp_num += 1000
@@ -281,35 +300,318 @@ def end_user_course(request, course):
         conn.close()
         # Возвращаем на страницу пользователя
         return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
-    
-    if course == "Backend" and "Backend разработка" not in set_end_courses:
-        close_course("Backend разработка")
 
-    elif course == "Цифровой_маркетинг" and "Цифровой маркетинг" not in set_end_courses:
-        close_course("Цифровой маркетинг")
+    if course == "Blockchain_и_криптовалюты" and "Blockchain и криптовалюты" not in set_end_courses:
+        courses.remove("Blockchain и криптовалюты")
+        courses = str(courses)
 
-    elif course == "Кибербезопасность" and "" not in set_end_courses:
-        close_course("Кибербезопасность")
+        cursor.execute("""UPDATE users SET user_courses = %s WHERE user_name = %s""", (courses, userNameSession))
+        conn.commit()
 
-    elif course == "Data_science" and "Data science" not in set_end_courses:
+        # Закрытие курсора и подключения
+        cursor.close()
+        conn.close()
+
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        
+        set_end_courses.add("Blockchain и криптовалюты")
+        set_end_courses = str(set_end_courses)
+
+        cursor.execute("""UPDATE users SET user_certific = %s WHERE user_name = %s""", (set_end_courses, userNameSession))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        # Начисляем xp за то что закончил курс
+        exp_num+=1000
+        cursor.execute(
+            """UPDATE users SET xp = %s WHERE user_name = %s""", (exp_num, userNameSession))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        # Переадресация юзера на страницу профиля | В будущем возможно изменим, чтобы он уходил в каталог
+        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
+
+    if course == "Цифровой_маркетинг" and "Цифровой маркетинг" not in set_end_courses:
+        courses.remove("Цифровой маркетинг")
+        courses = str(courses)
+
+        cursor.execute(
+            """UPDATE users SET user_courses = %s WHERE user_name = %s""", (courses, userNameSession))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        set_end_courses.add("Цифровой маркетинг")
+        set_end_courses = str(set_end_courses)
+
+        cursor.execute("""UPDATE users SET user_certific = %s WHERE user_name = %s""", (set_end_courses, userNameSession))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        exp_num+=1000
+        cursor.execute(
+            """UPDATE users SET xp = %s WHERE user_name = %s""", (exp_num, userNameSession))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
+
+    if course == "Кибербезопасность" and "Кибербезопасность" not in set_end_courses:
+        courses.remove("Кибербезопасность")
+        courses = str(courses)
+
+        cursor.execute(
+            """UPDATE users SET user_courses = %s WHERE user_name = %s""", (courses, userNameSession))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        set_end_courses.add("Кибербезопасность")
+        set_end_courses = str(set_end_courses)
+
+        cursor.execute("""UPDATE users SET user_certific = %s WHERE user_name = %s""", (set_end_courses, userNameSession))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        exp_num+=1000
+        cursor.execute(
+            """UPDATE users SET xp = %s WHERE user_name = %s""", (exp_num, userNameSession))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
+
+    if course == "Data_science" and "Data science" not in set_end_courses:
         print("Я В DS")
-        close_course("Data science")
-        
-    elif course == "Финансовый_анализ" and "Финансовый анализ" not in set_end_courses:
-        close_course("Финансовый анализ")
-        
-    elif course == "Frontend" and "Frontend разработка" not in set_end_courses:
-        close_course("Frontend разработка")
+        courses.remove("Data science")
+        courses = str(courses)
 
-    elif course == "IOS_разработчик" and "IOS разработчик" not in set_end_courses:
-        close_course("IOS разработчик")
+        cursor.execute(
+            """UPDATE users SET user_courses = %s WHERE user_name = %s""", (courses, userNameSession))
+        conn.commit()
 
-    elif course == "SQL" and "SQL" not in set_end_courses:
-        close_course("SQL")
+        cursor.close()
+        conn.close()
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        set_end_courses.add("Data science")
+        set_end_courses = str(set_end_courses)
 
-    elif course == "UX/UI_дизайн" and "UX/UI дизайн" not in set_end_courses:
-        close_course("UX/UI дизайн")
-        
+        cursor.execute("""UPDATE users SET user_certific = %s WHERE user_name = %s""", (set_end_courses, userNameSession))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        exp_num+=1000
+        cursor.execute(
+            """UPDATE users SET xp = %s WHERE user_name = %s""", (exp_num, userNameSession))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
+
+    if course == "Финансовый_анализ" and "Финансовый анализ" not in set_end_courses:
+        courses.remove("Финансовый анализ")
+        courses = str(courses)
+
+        cursor.execute(
+            """UPDATE users SET user_courses = %s WHERE user_name = %s""", (courses, userNameSession))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        set_end_courses.add("Финансовый анализ")
+        set_end_courses = str(set_end_courses)
+
+        cursor.execute("""UPDATE users SET user_certific = %s WHERE user_name = %s""", (set_end_courses, userNameSession))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        exp_num+=1000
+        cursor.execute(
+            """UPDATE users SET xp = %s WHERE user_name = %s""", (exp_num, userNameSession))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
+    if course == "Frontend" and "Frontend разработка" not in set_end_courses:
+        courses.remove("Frontend разработка")
+        courses = str(courses)
+
+        cursor.execute(
+            """UPDATE users SET user_courses = %s WHERE user_name = %s""", (courses, userNameSession))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        set_end_courses.add("Frontend разработка")
+        set_end_courses = str(set_end_courses)
+
+        cursor.execute("""UPDATE users SET user_certific = %s WHERE user_name = %s""", (set_end_courses, userNameSession))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        exp_num+=1000
+        cursor.execute(
+            """UPDATE users SET xp = %s WHERE user_name = %s""", (exp_num, userNameSession))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
+
+    if course == "IOS_разработчик" and "IOS разработчик" not in set_end_courses:
+        courses.remove("IOS разработчик")
+        courses = str(courses)
+
+        cursor.execute(
+            """UPDATE users SET user_courses = %s WHERE user_name = %s""", (courses, userNameSession))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        set_end_courses.add("IOS разработчик")
+        set_end_courses = str(set_end_courses)
+
+        cursor.execute("""UPDATE users SET user_certific = %s WHERE user_name = %s""", (set_end_courses, userNameSession))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        exp_num+=1000
+        cursor.execute(
+            """UPDATE users SET xp = %s WHERE user_name = %s""", (exp_num, userNameSession))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
+
+    if course == "SQL" and "SQL" not in set_end_courses:
+        courses.remove("SQL")
+        courses = str(courses)
+
+        cursor.execute(
+            """UPDATE users SET user_courses = %s WHERE user_name = %s""", (courses, userNameSession))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        set_end_courses.add("SQL")
+        set_end_courses = str(set_end_courses)
+
+        cursor.execute("""UPDATE users SET user_certific = %s WHERE user_name = %s""", (set_end_courses, userNameSession))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        exp_num+=1000
+        cursor.execute(
+            """UPDATE users SET xp = %s WHERE user_name = %s""", (exp_num, userNameSession))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
+
+    if course == "UX/UI_дизайн" and "UX/UI дизайн" not in set_end_courses:
+        courses.remove("UX/UI дизайн")
+        courses = str(courses)
+
+        cursor.execute(
+            """UPDATE users SET user_courses = %s WHERE user_name = %s""", (courses, userNameSession))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        set_end_courses.add("UX/UI дизайн")
+        set_end_courses = str(set_end_courses)
+
+        cursor.execute("""UPDATE users SET user_certific = %s WHERE user_name = %s""", (set_end_courses, userNameSession))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+        exp_num+=1000
+        cursor.execute(
+            """UPDATE users SET xp = %s WHERE user_name = %s""", (exp_num, userNameSession))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
     else:
         u_excp = "Произошла какая-то ошибка. Попробуйте позже."
         return render(request, "exception.html", context={"u_excp": u_excp})
@@ -322,7 +624,8 @@ def send_user_courses(request, course):
     userNameSession = request.session.get("userName")
 
     # Получаем тему пользователя
-    conn = psycopg2.connect(**security_db)
+    conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
     cursor = conn.cursor()
 
     cursor.execute(
@@ -336,7 +639,8 @@ def send_user_courses(request, course):
     conn.close()
 
     # Получаем действующие курс
-    conn = psycopg2.connect(**security_db)
+    conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
     cursor = conn.cursor()
 
     cursor.execute(
@@ -358,12 +662,14 @@ def send_user_courses(request, course):
 
     print("User courses from db:", course_set)
 
-    conn = psycopg2.connect(**security_db)
+    conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                            password="31415926", host="127.0.0.1")
     cursor = conn.cursor()
-    
-    def course_add(name_course, url_cource):
+# Если пользователь нажмет на кнопку 'начать курс' то он переходит в эти условия
+# В зависимости от кнопки пользователю добавляется определенный курс в бд
+    if course == "UX_UI_дизайн":
         # В сет с курсами добавляется это
-        course_set.add(name_course)
+        course_set.add("UX/UI дизайн")
         # Переводим в str для бд
         # Потому что в postgres тип данных этого столбца text
         course_set = str(course_set)
@@ -375,41 +681,123 @@ def send_user_courses(request, course):
         cursor.close()
         conn.close()
         # Переносим юзера на страницу с курсом
-        return render(request, f"study_courses_page/{url_cource}.html", {"u_theme": u_theme})
+        return render(request, "study_courses_page/study_courses_ux_ui.html", {"u_theme": u_theme})
     
-# Если пользователь нажмет на кнопку 'начать курс' то он переходит в эти условия
-# В зависимости от кнопки пользователю добавляется определенный курс в бд
-    if course == "UX_UI_дизайн":
-        # В сет с курсами добавляется это
-        course_add("UX/UI дизайн", "study_courses_page_ux_ui")
+    if course == "Backend":
+        course_set.add("Backend разработка")
+        course_set = str(course_set)
+        cursor.execute("""UPDATE users SET user_courses = %s WHERE user_name = %s""", (course_set, userNameSession))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        return render(request, "study_courses_page\study_courses_Backend.html", {"u_theme": u_theme})
+
+    if course == "Blockchain_и_криптовалюты":
+        course_set.add("Blockchain и криптовалюты")
+        course_set = str(course_set)
+        cursor.execute("""UPDATE users SET user_courses = %s WHERE user_name = %s""",
+                       (course_set, userNameSession))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
         
-    elif course == "Backend":
-        course_add("Backend разработка", "study_courses_page_Backend")
+        return render(request, "study_courses_page\study_courses_Blockchain.html", {"u_theme": u_theme})
 
-    elif course == "Blockchain_и_криптовалюты":
-        course_add("Blockchain и криптовалюты", "study_courses_page_Blockchain")
+    if course == "Цифровой_маркетинг":
+        course_set.add("Цифровой маркетинг")
+        course_set = str(course_set)
+        cursor.execute("""UPDATE users SET user_courses = %s WHERE user_name = %s""",
+                       (course_set, userNameSession))
 
-    elif course == "Цифровой_маркетинг":
-        course_add("Цифровой маркетинг", "study_courses_page_Cifrov_mark")
+        conn.commit()
 
-    elif course == "Кибербезопасность":
-        course_add("Кибербезопасность")
+        cursor.close()
+        conn.close()
+        
+        return render(request, "study_courses_page\study_courses_Cifrov_mark.html", {"u_theme": u_theme})
 
-    elif course == "Data_science":
-        course_add("Data science", "study_courses_page_DataScience")
+    if course == "Кибербезопасность":
+        course_set.add("Кибербезопасность")
+        course_set = str(course_set)
+        cursor.execute("""UPDATE users SET user_courses = %s WHERE user_name = %s""",
+                       (course_set, userNameSession))
 
-    elif course == "Финансовый_анализ":
-        course_add("Финансовый анализ", "study_courses_page_Finn_analiz")
+        conn.commit()
 
-    elif course == "Frontend":
-        course_add("Frontend разработка", "study_courses_page_Frontend")
+        cursor.close()
+        conn.close()
+        
+        conn.close()
+        return render(request, "study_courses_page\study_courses_CyberS.html", {"u_theme": u_theme})
 
-    elif course == "IOS_разработчик":
-        course_add("IOS разработчик", "study_courses_page_IosDev")
+    if course == "Data_science":
+        course_set.add("Data science")
+        course_set = str(course_set)
+        cursor.execute("""UPDATE users SET user_courses = %s WHERE user_name = %s""",
+                       (course_set, userNameSession))
 
-    elif course == "SQL":
-        course_add("SQL","study_courses_page_Sql")
+        conn.commit()
 
+        cursor.close()
+        conn.close()
+        
+        return render(request, "study_courses_page\study_courses_DataScience.html", {"u_theme": u_theme})
+
+    if course == "Финансовый_анализ":
+        course_set.add("Финансовый анализ")
+        course_set = str(course_set)
+        cursor.execute("""UPDATE users SET user_courses = %s WHERE user_name = %s""",
+                       (course_set, userNameSession))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        
+        return render(request, "study_courses_page\study_courses_Finn_analiz.html", {"u_theme": u_theme})
+
+    if course == "Frontend":
+        course_set.add("Frontend разработка")
+        course_set = str(course_set)
+        cursor.execute("""UPDATE users SET user_courses = %s WHERE user_name = %s""",
+                       (course_set, userNameSession))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        
+        return render(request, "study_courses_page/study_Frontend.html", {"u_theme": u_theme})
+
+    if course == "IOS_разработчик":
+        course_set.add("IOS разработчик")
+        course_set = str(course_set)
+        cursor.execute("""UPDATE users SET user_courses = %s WHERE user_name = %s""",
+                       (course_set, userNameSession))
+
+        conn.commit()
+        cursor.close()
+        conn.close()
+        
+        return render(request, "study_courses_page/study_IosDev.html", context={"u_theme": u_theme})
+
+    if course == "SQL":
+        course_set.add("SQL")
+        course_set = str(course_set)
+        cursor.execute("""UPDATE users SET user_courses = %s WHERE user_name = %s""",
+                       (course_set, userNameSession))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        
+        return render(request, "study_courses_page/study_courses_Sql.html", {"u_theme": u_theme})
+    
 
 def User_page(request):
     """ Вывод всей информации о пользователе на домашней странице """
