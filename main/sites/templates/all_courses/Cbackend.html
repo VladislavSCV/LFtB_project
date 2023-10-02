@@ -100,8 +100,13 @@
       border-radius: 2%;
       height: 600px;
       
-      padding-top: 10px;
+      padding: 10px;
       color: black;
+      width: 100%;
+  height: 30%;
+      position: relative;
+      word-wrap: break-word;
+  overflow-wrap: break-word;
     }
     .greyform{
       background-color: #897ee3;
@@ -210,12 +215,17 @@
 
     .contentMain{
       text-align: center;
-      background-color: #333333;
+      background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
       
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      padding: 10px;
+      color: black;
+      width: 100%;
+  height: 30%;
+      position: relative;
+      word-wrap: break-word;
+  overflow-wrap: break-word;
     }
     .greyform{
       background-color: #897ee3;
@@ -322,12 +332,17 @@
 
     .contentMain{
       text-align: center;
-      background-color: #33025b;
+      background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
       
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      padding: 10px;
+      color: black;
+      width: 100%;
+  height: 30%;
+      position: relative;
+      word-wrap: break-word;
+  overflow-wrap: break-word;
     }
     .greyform{
       background-color: #897ee3;
@@ -382,9 +397,50 @@
 
   <div class="content">
       <div class="contentMain">
-        <div class="centerGO">
-          <a href="{% url 'send_user_courses' course='Backend' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->
-        </div>
+        <h1>Введение в Backend-разработку</h1>
+    
+        <h2>Что такое Backend?</h2>
+        <p>Backend - это область разработки, которая занимается созданием серверной части веб-приложений. Backend-разработчики отвечают за обработку данных, бизнес-логику и взаимодействие с базами данных.</p>
+        
+        <h2>Мастерство Backend-разработчика</h2>
+        <p>Backend-разработчику необходимо обладать навыками:</p>
+        
+        <ul>
+            <li>Языки программирования, такие как Java, Python, Ruby, PHP, Node.js, для создания серверной логики.</li>
+            <li>Фреймворки, такие как Django, Flask, Ruby on Rails, Laravel, для ускорения разработки и повышения безопасности.</li>
+            <li>Управление базами данных с помощью SQL или NoSQL, например, MySQL, PostgreSQL или MongoDB.</li>
+            <li>API (Application Programming Interface) для взаимодействия с другими веб-сервисами.</li>
+            <li>Знание систем управления версиями, таких как Git.</li>
+        </ul>
+        
+        <h2>Разработка Backend-приложений</h2>
+        <p>Для разработки Backend-приложений необходимо:</p>
+        
+        <ol>
+            <li>Выбрать язык программирования и фреймворк, соответствующий требованиям проекта.</li>
+            <li>Создать логику обработки запросов и взаимодействия с базой данных.</li>
+            <li>Реализовать безопасность приложения, включая аутентификацию и авторизацию.</li>
+            <li>Настроить и оптимизировать серверное окружение для обработки запросов и обеспечения масштабируемости.</li>
+        </ol>
+        
+        <h2>Популярные Backend-технологии</h2>
+        <p>Существует множество технологий и инструментов, которые используются в Backend-разработке:</p>
+        
+        <ul>
+            <li>Java и фреймворк Spring</li>
+            <li>Python и фреймворк Django</li>
+            <li>Node.js и фреймворк Express</li>
+            <li>PHP и фреймворк Laravel</li>
+            <li>Ruby и фреймворк Ruby on Rails</li>
+            <li>ASP.NET и фреймворк ASP.NET Core</li>
+            <li>Базы данных, такие как MySQL, PostgreSQL, MongoDB</li>
+        </ul>
+        
+        <h2>Заключение</h2>
+        <p>Backend-разработка является важной частью создания веб-приложений и вовлекает в себя множество технологий и навыков. Разработка серверной части приложений позволяет обрабатывать данные, управлять бизнес-логикой и взаимодействовать с базами данных. Надеемся, что это введение в Backend-разработку было полезным!</p>
+          <div class="centerGO">
+            <a href="{% url 'send_user_courses' course='Backend' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->
+          </div>
 
     
         <h2 style="

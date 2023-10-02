@@ -58,7 +58,7 @@
   text-decoration: none;
 }
 
-.wowLine{
+.gradient_Line{
   background: radial-gradient(circle at 25% top, rgb(17, 119, 251), rgb(149, 0, 255));
 }
 
@@ -121,7 +121,7 @@ color: #007bff;
 text-decoration: none;
 }
 
-.wowLine{
+.gradient_Line{
 background: radial-gradient(circle at 25% top, rgb(17, 119, 251), rgb(149, 0, 255));
 }
 
@@ -186,7 +186,7 @@ color: #007bff;
 text-decoration: none;
 }
 
-.wowLine{
+.gradient_Line{
 background: radial-gradient(circle at 25% top, rgb(17, 119, 251), rgb(149, 0, 255));
 }
 
@@ -215,8 +215,6 @@ top: 40px;
 cursor: pointer;" id="backP" onmouseover="changeCursor()">
 {% endif %}
 
-
-
     <div class="course-section">
       {% if u_theme == "theme3" %}
         <h1 style="color: aliceblue;">Каталог курсов</h1>
@@ -238,8 +236,8 @@ cursor: pointer;" id="backP" onmouseover="changeCursor()">
             <img src="https://ie.wampi.ru/2023/09/05/interrogation.png" style="width: 4%" id="question0">
             {% endif %}
           </div>
-            <p style="display: none;">Доступно для всех пользователей!</p>
-            <div class="wowLine"><h3>Frontend Development</h3></div>
+            <p style="display: none;">Бесплатно для всех пользователей!</p>
+            <div class="gradient_Line"><h3>Frontend Development</h3></div>
             <p>Фронтенд-разработчики занимаются созданием пользовательского интерфейса для веб-приложений и сайтов, используя языки программирования HTML, CSS и JavaScript.</p>
             <a href="Frontend_разработка/">Узнать больше</a>
           </div>
@@ -258,8 +256,8 @@ cursor: pointer;" id="backP" onmouseover="changeCursor()">
             
             {% endif %}
 
-            <p style="display: none;">Доступно только для PRO!</p>
-            <div class="wowLine"><h3>Data Science</h3></div>
+            <p style="display: none;">Доступно только для PRO или при покупке курса!</p>
+            <div class="gradient_Line"><h3>Data Science</h3></div>
 
             <p>Этот курс расскажет о базовых принципах анализа данных и машинного обучения. Студенты изучат методы сбора, обработки и интерпретации данных, а также научатся применять статистические модели для прогнозирования и принятия решений.</p>
             <a href="Data_science/">Узнать больше</a>
@@ -277,8 +275,8 @@ cursor: pointer;" id="backP" onmouseover="changeCursor()">
             <img src="https://ie.wampi.ru/2023/09/05/interrogation.png" style="width: 4%" id="question2">
             {% endif %}
             
-            <p style="display: none;">Доступно только для PRO!</p>
-            <div class="wowLine"><h3>Backend Development</h3></div>
+            <p style="display: none;">Доступно только для PRO или при покупке курса!</p>
+            <div class="gradient_Line"><h3>Backend Development</h3></div>
             <p>Этот курс предлагает изучение серверной разработки, языков программирования и инструментов для создания мощных веб-приложений. Вы освоите Python, Ruby или Node.js, а также научитесь работать с базами данных, разрабатывать API и обеспечивать безопасность приложения.</p>
             <a href="Backend_разработка/">Узнать больше</a>
           </div>
@@ -286,15 +284,17 @@ cursor: pointer;" id="backP" onmouseover="changeCursor()">
           <div class="course">
             <img src="https://www.sostav.ru/images/news/2019/05/28/cxmo3nwy.jpg" alt="Цифровой маркетинг">
             
+            <div class="question_crown_people">
             {% if u_theme == "theme2" or u_theme == "theme3" %}
-            <img src="https://ie.wampi.ru/2023/08/29/crown.png" style="width: 10%;">
+            <img src="https://im.wampi.ru/2023/09/05/user-1.png" style="width: 10%;">
             <img src="https://ie.wampi.ru/2023/09/05/interrogation-1.png" style="width: 4%" id="question3">
             {% else %}
-            <img src="https://ie.wampi.ru/2023/08/29/crown.png" style="width: 10%;">
+            <img src="https://ie.wampi.ru/2023/09/04/user.png" style="width: 10%;">
             <img src="https://ie.wampi.ru/2023/09/05/interrogation.png" style="width: 4%" id="question3">
             {% endif %}
-            <p style="display: none;">Доступно только для PRO!</p>
-            <div class="wowLine"><h3>Цифровой маркетинг</h3></div>
+          </div>
+            <p style="display: none;">Бесплатно для всех пользователей!</p>
+            <div class="gradient_Line"><h3>Цифровой маркетинг</h3></div>
             <p>Курс по цифровому маркетингу научит вас использовать социальные сети, контент-маркетинг и SEO для привлечения трафика и достижения бизнес-целей. Вы освоите создание и оптимизацию цифровых маркетинговых кампаний.</p>
             <a href="Цифровой_маркетинг/">Узнать больше</a>
           </div>
@@ -310,8 +310,8 @@ cursor: pointer;" id="backP" onmouseover="changeCursor()">
             <img src="https://ie.wampi.ru/2023/09/05/interrogation.png" style="width: 4%" id="question4">
             {% endif %}
 
-            <p style="display: none;">Доступно для всех пользователей!</p>
-            <div class="wowLine"><h3>Финансовый анализ</h3></div>
+            <p style="display: none;">Бесплатно для всех пользователей!</p>
+            <div class="gradient_Line"><h3>Финансовый анализ</h3></div>
             <p>Этот курс представляет изучение основ финансового анализа и оценки состояния компаний. Студенты освоят различные инструменты и модели, необходимые для принятия обоснованных финансовых решений.</p>
             <a href="Финансовый_анализ/">Узнать больше</a>
           </div>
@@ -327,8 +327,8 @@ cursor: pointer;" id="backP" onmouseover="changeCursor()">
             <img src="https://ie.wampi.ru/2023/09/05/interrogation.png" style="width: 4%" id="question5">
             {% endif %}
 
-            <p style="display: none;">Доступно только для PRO!</p>
-            <div class="wowLine"><h3>Blockchain и криптовалюты</h3></div>
+            <p style="display: none;">Доступно только для PRO или при покупке курса!</p>
+            <div class="gradient_Line"><h3>Blockchain и криптовалюты</h3></div>
             <p>Курс, который позволяет понять концепции и технологии блокчейн, а также различные типы криптовалют. Вы научитесь использовать блокчейн для создания безопасных и надежных систем передачи данных и управления с децентрализованной структурой.</p>
             <a href="Blockchain/">Узнать больше</a>
           </div>
@@ -336,16 +336,18 @@ cursor: pointer;" id="backP" onmouseover="changeCursor()">
           <div class="course">
             <img src="https://www.graphie.co.id/uploads/blog/2_-Isometric-design-everything-you-need-to-know-about-the-design-trend.jpg" alt="UX/UI">
             
-            {% if u_theme == "theme2" or u_theme == "theme3" %}
-            <img src="https://ie.wampi.ru/2023/08/29/crown.png" style="width: 10%;">
+            <div class="question_crown_people">
+              {% if u_theme == "theme2" or u_theme == "theme3" %}
+            <img src="https://im.wampi.ru/2023/09/05/user-1.png" style="width: 10%;">
             <img src="https://ie.wampi.ru/2023/09/05/interrogation-1.png" style="width: 4%" id="question6">
             {% else %}
-            <img src="https://ie.wampi.ru/2023/08/29/crown.png" style="width: 10%;">
+            <img src="https://ie.wampi.ru/2023/09/04/user.png" style="width: 10%;">
             <img src="https://ie.wampi.ru/2023/09/05/interrogation.png" style="width: 4%" id="question6">
             {% endif %}
-            <p style="display: none;">Доступно для всех пользователей!</p>
+          </div>
+            <p style="display: none;">Бесплатно для всех пользователей!</p>
             
-            <div class="wowLine"><h3>UX/UI дизайн</h3></div>
+            <div class="gradient_Line"><h3>UX/UI дизайн</h3></div>
             <p>Этот курс научит создавать удобные и привлекательные пользовательские интерфейсы. Обучение включает основы UI/UX-дизайна, а также применение современных инструментов и методов для создания и тестирования дизайна.</p>
             <a href="UX_UI_дизайн/">Узнать больше</a>
           </div>
@@ -360,9 +362,9 @@ cursor: pointer;" id="backP" onmouseover="changeCursor()">
             <img src="https://ie.wampi.ru/2023/08/29/crown.png" style="width: 10%;">
             <img src="https://ie.wampi.ru/2023/09/05/interrogation.png" style="width: 4%" id="question7">
             {% endif %}
-            <p style="display: none;">Доступно для всех пользователей!</p>
+            <p style="display: none;">Доступно только для PRO или при покупке курса!</p>
             
-            <div class="wowLine"><h3>IOS разработчик</h3></div>
+            <div class="gradient_Line"><h3>IOS разработчик</h3></div>
             <p>Курс по разработке мобильных приложений для устройств iOS с использованием языка программирования Swift и инструментов Apple. Студенты научатся создавать, поддерживать и обновлять приложения для iPhone, iPad и других устройств, работающих на iOS.</p>
             <a href="IOS_разработка/">Узнать больше</a>
           </div>
@@ -370,16 +372,18 @@ cursor: pointer;" id="backP" onmouseover="changeCursor()">
           <div class="course">
             <img src="https://avatars.mds.yandex.net/i?id=730bf032fa5acd51ad4786184ab6e3582c210203-7574298-images-thumbs&n=13" alt="SQL">
             
-            {% if u_theme == "theme2" or u_theme == "theme3" %}
-            <img src="https://ie.wampi.ru/2023/08/29/crown.png" style="width: 10%;">
+            <div class="question_crown_people">
+              {% if u_theme == "theme2" or u_theme == "theme3" %}
+            <img src="https://im.wampi.ru/2023/09/05/user-1.png" style="width: 10%;">
             <img src="https://ie.wampi.ru/2023/09/05/interrogation-1.png" style="width: 4%" id="question8">
             {% else %}
-            <img src="https://ie.wampi.ru/2023/08/29/crown.png" style="width: 10%;">
+            <img src="https://ie.wampi.ru/2023/09/04/user.png" style="width: 10%;">
             <img src="https://ie.wampi.ru/2023/09/05/interrogation.png" style="width: 4%" id="question8">
             {% endif %}
-            <p style="display: none;">Доступно только для PRO!</p>
+          </div>
+            <p style="display: none;">Бесплатно для всех пользователей!</p>
             
-            <div class="wowLine"><h3>SQL</h3></div>
+            <div class="gradient_Line"><h3>SQL</h3></div>
             <p>Декларативный язык программирования, применяемый для создания, модификации и управления данными в реляционной базе данных, управляемой соответствующей системой управления базами данных.</p>
             <a href="SQL_разработка/">Узнать больше</a>
           </div>
@@ -394,9 +398,9 @@ cursor: pointer;" id="backP" onmouseover="changeCursor()">
             <img src="https://ie.wampi.ru/2023/08/29/crown.png" style="width: 10%;">
             <img src="https://ie.wampi.ru/2023/09/05/interrogation.png" style="width: 4%" id="question9">
             {% endif %}
-            <p style="display: none;">Доступно только для PRO!</p>
+            <p style="display: none;">Доступно только для PRO или при покупке курса!</p>
             
-            <div class="wowLine"><h3>Кибербезопасность</h3></div>
+            <div class="gradient_Line"><h3>Кибербезопасность</h3></div>
             <p>Направление связанное с разработкой и управлением систем информационной безопасности в организации.</p>
             <a href="Cyber_security/">Узнать больше</a>
           </div>

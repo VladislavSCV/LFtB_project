@@ -30,7 +30,12 @@ from .forms import userFormREG, userSearchEngine, userFormAUTH, select_theme
 
 """ Задачи """
 """ 1. Нормализовать словари в json и собрать нормальное кол-во слов 
-2. Решить все проблемы безопасности"""
+2. Решить все проблемы безопасности
+3. Написать алгоритм рекомендации
+4. Сделать красивый код на странице Cfrontend
+5. Повторить доступ к описанию курса ко всем курсам(Frontend готов)
+6. Возможность входить в описание курса даже без pro. Но начать pro курс можно только с pro или по цене
+7. Добавить цены к курсам"""
 
 
 # Изображение пользователя если нет своего фото
@@ -1207,26 +1212,34 @@ def catalog(request):
         return render(request, 'catalog_exc.html')
     
 
+""" На основе этой функции нужно сделать остальные. Но нужно учитывать доступность курсов! """
 def catalog_Frontend(request):
     """ Страница Frontend разработки """
-    userNameSession = request.session.get("userName")
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
+    user_vision = True
+    try:
+        userNameSession = request.session.get("userName")
+        
+        conn = psycopg2.connect(**security_db)
+        cursor = conn.cursor()
 
-    cursor.execute(
-        """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
-    conn.commit()
+        cursor.execute(
+            """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
+        conn.commit()
 
-    u_theme = cursor.fetchone()[0]
-    print("Theme", u_theme)
-    if u_theme is None:
-        u_theme = "theme1"
+        u_theme = cursor.fetchone()[0]
+        if u_theme is None:
+            u_theme = "theme1"
 
-    print(u_theme)
-    cursor.close()
-    conn.close()
+        print(u_theme)
+        cursor.close()
+        conn.close()
 
-    return render(request, r"all_courses/CFrontend.html", context={"u_theme": u_theme})
+        return render(request, r"all_courses/CFrontend.html", context={"u_theme": u_theme, "user_vision": user_vision})
+    
+    except Exception as e:
+        print(e)
+        user_vision = False
+        return render(request, r"all_courses/CFrontend.html", context={"u_theme": "theme1", "user_vision": user_vision})
 
 
 def catalog_Cyber_security(request):
@@ -1240,7 +1253,6 @@ def catalog_Cyber_security(request):
     conn.commit()
 
     u_theme = cursor.fetchone()[0]
-    print("Theme", u_theme)
     if u_theme is None:
         u_theme = "theme1"
 
@@ -1266,7 +1278,7 @@ def catalog_Cyber_security(request):
         return render(request, r"all_courses/Ccyber_security.html", context={"u_theme": u_theme})
     else:
 
-        return render(request, "exception.html")
+        return render(request, "exception.html", context={'u_excp': "Приобретите Pro версию."})
 
 
 def catalog_Backend(request):
@@ -1280,7 +1292,6 @@ def catalog_Backend(request):
     conn.commit()
 
     u_theme = cursor.fetchone()[0]
-    print("Theme", u_theme)
     if u_theme is None:
         u_theme = "theme1"
 
@@ -1301,7 +1312,7 @@ def catalog_Backend(request):
 
         return render(request, r"all_courses/Cbackend.html", context={"u_theme": u_theme})
     
-    return render(request, "exception.html")
+    return render(request, "exception.html", context={'u_excp': "Приобретите Pro версию."})
 
 
 def catalog_Cifra_marketing(request):
@@ -1396,6 +1407,7 @@ def catalog_Fin_analitic(request):
 
 def catalog_IOS(request):
     """ Страница IOS """
+    """ Страница Data science """
     username = request.session.get("userName")
     conn = psycopg2.connect(**security_db)
     cursor = conn.cursor()
@@ -1412,7 +1424,20 @@ def catalog_IOS(request):
     cursor.close()
     conn.close()
 
-    return render(request, r"all_courses/Cios.html", context={"u_theme": u_theme})
+    conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                        password="31415926", host="127.0.0.1")
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT 1 FROM users WHERE user_name = %s and pro = true", (username, ))
+
+    conn.commit()
+    result = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    
+    if result:
+        return render(request, r"all_courses/Cios.html", context={"u_theme": u_theme})
+    return render(request, "exception.html", context={'u_excp': "Приобретите Pro версию."})
 
 
 def catalog_SQL(request):

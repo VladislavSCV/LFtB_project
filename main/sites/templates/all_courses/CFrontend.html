@@ -100,8 +100,13 @@
       border-radius: 2%;
       height: 600px;
       
-      padding-top: 10px;
+      padding: 10px;
       color: black;
+      width: 100%;
+  height: 30%;
+      position: relative;
+      word-wrap: break-word;
+  overflow-wrap: break-word;
     }
     .greyform{
       background-color: #897ee3;
@@ -210,12 +215,17 @@
 
     .contentMain{
       text-align: center;
-      background-color: #333333;
+      background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
       
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      padding: 10px;
+      color: black;
+      width: 100%;
+  height: 30%;
+      position: relative;
+      word-wrap: break-word;
+  overflow-wrap: break-word;
     }
     .greyform{
       background-color: #897ee3;
@@ -322,12 +332,17 @@
 
     .contentMain{
       text-align: center;
-      background-color: #33025b;
+      background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
       
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      padding: 10px;
+      color: black;
+      width: 100%;
+  height: 30%;
+      position: relative;
+      word-wrap: break-word;
+  overflow-wrap: break-word;
     }
     .greyform{
       word-break: break-all;
@@ -385,11 +400,130 @@
 
   <div class="content">
       <div class="contentMain">
-        <div class="centerGO">
-          
-            <a href="{% url 'send_user_courses' course='Frontend' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->
-        </div>
+        <h1>Введение в Frontend-разработку</h1>
     
+    <h2>Что такое Frontend?</h2>
+    <p>Frontend - это область разработки, которая занимается созданием пользовательского интерфейса веб-приложений. Frontend-разработчики отвечают за то, как пользователи видят и взаимодействуют с веб-сайтом или приложением.</p>
+    
+    <h2>Мастерство Frontend-разработчика</h2>
+    <p>Frontend-разработчику необходимо обладать рядом навыков:</p>
+    
+    <ul>
+        <li>HTML - язык разметки, используемый для создания структуры веб-страницы.</li>
+        <li>CSS - язык таблиц стилей, который позволяет управлять внешним видом элементов на веб-странице.</li>
+        <li>JavaScript - язык программирования, используемый для создания интерактивных элементов на веб-странице.</li>
+        <li>Знание фреймворков и библиотек, таких как React, Angular или Vue.js, позволяет упростить и ускорить разработку.</li>
+        <li>Работа с инструментами разработки, такими как различные редакторы кода, системы контроля версий и среды разработки.</li>
+    </ul>
+    
+    <h2>Разработка Frontend-приложений</h2>
+    <p>Для разработки Frontend-приложений необходимо:</p>
+    
+    <ol>
+        <li>Создать структуру проекта с использованием HTML. Например:</li>
+        <pre>
+            <code>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Мой веб-сайт&lt;/title&gt;
+    &lt;link rel="stylesheet" type="text/css" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;header&gt;
+        &lt;h1&gt;Мой веб-сайт&lt;/h1&gt;
+    &lt;/header&gt;
+
+    &lt;nav&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Главная&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;О нас&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Контакты&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+
+    &lt;main&gt;
+        &lt;h2&gt;Добро пожаловать на мой веб-сайт!&lt;/h2&gt;
+        &lt;p&gt;Здесь вы можете найти всю информацию о нашей компании.&lt;/p&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;Все права защищены &copy; 2022.&lt;/p&gt;
+    &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+            </code>
+        </pre>
+        <li>Добавить стили с использованием CSS. Например, в файле style.css:</li>
+        <pre>
+            <code>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+}
+
+nav {
+    background-color: #f5f5f5;
+    padding: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav li {
+    display: inline;
+    margin-right: 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+            </code>
+        </pre>
+        <li>Добавить интерактивность с использованием JavaScript. Например, в файле script.js:</li>
+        <pre>
+            <code>
+document.getElementById('myButton').addEventListener('click', function() {
+    alert('Кнопка была нажата!');
+});
+            </code>
+        </pre>
+    </ol>
+    
+    <h2>Заключение</h2>
+    <p>Frontend-разработка - это увлекательная область, которая объединяет технические и творческие навыки. Разрабатывая пользовательский интерфейс, вы можете создавать удобные и привлекательные веб-приложения.
+        
+      {% if user_vision == True%}
+        <div class="centerGO">
+            
+              <a href="{% url 'send_user_courses' course='Frontend' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->
+          </div>
+      {% else %}
+    
+      {% endif %}
         <h2 style="
         position: relative;
         left: -400px;
