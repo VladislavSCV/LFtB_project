@@ -10,7 +10,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
 import random
-from sites.utils import config
+
 
 # from yoomoney import Quickpay
 # from yoomoney import Client
@@ -19,11 +19,12 @@ from sites.utils import config
 # Либа для работы со строками
 import string
 
-# Либа для postgresql
-import psycopg2
-
 # Импорты форм для дальнейшего вывода пользователю
 from .forms import userFormREG, userSearchEngine, userFormAUTH, select_theme
+
+# Другие импорты
+from sites.utils import db_handlers as db
+from sites.utils import config
 
 # Строка для удаления сессии
 # del request.session['userName']
@@ -199,27 +200,6 @@ def MainPage(request):
     """Вывод главной страницы курса.
     Когда пользователь еще не зарегистрирован или не вошел в уч запись"""
 
-    #     # Создание бд | После добавления бд на сервер. Нужно УДАЛИТЬ эту часть кода
-
-    #     conn = psycopg2.connect(security_db)
-    #     cursor = conn.cursor()
-    #     cursor.execute("""CREATE TABLE IF NOT EXISTS public.users
-    # (
-    #     id integer NOT NULL DEFAULT nextval('users_id_seq'::regclass),
-    #     user_name character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    #     user_email character varying COLLATE pg_catalog."default" NOT NULL,
-    #     user_passw character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    #     pro boolean DEFAULT false,
-    #     photo_url text COLLATE pg_catalog."default",
-    #     user_desc text COLLATE pg_catalog."default",
-    #     user_courses text COLLATE pg_catalog."default",
-    #     user_certific text COLLATE pg_catalog."default",
-    #     xp integer,
-    #     user_achiv text COLLATE pg_catalog."default",
-    #     user_theme text COLLATE pg_catalog."default",
-    #     PRIMARY KEY (id)
-    # )""")
-
     use = userSearchEngine()
     # Если юзер зайдет через обычную ссылку и не выйдет из учетной записи, то
     # перейдет сразу на страницу после регистрации
@@ -269,25 +249,11 @@ def res_search(request):
     # Получение имени пользователя из сессии
     userNameSession = request.session.get("userName")
 
-    # Подключение к базе данных PostgreSQL
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    # Выполнение SQL-запроса для получения темы пользователя
-    cursor.execute(
-        """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession,)
-    )
-    conn.commit()
-
-    u_theme = cursor.fetchone()
+    u_theme = db.get_one(userNameSession, "user_theme")
     if u_theme is None:
         u_theme = "theme1"
     else:
         u_theme = u_theme[0]
-
-    # Закрытие курсора и соединения с базой данных
-    cursor.close()
-    conn.close()
 
     lst = []
     if request.method == "POST":
@@ -330,69 +296,26 @@ def end_user_course(request, course):
     # Получение ника из сессий
     userNameSession = request.session.get("userName")
 
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
+    # Получение exp пользователя
+    exp_num = db.get_one(userNameSession, "xp")
 
-    # Запрос к бд для вывода
-    cursor.execute("""SELECT xp FROM users WHERE user_name = %s""", (userNameSession,))
-
-    # Коммит для подтверждения запроса
-    conn.commit()
-
-    # Получение exp пользователя и отправка в бд
-    exp_num = cursor.fetchone()[0]
-
-    # Закрытие курсора и подключения
-    cursor.close()
-    conn.close()
-
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-    # async
     # Получаем set курсов из бд. Тип данных: str
-    cursor.execute(
-        """SELECT user_courses FROM users WHERE user_name = %s""", (userNameSession,)
-    )
-
-    # Подтверждение запроса
-    conn.commit()
-
+    courses_el = db.get_one(userNameSession, "user_courses")
     # Перевод курсов из str в set
-    courses = eval(cursor.fetchone()[0])
+    courses = eval(courses_el[0])
     print(courses)
 
-    # Закрытие курсора и подключения
-    cursor.close()
-    conn.close()
-
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-    # async
     # Получаем set законченных курсов из бд. Тип данных: str
-    cursor.execute(
-        """SELECT user_certific FROM users WHERE user_name = %s""", (userNameSession,)
-    )
-
-    # Подтверждение запроса
-    conn.commit()
-
     # Вносим законченные курсы в переменную
-    set_end_courses = cursor.fetchone()[0]
+    set_end_courses = db.get_one(userNameSession, "user_certific")
 
     if set_end_courses:
         # Перевод курсов из str в set
-        set_end_courses = eval(set_end_courses)
+        set_end_courses = eval(set_end_courses[0])
     else:
         set_end_courses = set()
 
-    print(set_end_courses)
-
-    # Закрытие курсора и подключения
-    cursor.close()
-    conn.close()
-
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
+    print(set_end_courses[0])
 
     if course == "Backend" and "Backend разработка" not in set_end_courses:
         # Мы удаляем его из действующих курсов
@@ -400,45 +323,21 @@ def end_user_course(request, course):
         # множество курсов переводим в str формат для бд
         courses = str(courses)
         # Вносим изменения в бд
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (courses, userNameSession),
+        db.update_one_parametr(
+            user_name=userNameSession, key="user_courses", value=courses
         )
-        conn.commit()
-
-        # Закрытие курсора и подключения
-        cursor.close()
-        conn.close()
-
-        conn = psycopg2.connect(**security_db)
-        cursor = conn.cursor()
 
         set_end_courses.add("Backend разработка")
         set_end_courses = str(set_end_courses)
         # Добавляем в законченные курсы, чтобы пользователь мог получить сертификат
-        cursor.execute(
-            """UPDATE users SET user_certific = %s WHERE user_name = %s""",
-            (set_end_courses, userNameSession),
-        )
-        conn.commit()
+        db.update_one_parametr(
+            key="user_sertific", value=set_end_courses, user_name=userNameSession
+        ),
 
-        # Закрытие курсора и подключения
-        cursor.close()
-        conn.close()
-
-        conn = psycopg2.connect(**security_db)
-        cursor = conn.cursor()
         # За прохождение курса полльзователю +1000 к xp
         exp_num += 1000
-        cursor.execute(
-            """UPDATE users SET xp = %s WHERE user_name = %s""",
-            (exp_num, userNameSession),
-        )
-        conn.commit()
+        db.update_one_parametr(key="xp", value=exp_num, user_name=userNameSession),
 
-        # Закрытие курсора и подключения
-        cursor.close()
-        conn.close()
         # Возвращаем на страницу пользователя
         return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
 
@@ -449,48 +348,21 @@ def end_user_course(request, course):
         courses.remove("Blockchain и криптовалюты")
         courses = str(courses)
 
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (courses, userNameSession),
-        )
-        conn.commit()
-
-        # Закрытие курсора и подключения
-        cursor.close()
-        conn.close()
-
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
+        db.update_one_parametr(
+            key="user_courses", value=courses, user_name=userNameSession
+        ),
 
         set_end_courses.add("Blockchain и криптовалюты")
         set_end_courses = str(set_end_courses)
 
-        cursor.execute(
-            """UPDATE users SET user_certific = %s WHERE user_name = %s""",
-            (set_end_courses, userNameSession),
-        )
-        conn.commit()
+        db.update_one_parametr(
+            key="user_certific", value=set_end_courses, user_name=userNameSession
+        ),
 
-        cursor.close()
-        conn.close()
-
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
         # Начисляем xp за то что закончил курс
         exp_num += 1000
-        cursor.execute(
-            """UPDATE users SET xp = %s WHERE user_name = %s""",
-            (exp_num, userNameSession),
-        )
+        db.update_one_parametr(key="xp", value=exp_num, user_name=userNameSession)
 
-        conn.commit()
-
-        cursor.close()
-        conn.close()
         # Переадресация юзера на страницу профиля | В будущем возможно изменим, чтобы он уходил в каталог
         return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
 
@@ -498,86 +370,34 @@ def end_user_course(request, course):
         courses.remove("Цифровой маркетинг")
         courses = str(courses)
 
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (courses, userNameSession),
-        )
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
+        db.update_one_parametr(
+            key="user_courses", value=courses, user_name=userNameSession
+        ),
         set_end_courses.add("Цифровой маркетинг")
         set_end_courses = str(set_end_courses)
 
-        cursor.execute(
-            """UPDATE users SET user_certific = %s WHERE user_name = %s""",
-            (set_end_courses, userNameSession),
-        )
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
+        db.update_one_parametr(
+            key="user_certific", value=set_end_courses, user_name=userNameSession
+        ),
         exp_num += 1000
-        cursor.execute(
-            """UPDATE users SET xp = %s WHERE user_name = %s""",
-            (exp_num, userNameSession),
-        )
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
+        db.update_one_parametr(key="xp", value=exp_num, user_name=userNameSession)
         return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
 
     if course == "Кибербезопасность" and "Кибербезопасность" not in set_end_courses:
         courses.remove("Кибербезопасность")
         courses = str(courses)
 
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (courses, userNameSession),
-        )
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
+        db.update_one_parametr(
+            key="user_courses", value=courses, user_name=userNameSession
+        ),
         set_end_courses.add("Кибербезопасность")
         set_end_courses = str(set_end_courses)
 
-        cursor.execute(
-            """UPDATE users SET user_certific = %s WHERE user_name = %s""",
-            (set_end_courses, userNameSession),
-        )
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
+        db.update_one_parametr(
+            key="user_certific", value=set_end_courses, user_name=userNameSession
+        ),
         exp_num += 1000
-        cursor.execute(
-            """UPDATE users SET xp = %s WHERE user_name = %s""",
-            (exp_num, userNameSession),
-        )
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
+        db.update_one_parametr(key="xp", value=exp_num, user_name=userNameSession)
         return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
 
     if course == "Data_science" and "Data science" not in set_end_courses:
@@ -585,258 +405,99 @@ def end_user_course(request, course):
         courses.remove("Data science")
         courses = str(courses)
 
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (courses, userNameSession),
-        )
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
+        db.update_one_parametr(
+            key="user_courses", value=courses, user_name=userNameSession
+        ),
         set_end_courses.add("Data science")
         set_end_courses = str(set_end_courses)
 
-        cursor.execute(
-            """UPDATE users SET user_certific = %s WHERE user_name = %s""",
-            (set_end_courses, userNameSession),
-        )
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
+        db.update_one_parametr(
+            key="user_certific", value=set_end_courses, user_name=userNameSession
+        ),
         exp_num += 1000
-        cursor.execute(
-            """UPDATE users SET xp = %s WHERE user_name = %s""",
-            (exp_num, userNameSession),
-        )
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
+        db.update_one_parametr(key="xp", value=exp_num, user_name=userNameSession)
         return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
 
     if course == "Финансовый_анализ" and "Финансовый анализ" not in set_end_courses:
         courses.remove("Финансовый анализ")
         courses = str(courses)
 
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (courses, userNameSession),
-        )
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
+        db.update_one_parametr(
+            key="user_courses", value=courses, user_name=userNameSession
+        ),
         set_end_courses.add("Финансовый анализ")
         set_end_courses = str(set_end_courses)
 
-        cursor.execute(
-            """UPDATE users SET user_certific = %s WHERE user_name = %s""",
-            (set_end_courses, userNameSession),
-        )
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
+        db.update_one_parametr(
+            key="user_certific", value=set_end_courses, user_name=userNameSession
+        ),
         exp_num += 1000
-        cursor.execute(
-            """UPDATE users SET xp = %s WHERE user_name = %s""",
-            (exp_num, userNameSession),
-        )
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
+        db.update_one_parametr(key="xp", value=exp_num, user_name=userNameSession)
         return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
     if course == "Frontend" and "Frontend разработка" not in set_end_courses:
         courses.remove("Frontend разработка")
         courses = str(courses)
 
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (courses, userNameSession),
-        )
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
+        db.update_one_parametr(userNameSession, "user_courses", courses)
         set_end_courses.add("Frontend разработка")
         set_end_courses = str(set_end_courses)
 
-        cursor.execute(
-            """UPDATE users SET user_certific = %s WHERE user_name = %s""",
-            (set_end_courses, userNameSession),
-        )
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
+        db.update_one_parametr(
+            key="user_certific", value=set_end_courses, user_name=userNameSession
+        ),
         exp_num += 1000
-        cursor.execute(
-            """UPDATE users SET xp = %s WHERE user_name = %s""",
-            (exp_num, userNameSession),
-        )
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
+        db.update_one_parametr(key="xp", value=exp_num, user_name=userNameSession)
         return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
 
     if course == "IOS_разработчик" and "IOS разработчик" not in set_end_courses:
         courses.remove("IOS разработчик")
         courses = str(courses)
 
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (courses, userNameSession),
-        )
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
+        db.update_one_parametr(
+            key="user_courses", value=courses, user_name=userNameSession
+        ),
         set_end_courses.add("IOS разработчик")
         set_end_courses = str(set_end_courses)
 
-        cursor.execute(
-            """UPDATE users SET user_certific = %s WHERE user_name = %s""",
-            (set_end_courses, userNameSession),
-        )
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
+        db.update_one_parametr(
+            key="user_certific", value=set_end_courses, user_name=userNameSession
+        ),
         exp_num += 1000
-        cursor.execute(
-            """UPDATE users SET xp = %s WHERE user_name = %s""",
-            (exp_num, userNameSession),
-        )
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
+        db.update_one_parametr(key="xp", value=exp_num, user_name=userNameSession)
         return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
 
     if course == "SQL" and "SQL" not in set_end_courses:
         courses.remove("SQL")
         courses = str(courses)
 
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (courses, userNameSession),
-        )
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
+        db.update_one_parametr(
+            key="user_courses", value=courses, user_name=userNameSession
+        ),
         set_end_courses.add("SQL")
         set_end_courses = str(set_end_courses)
 
-        cursor.execute(
-            """UPDATE users SET user_certific = %s WHERE user_name = %s""",
-            (set_end_courses, userNameSession),
-        )
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
+        db.update_one_parametr(
+            key="user_certific", value=set_end_courses, user_name=userNameSession
+        ),
         exp_num += 1000
-        cursor.execute(
-            """UPDATE users SET xp = %s WHERE user_name = %s""",
-            (exp_num, userNameSession),
-        )
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
+        db.update_one_parametr(key="xp", value=exp_num, user_name=userNameSession)
         return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
 
     if course == "UX/UI_дизайн" and "UX/UI дизайн" not in set_end_courses:
         courses.remove("UX/UI дизайн")
         courses = str(courses)
 
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (courses, userNameSession),
-        )
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
+        db.update_one_parametr(
+            key="user_courses", value=courses, user_name=userNameSession
+        ),
         set_end_courses.add("UX/UI дизайн")
         set_end_courses = str(set_end_courses)
 
-        cursor.execute(
-            """UPDATE users SET user_certific = %s WHERE user_name = %s""",
-            (set_end_courses, userNameSession),
-        )
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
+        db.update_one_parametr(
+            key="user_certific", value=set_end_courses, user_name=userNameSession
+        ),
         exp_num += 1000
-        cursor.execute(
-            """UPDATE users SET xp = %s WHERE user_name = %s""",
-            (exp_num, userNameSession),
-        )
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
+        db.update_one_parametr(key="xp", value=exp_num, user_name=userNameSession)
         return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
     else:
         u_excp = "Произошла какая-то ошибка. Попробуйте позже."
@@ -850,52 +511,27 @@ def send_user_courses(request, course):
     userNameSession = request.session.get("userName")
 
     # Получаем тему пользователя
-    conn = psycopg2.connect(
-        dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-    )
-    cursor = conn.cursor()
+    u_theme = db.get_one(userNameSession, "user_theme")
 
-    cursor.execute(
-        """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession,)
-    )
-
-    conn.commit()
-
-    u_theme = cursor.fetchone()[0] or "theme1"
     print(u_theme)
-    cursor.close()
-    conn.close()
+    if u_theme is None:
+        u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
 
     # Получаем действующие курс
-    conn = psycopg2.connect(
-        dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-    )
-    cursor = conn.cursor()
-
-    cursor.execute(
-        """SELECT user_courses FROM users WHERE user_name = %s""", (userNameSession,)
-    )
-
-    conn.commit()
-
-    courses = cursor.fetchone()[0]
+    courses = db.get_one(userNameSession, "user_courses")
     print(courses)
     if courses:
-        courses = eval(courses)
+        courses = eval(courses[0])
     else:
         courses = {}
     course_set = set()
 
     course_set.update(courses)
-    cursor.close()
-    conn.close()
 
     print("User courses from db:", course_set)
 
-    conn = psycopg2.connect(
-        dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-    )
-    cursor = conn.cursor()
     # Если пользователь нажмет на кнопку 'начать курс' то он переходит в эти условия
     # В зависимости от кнопки пользователю добавляется определенный курс в бд
     if course == "UX_UI_дизайн":
@@ -904,15 +540,9 @@ def send_user_courses(request, course):
         # Переводим в str для бд
         # Потому что в postgres тип данных этого столбца text
         course_set = str(course_set)
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (course_set, userNameSession),
+        db.update_one_parametr(
+            user_name=userNameSession, value=course_set, key="user_courses"
         )
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
         # Переносим юзера на страницу с курсом
         return render(
             request, "study_courses_page/study_courses_ux_ui.html", {"u_theme": u_theme}
@@ -921,15 +551,9 @@ def send_user_courses(request, course):
     if course == "Backend":
         course_set.add("Backend разработка")
         course_set = str(course_set)
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (course_set, userNameSession),
+        db.update_one_parametr(
+            user_name=userNameSession, value=course_set, key="user_courses"
         )
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
         return render(
             request,
             "study_courses_page\study_courses_Backend.html",
@@ -939,15 +563,9 @@ def send_user_courses(request, course):
     if course == "Blockchain_и_криптовалюты":
         course_set.add("Blockchain и криптовалюты")
         course_set = str(course_set)
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (course_set, userNameSession),
+        db.update_one_parametr(
+            user_name=userNameSession, value=course_set, key="user_courses"
         )
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
 
         return render(
             request,
@@ -958,15 +576,9 @@ def send_user_courses(request, course):
     if course == "Цифровой_маркетинг":
         course_set.add("Цифровой маркетинг")
         course_set = str(course_set)
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (course_set, userNameSession),
+        db.update_one_parametr(
+            user_name=userNameSession, value=course_set, key="user_courses"
         )
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
 
         return render(
             request,
@@ -977,17 +589,10 @@ def send_user_courses(request, course):
     if course == "Кибербезопасность":
         course_set.add("Кибербезопасность")
         course_set = str(course_set)
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (course_set, userNameSession),
+        db.update_one_parametr(
+            user_name=userNameSession, value=course_set, key="user_courses"
         )
 
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-
-        conn.close()
         return render(
             request,
             "study_courses_page\study_courses_CyberS.html",
@@ -997,15 +602,9 @@ def send_user_courses(request, course):
     if course == "Data_science":
         course_set.add("Data science")
         course_set = str(course_set)
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (course_set, userNameSession),
+        db.update_one_parametr(
+            user_name=userNameSession, value=course_set, key="user_courses"
         )
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
 
         return render(
             request,
@@ -1016,15 +615,9 @@ def send_user_courses(request, course):
     if course == "Финансовый_анализ":
         course_set.add("Финансовый анализ")
         course_set = str(course_set)
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (course_set, userNameSession),
+        db.update_one_parametr(
+            user_name=userNameSession, value=course_set, key="user_courses"
         )
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
 
         return render(
             request,
@@ -1035,15 +628,9 @@ def send_user_courses(request, course):
     if course == "Frontend":
         course_set.add("Frontend разработка")
         course_set = str(course_set)
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (course_set, userNameSession),
+        db.update_one_parametr(
+            user_name=userNameSession, value=course_set, key="user_courses"
         )
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
 
         return render(
             request, "study_courses_page/study_Frontend.html", {"u_theme": u_theme}
@@ -1052,14 +639,9 @@ def send_user_courses(request, course):
     if course == "IOS_разработчик":
         course_set.add("IOS разработчик")
         course_set = str(course_set)
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (course_set, userNameSession),
+        db.update_one_parametr(
+            user_name=userNameSession, value=course_set, key="user_courses"
         )
-
-        conn.commit()
-        cursor.close()
-        conn.close()
 
         return render(
             request,
@@ -1070,15 +652,9 @@ def send_user_courses(request, course):
     if course == "SQL":
         course_set.add("SQL")
         course_set = str(course_set)
-        cursor.execute(
-            """UPDATE users SET user_courses = %s WHERE user_name = %s""",
-            (course_set, userNameSession),
+        db.update_one_parametr(
+            user_name=userNameSession, value=course_set, key="user_courses"
         )
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
 
         return render(
             request, "study_courses_page/study_courses_Sql.html", {"u_theme": u_theme}
@@ -1092,35 +668,18 @@ def User_page(request):
     userNameSession = request.session.get("userName")
 
     # ...Подтверждение pro у пользователя
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
 
-    dataPRO = (userNameSession, True)
-    cursor.execute("""SELECT 1 FROM users WHERE user_name = %s AND pro = %s""", dataPRO)
+    # maxz2024: Получай значение pro и проверяй когда выдаешь данные
 
-    conn.commit()
-
-    pro = cursor.fetchone()
-    cursor.close()
-    conn.close()
+    pro = db.get_one(userNameSession, "pro")
 
     # ...Вывод url фото пользователя
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
+    res_img = db.get_one(user_name=userNameSession, parametr="photo_url")
 
-    cursor.execute(
-        """SELECT photo_url FROM users WHERE user_name = %s""", (userNameSession,)
-    )
-
-    conn.commit()
     img_src = "https://brend-mebel.ru/image/no_image.jpg"
-    res_img = cursor.fetchone()[0]
     print(res_img, "res_img")
     if res_img:
-        img_src = res_img
-
-    cursor.close()
-    conn.close()
+        img_src = res_img[0]
 
     # ...Вывод описания профиля
     func_desc = take_desc(userNameSession)
@@ -1130,93 +689,49 @@ def User_page(request):
         func_desc = "Hello world!"
 
     # ...Вывод курсов пользователя
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-    cursor.execute(
-        """SELECT user_courses FROM users WHERE user_name = %s""", (userNameSession,)
-    )
-    conn.commit()
-
-    user_courses = cursor.fetchone()[0]
+    user_courses = db.get_one(userNameSession, "user_courses")
 
     print(user_courses)
     if user_courses:
-        user_courses = eval(user_courses)
+        user_courses = eval(user_courses[0])
     print(user_courses)
 
-    cursor.close()
-    conn.close()
-
     # ...Вывод сертефикатов пользователя
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
 
-    cursor.execute(
-        """SELECT user_certific FROM users WHERE user_name = %s""", (userNameSession,)
-    )
-    conn.commit()
-
-    user_certific = cursor.fetchone()[0]
+    user_certific = db.get_one(userNameSession, "user_sertific")
 
     if user_certific:
-        user_certific = eval(user_certific)
+        user_certific = eval(user_certific[0])
     print(".............", user_certific)
-    cursor.close()
-    conn.close()
 
     # ...Вывод и изменение темы сайта
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
 
-    cursor.execute(
-        """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession,)
-    )
-
-    conn.commit()
-
-    u_theme = cursor.fetchone()[0]
+    u_theme = db.get_one(userNameSession, "user_theme")
     print("u.............", u_theme)
-    cursor.close()
-    conn.close()
+    # maxz2024: добавил, не было проверки
+    if u_theme is None:
+        u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
 
     # ...Вывод xp пользователя
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
 
-    cursor.execute("""SELECT xp FROM users WHERE user_name = %s""", (userNameSession,))
-
-    conn.commit()
-
-    exp = cursor.fetchone()[0]
+    exp = db.get_one(userNameSession, "xp")
 
     xp = 0
     if exp:
-        xp = exp
-
-    cursor.close()
-    conn.close()
+        xp = exp[0]
 
     # ...Вывод данных об достижениеях/ачивках
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
 
-    cursor.execute(
-        """SELECT user_achiv FROM users WHERE user_name = %s""", (userNameSession,)
-    )
-    conn.commit()
-
-    user_achievments = cursor.fetchone()[0]
+    user_achievments = db.get_one(userNameSession, "user_achiv")
 
     if user_achievments:
-        user_achievments = eval(user_achievments)
+        user_achievments = eval(user_achievments[0])
     else:
         user_achievments = set()
-    cursor.close()
-    conn.close()
 
     # ...Добавление в бд ачивки
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
     if user_certific:
         if len(user_certific) == 1:
             user_achievments.add("Начало путешествия")
@@ -1229,16 +744,9 @@ def User_page(request):
     # Преобразование данных перед вставкой в html
     user_achievments = str(user_achievments)
 
-    cursor.execute(
-        """UPDATE users SET user_achiv = %s 
-        WHERE user_name = %s""",
-        (user_achievments, userNameSession),
+    db.update_one_parametr(
+        key="user_achiv", value=user_achievments, user_name=userNameSession
     )
-
-    conn.commit()
-
-    cursor.close()
-    conn.close()
 
     user_achievments = eval(user_achievments)
 
@@ -1300,6 +808,25 @@ def User_page(request):
         }
         return render(request, "user_room.html", context=data)
 
+    # maxz2024: Теоретически можно попробовать так:
+    # data = {
+    #         "userName": userNameSession,
+    #         "add": False,
+    #         "img_src": "https://uhd.name/uploads/posts/2023-03/1678237559_uhd-name-p-kris-massolia-vkontakte-95.jpg",
+    #         "courses": user_courses,
+    #         "user_certific": user_certific,
+    #         "xp": xp,
+    #         "user_achievments": user_achievments,
+    #         "u_theme": u_theme,
+    #     }
+    # if pro:
+    #     data["add"] = True
+
+    # if func_desc:
+    #     data["desc"] = func_desc
+
+    # return render(request, "user_room.html", context=data)
+
 
 def Auth(request):
     """Страница аутентификации"""
@@ -1310,17 +837,9 @@ def Auth(request):
         userPassword = request.POST.get("_password")
         # Добавление в сессию ник юзера
         request.session["userName"] = userName
+        # Вывод none если юзер есть в бд
+        result = db.get_one(userName, "id")
 
-        conn = psycopg2.connect(**security_db)
-        cursor = conn.cursor()
-        # Вывод 1 если юзер есть в бд
-        cursor.execute(
-            "SELECT 1 FROM users WHERE user_name = %s AND user_passw = %s",
-            (userName, userPassword),
-        )
-        result = cursor.fetchone()
-
-        conn.close()
         # Если пользователь в бд, то переходим на главную страницу для авторизованных
         if result:
             return HttpResponseRedirect("http://127.0.0.1:8000/Главная_страница./")
@@ -1367,24 +886,9 @@ def conf_to_reg(request):
                 userEmail = userform.cleaned_data["user_email_"]
                 userPassw = userform.cleaned_data["password_"]
                 print(userName, userEmail, userPassw)
-
-                conn = psycopg2.connect(
-                    dbname="LFtB",
-                    user="postgres",
-                    password="31415926",
-                    host="127.0.0.1",
-                )
-                cursor = conn.cursor()
                 print("Входим в проверку на дубликат")
-                cursor.execute(
-                    """SELECT COUNT(user_email) FROM users WHERE user_email = %s;""",
-                    (userEmail,),
-                )
-                conn.commit()
-                res = cursor.fetchone()
+                res = db.check_repeat_email(userEmail)
                 print("All commit good!!!!!!!!")
-                cursor.close()
-                conn.close()
                 print("выходим")
 
                 if res[0] >= 1:
@@ -1429,14 +933,6 @@ def confirm(request):
                 request.session["userName"] = userNameSession
                 print("Пароль подошел!")
 
-                conn = psycopg2.connect(
-                    dbname="LFtB",
-                    user="postgres",
-                    password="31415926",
-                    host="127.0.0.1",
-                )
-                cursor = conn.cursor()
-
                 datatodb = (
                     userNameSession,
                     userEmailSession,
@@ -1445,19 +941,9 @@ def confirm(request):
                     False,
                 )
                 # Вставляем в бд данные юзера
-                cursor.execute(
-                    """
-                    INSERT INTO users (user_name, user_email, user_passw, xp, pro)
-                        VALUES(%s, %s, %s, %s, %s)
-                """,
-                    datatodb,
-                )
-                # поддверждаем транзакцию
-                conn.commit()
+                db.add(data=datatodb)
                 print("All commit good!!!!!!!!")
 
-                cursor.close()
-                conn.close()
                 return HttpResponseRedirect("http://127.0.0.1:8000/Главная_страница./")
             else:
                 print("Пароль не подошел!(")
@@ -1477,25 +963,13 @@ def main_b_a(request):
 
         userNameSession = request.session.get("userName")
 
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
-
-        cursor.execute(
-            """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession,)
-        )
-
-        conn.commit()
-
-        u_theme = cursor.fetchone()
+        u_theme = db.get_one(userNameSession, "user_theme")
         print(u_theme)
-        if u_theme[0] is None:
+        if u_theme is None:
             u_theme = "theme1"
         else:
             u_theme = u_theme[0]
-        cursor.close()
-        conn.close()
+
         data = {"forms": use, "userName": userNameSession, "u_theme": u_theme}
         if request.method == "POST":
             if use.is_valid():
@@ -1514,27 +988,12 @@ def catalog(request):
     userNameSession = request.session.get("userName")
     if userNameSession:
         try:
-            conn = psycopg2.connect(
-                dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-            )
-            cursor = conn.cursor()
-
-            cursor.execute(
-                """SELECT user_theme FROM users WHERE user_name = %s""",
-                (userNameSession,),
-            )
-
-            conn.commit()
-
-            u_theme = cursor.fetchone()[0]
-            print("Theme", u_theme)
+            u_theme = db.get_one(userNameSession, "user_theme")
+            print(u_theme)
             if u_theme is None:
                 u_theme = "theme1"
             else:
-                u_theme = u_theme
-
-            cursor.close()
-            conn.close()
+                u_theme = u_theme[0]
 
             return render(
                 request,
@@ -1560,21 +1019,12 @@ def catalog_Frontend(request):
     try:
         userNameSession = request.session.get("userName")
 
-        conn = psycopg2.connect(**security_db)
-        cursor = conn.cursor()
-
-        cursor.execute(
-            """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession,)
-        )
-        conn.commit()
-
-        u_theme = cursor.fetchone()[0]
+        u_theme = db.get_one(userNameSession, "user_theme")
+        print(u_theme)
         if u_theme is None:
             u_theme = "theme1"
-
-        print(u_theme)
-        cursor.close()
-        conn.close()
+        else:
+            u_theme = u_theme[0]
 
         return render(
             request,
@@ -1595,33 +1045,14 @@ def catalog_Frontend(request):
 def catalog_Cyber_security(request):
     """Страница Кибербезопасности"""
     username = request.session.get("userName")
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute("""SELECT user_theme FROM users WHERE user_name = %s""", (username,))
-    conn.commit()
-
-    u_theme = cursor.fetchone()[0]
+    u_theme = db.get_one(username, "user_theme")
+    print(u_theme)
     if u_theme is None:
         u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
 
-    cursor.close()
-    conn.close()
-    conn = psycopg2.connect(
-        dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-    )
-    cursor = conn.cursor()
-
-    cursor.execute(
-        "SELECT 1 FROM users WHERE user_name = %s and pro = true", (username,)
-    )
-
-    conn.commit()
-
-    result = cursor.fetchone()
-
-    cursor.close()
-    conn.close()
+    result = db.get(username, "pro")
 
     print(result)
     if result is not None:
@@ -1637,31 +1068,15 @@ def catalog_Cyber_security(request):
 def catalog_Backend(request):
     """Страница Backend"""
     username = request.session.get("userName")
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute("""SELECT user_theme FROM users WHERE user_name = %s""", (username,))
-    conn.commit()
-
-    u_theme = cursor.fetchone()[0]
+    u_theme = db.get_one(username, "user_theme")
+    print(u_theme)
     if u_theme is None:
         u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
 
-    cursor.close()
-    conn.close()
-    conn = psycopg2.connect(
-        dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-    )
-    cursor = conn.cursor()
-    cursor.execute(
-        "SELECT 1 FROM users WHERE user_name = %s and pro = true", (username,)
-    )
-
-    conn.commit()
-    result = cursor.fetchone()
-    cursor.close()
-    conn.close()
-
+    result = db.get(username, "pro")
+    print(result)
     if result:
         return render(
             request, r"all_courses/Cbackend.html", context={"u_theme": u_theme}
@@ -1675,66 +1090,30 @@ def catalog_Backend(request):
 def catalog_Cifra_marketing(request):
     """Страница Цифрового маркетинга"""
     username = request.session.get("userName")
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute("""SELECT user_theme FROM users WHERE user_name = %s""", (username,))
-    conn.commit()
-
-    u_theme = cursor.fetchone()[0]
-    print("Theme", u_theme)
+    u_theme = db.get_one(username, "user_theme")
+    print(u_theme)
     if u_theme is None:
         u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
 
-    cursor.close()
-    conn.close()
-    conn = psycopg2.connect(
-        dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-    )
-    cursor = conn.cursor()
-    cursor.execute(
-        "SELECT 1 FROM users WHERE user_name = %s and pro = true", (username,)
-    )
-
-    conn.commit()
-    result = cursor.fetchone()
-    cursor.close()
-    conn.close()
+    result = db.get(username, "pro")
 
     print(result)
-
     return render(request, r"all_courses/Ccm.html", context={"u_theme": u_theme})
 
 
 def catalog_Data_scince(request):
     """Страница Data science"""
     username = request.session.get("userName")
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute("""SELECT user_theme FROM users WHERE user_name = %s""", (username,))
-    conn.commit()
-
-    u_theme = cursor.fetchone()[0]
-    print("Theme", u_theme)
+    u_theme = db.get_one(username, "user_theme")
+    print(u_theme)
     if u_theme is None:
         u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
 
-    cursor.close()
-    conn.close()
-
-    conn = psycopg2.connect(
-        dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-    )
-    cursor = conn.cursor()
-    cursor.execute(
-        "SELECT 1 FROM users WHERE user_name = %s and pro = true", (username,)
-    )
-
-    conn.commit()
-    result = cursor.fetchone()
-    cursor.close()
-    conn.close()
+    result = db.get(username, "pro")
 
     if result:
         return render(
@@ -1749,53 +1128,27 @@ def catalog_Data_scince(request):
 def catalog_Fin_analitic(request):
     """Страница Финансовой аналитики"""
     username = request.session.get("userName")
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute("""SELECT user_theme FROM users WHERE user_name = %s""", (username,))
-    conn.commit()
-
-    u_theme = cursor.fetchone()[0]
-    print("Theme", u_theme)
+    u_theme = db.get_one(username, "user_theme")
+    print(u_theme)
     if u_theme is None:
         u_theme = "theme1"
-
-    cursor.close()
-    conn.close()
+    else:
+        u_theme = u_theme[0]
 
     return render(request, r"all_courses/Cfa.html", context={"u_theme": u_theme})
 
 
 def catalog_IOS(request):
     """Страница IOS"""
-    """ Страница Data science """
     username = request.session.get("userName")
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute("""SELECT user_theme FROM users WHERE user_name = %s""", (username,))
-    conn.commit()
-
-    u_theme = cursor.fetchone()[0]
-    print("Theme", u_theme)
+    u_theme = db.get_one(username, "user_theme")
+    print(u_theme)
     if u_theme is None:
         u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
 
-    cursor.close()
-    conn.close()
-
-    conn = psycopg2.connect(
-        dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-    )
-    cursor = conn.cursor()
-    cursor.execute(
-        "SELECT 1 FROM users WHERE user_name = %s and pro = true", (username,)
-    )
-
-    conn.commit()
-    result = cursor.fetchone()
-    cursor.close()
-    conn.close()
+    result = db.get(username, "pro")
 
     if result:
         return render(request, r"all_courses/Cios.html", context={"u_theme": u_theme})
@@ -1807,30 +1160,14 @@ def catalog_IOS(request):
 def catalog_SQL(request):
     """Страница SQL"""
     username = request.session.get("userName")
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute("""SELECT user_theme FROM users WHERE user_name = %s""", (username,))
-    conn.commit()
-
-    u_theme = cursor.fetchone()[0]
-    print("Theme", u_theme)
+    u_theme = db.get_one(username, "user_theme")
+    print(u_theme)
     if u_theme is None:
         u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
 
-    cursor.close()
-    conn.close()
-
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-    cursor.execute(
-        "SELECT 1 FROM users WHERE user_name = %s and pro = true", (username,)
-    )
-
-    conn.commit()
-    result = cursor.fetchone()
-    cursor.close()
-    conn.close()
+    result = db.get(username, "pro")
     print(result)
 
     return render(request, r"all_courses/Csql.html", context={"u_theme": u_theme})
@@ -1839,20 +1176,12 @@ def catalog_SQL(request):
 def catalog_UX(request):
     """Страница UX/UI"""
     username = request.session.get("userName")
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute("""SELECT user_theme FROM users WHERE user_name = %s""", (username,))
-    conn.commit()
-
-    u_theme = cursor.fetchone()
+    u_theme = db.get_one(username, "user_theme")
     print(u_theme)
     if u_theme is None:
         u_theme = "theme1"
     else:
         u_theme = u_theme[0]
-    cursor.close()
-    conn.close()
 
     return render(request, r"all_courses/CuxUi.html", context={"u_theme": u_theme})
 
@@ -1860,35 +1189,14 @@ def catalog_UX(request):
 def catalog_Blockchain(request):
     """Страница Блокчейна"""
     username = request.session.get("userName")
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute("""SELECT user_theme FROM users WHERE user_name = %s""", (username,))
-    conn.commit()
-
-    u_theme = cursor.fetchone()
+    u_theme = db.get_one(username, "user_theme")
     print(u_theme)
     if u_theme is None:
         u_theme = "theme1"
     else:
         u_theme = u_theme[0]
-    cursor.close()
-    conn.close()
 
-    username = request.session.get("userName")
-    conn = psycopg2.connect(
-        dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-    )
-    cursor = conn.cursor()
-
-    cursor.execute(
-        "SELECT 1 FROM users WHERE user_name = %s and pro = true", (username,)
-    )
-
-    conn.commit()
-    result = cursor.fetchone()
-    cursor.close()
-    conn.close()
+    result = db.get(username, "pro")
 
     if result:
         return render(request, r"all_courses/Cbc.html", context={"u_theme": u_theme})
@@ -1901,25 +1209,14 @@ def pro(request):
     try:
         userNameSession = request.session.get("userName")
 
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
-
-        cursor.execute(
-            """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession,)
-        )
-
-        conn.commit()
-
-        u_theme = cursor.fetchone()[0]
+        u_theme = db.get_one(userNameSession, "user_theme")
         print(u_theme)
         if u_theme is None:
             u_theme = "theme1"
         else:
-            u_theme = u_theme
-        cursor.close()
-        conn.close()
+            u_theme = u_theme[0]
+
+        result = db.get(userNameSession, "pro")
 
         return render(request, "ADDpro.html", context={"u_theme": u_theme})
 
@@ -1938,26 +1235,12 @@ def quest(request):
         try:
             print(userNameSession)
 
-            conn = psycopg2.connect(
-                dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-            )
-            cursor = conn.cursor()
-
-            cursor.execute(
-                """SELECT user_theme FROM users WHERE user_name = %s""",
-                (userNameSession,),
-            )
-
-            conn.commit()
-
-            u_theme = cursor.fetchone()[0]
+            u_theme = db.get_one(userNameSession, "user_theme")
             print(u_theme)
             if u_theme is None:
                 u_theme = "theme1"
             else:
-                u_theme = u_theme
-            cursor.close()
-            conn.close()
+                u_theme = u_theme[0]
 
             return render(request, "quest.html", context={"u_theme": u_theme})
         except Exception as e:
@@ -1974,18 +1257,12 @@ def theme(request):
 
     userNameSession = request.session.get("userName")
 
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute(
-        """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession,)
-    )
-    conn.commit()
-
-    u_theme = cursor.fetchone()[0] or "theme1"
+    u_theme = db.get_one(userNameSession, "user_theme")
     print(u_theme)
-    cursor.close()
-    conn.close()
+    if u_theme is None:
+        u_theme = "theme1"
+    else:
+        u_theme = u_theme[0]
 
     st = select_theme()
     if request.method == "POST":
@@ -1994,40 +1271,9 @@ def theme(request):
         user_photo = request.POST.get("user_photo_url")
         user_theme = request.POST.get("user_theme")
 
-        conn = psycopg2.connect(
-            dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1"
-        )
-        cursor = conn.cursor()
-        conn.set_client_encoding("UTF8")
-        # Если пользователь изменит хотя бы один параметр, то изменения уйдут в бд
-        if user_name:
-            cursor.execute(
-                "UPDATE users SET user_name = %s WHERE user_name = %s",
-                (user_name, userNameSession),
-            )
-
-            request.session["userName"] = user_name
-        if user_desc:
-            print(user_desc)
-            cursor.execute(
-                "UPDATE users SET user_desc = %s WHERE user_name = %s",
-                (user_desc, userNameSession),
-            )
-        if user_photo:
-            cursor.execute(
-                "UPDATE users SET photo_url = %s WHERE user_name = %s",
-                (user_photo, userNameSession),
-            )
-            print("changes photo")
-        if user_theme:
-            cursor.execute(
-                "UPDATE users SET user_theme = %s WHERE user_name = %s",
-                (user_theme, userNameSession),
-            )
-        conn.commit()
-
-        cursor.close()
-        conn.close()
+        request.session["userName"] = user_name
+        
+        db.update_all_parametr(userNameSession, {"user_name":user_name, "user_desc":user_desc, "photo_url": user_photo, "user_theme": user_theme})
 
         return HttpResponseRedirect("http://127.0.0.1:8000/Главная_страница./Профиль/")
 
@@ -2046,17 +1292,8 @@ def test(request):
 
 def take_desc(username):
     """Получить описание пользователя из бд"""
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT user_desc FROM users WHERE user_name = %s", (username,))
-
-    result = cursor.fetchone()[0]
+    result = db.get_one(user_name=username,parametr="users_desc")
     print(result, "desc_res")
-
-    cursor.close()
-    conn.close()
-
     return result
 
 

@@ -6,7 +6,7 @@ from sites.utils import config
 
 def create_db():
     """Создание бд"""
-    
+
     # Подключение к существующей базе данных
     security_db = config.read()
     connection = psycopg2.connect(**security_db)
@@ -16,9 +16,10 @@ def create_db():
         cursor = connection.cursor()
         sql_create_database = f"create database Lftb"
         cursor.execute(sql_create_database)
-        config.update("dbname","lftb")
+        config.update("dbname", "lftb")
     except (Exception, Error) as error:
         print("Ошибка при работе с PostgreSQL", error)
+        return False
     finally:
         if connection:
             cursor.close()
@@ -28,7 +29,7 @@ def create_db():
 
 def create_table():
     """Создание таблицы"""
-    
+
     # Подключение к существующей базе данных
     security_db = config.read()
     connection = psycopg2.connect(**security_db)
@@ -57,28 +58,128 @@ def create_table():
         )
     except (Exception, Error) as error:
         print("Ошибка при работе с PostgreSQL", error)
+        return False
     finally:
         if connection:
             cursor.close()
             connection.close()
-            # print("Соединение с PostgreSQL закрыто")
 
 
-def get(user_name, parametr):
+def get_one(user_name, parametr):
+    """Получение данных из бд, одной записи"""
+
     # Подключение к существующей базе данных
     security_db = config.read()
     connection = psycopg2.connect(**security_db)
     try:
-        # Авто коммит 
+        # Авто коммит
         connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
         # Курсор для выполнения операций с базой данных
         cursor = connection.cursor()
-        cursor.execute(f"""SELECT {parametr} FROM users WHERE user_name = '{user_name}'""")
-        user = cursor.fetchone()
+        cursor.execute(
+            f"""SELECT {parametr} FROM users WHERE user_name = '{user_name}'"""
+        )
+        result = cursor.fetchone()
         # Закрытие курсора
         cursor.close()
         connection.close()
-        return user
+        return result
     except (Exception, Error) as error:
         print("Ошибка при работе с PostgreSQL", error)
+        return False
+
+
+def check_repeat_email(user_email):
+    """Проверка повтора почты"""
+
+    # Подключение к существующей базе данных
+    security_db = config.read()
+    connection = psycopg2.connect(**security_db)
+    try:
+        # Авто коммит
+        connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+        # Курсор для выполнения операций с базой данных
+        cursor = connection.cursor()
+        cursor.execute(
+            """SELECT COUNT(user_email) FROM users WHERE user_email = %s;""",
+            (user_email,),
+        )
+        result = cursor.fetchone()
+        # Закрытие курсора
+        cursor.close()
+        connection.close()
+        return result
+    except (Exception, Error) as error:
+        print("Ошибка при работе с PostgreSQL", error)
+        return False
+
+
+def update_one_parametr(user_name, key, value):
+    """Обновление данных по одному параметру"""
+
+    # Подключение к существующей базе данных
+    security_db = config.read()
+    connection = psycopg2.connect(**security_db)
+    connection.set_client_encoding("UTF8")
+    try:
+        # Авто коммит
+        connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+        # Курсор для выполнения операций с базой данных
+        cursor = connection.cursor()
+        cursor.execute(
+            f"""UPDATE users SET {key} = '{value}' WHERE user_name = '{user_name}'"""
+        )
+        # Закрытие курсора
+        cursor.close()
+        connection.close()
+    except (Exception, Error) as error:
+        print("Ошибка при работе с PostgreSQL", error)
+        return False
     
+def update_all_parametr(user_name, data):
+    """Обновление данных всех параметров"""
+
+    # Подключение к существующей базе данных
+    security_db = config.read()
+    connection = psycopg2.connect(**security_db)
+    connection.set_client_encoding("UTF8")
+    try:
+        # Авто коммит
+        connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+        # Курсор для выполнения операций с базой данных
+        cursor = connection.cursor()
+        for key,value in data:
+            cursor.execute(
+                f"""UPDATE users SET {key} = '{value}' WHERE user_name = {user_name}"""
+            )
+        # Закрытие курсора
+        cursor.close()
+        connection.close()
+    except (Exception, Error) as error:
+        print("Ошибка при работе с PostgreSQL", error)
+        return False
+
+
+def add(data):
+    # Подключение к существующей базе данных
+    security_db = config.read()
+    connection = psycopg2.connect(**security_db)
+    connection.set_client_encoding("UTF8")
+    try:
+        # Авто коммит
+        connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+        # Курсор для выполнения операций с базой данных
+        cursor = connection.cursor()
+        cursor.execute(
+            """
+                INSERT INTO users (user_name, user_email, user_passw, xp, pro)
+                    VALUES(%s, %s, %s, %s, %s)""",
+            data,
+        )
+        # Закрытие курсора
+        cursor.close()
+
+        connection.close()
+    except (Exception, Error) as error:
+        print("Ошибка при работе с PostgreSQL", error)
+        return False
