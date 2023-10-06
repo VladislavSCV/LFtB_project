@@ -59,6 +59,8 @@ def create_table():
 
     conn = psycopg2.connect(**security_db)
     cursor = conn.cursor()
+    cursor.execute("CREATE SEQUENCE users_id_seq")
+    conn.commit()
     cursor.execute(
         """CREATE TABLE IF NOT EXISTS public.users
 (
@@ -77,3 +79,5 @@ def create_table():
     PRIMARY KEY (id)
 )"""
     )
+    conn.commit()
+    cursor.close()
