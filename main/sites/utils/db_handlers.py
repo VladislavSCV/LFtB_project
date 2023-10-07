@@ -2,27 +2,31 @@ import psycopg2
 from psycopg2 import Error
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from sites.utils import config
+from loguru import logger
 
 
 def check_db():
     """Проверка существования базы данных"""
-    
+
     security_db = config.read()
     check_security_db = security_db
-    
+
     if not check_security_db.get("dbname"):
         check_security_db["dbname"] = "lftb"
     try:
         connection = psycopg2.connect(**check_security_db)
-        print(f"Удачное подключение к базе данных {connection.get_dsn_parameters()['dbname']}")
+        logger.info(
+            f"Удачное подключение к базе данных {connection.get_dsn_parameters()['dbname']}"
+        )
         connection.close()
         config.update("dbname", "lftb")
     except psycopg2.OperationalError:
-        print("База данных создается.")
+        logger.debug("База данных создается.")
         create_db()
         create_table()
         check_db()
-    
+
+
 def create_db():
     """Создание бд"""
 
@@ -33,17 +37,12 @@ def create_db():
         connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
         # Курсор для выполнения операций с базой данных
         cursor = connection.cursor()
-        sql_create_database = f"create database Lftb"
-        cursor.execute(sql_create_database)
-        config.update("dbname", "lftb")
-    except (Exception, Error) as error:
-        print("Ошибка при работе с PostgreSQL", error)
-        return False
-    finally:
-        if connection:
-            cursor.close()
-            connection.close()
-            # print("Соединение с PostgreSQL закрыто")
+        cursor.execute("CREATE DATABASE lftb")
+        cursor.close()
+        connection.close()
+        logger.debug("Создана база данных lftb")
+    except (Exception, Error):
+        logger.exception("Ошибка при работе с PostgreSQL")
 
 
 def create_table():
@@ -75,13 +74,11 @@ def create_table():
         PRIMARY KEY (id)
     )"""
         )
+        cursor.close()
+        connection.close()
+        logger.debug("Таблица users создана.")
     except (Exception, Error) as error:
-        print("Ошибка при работе с PostgreSQL", error)
-        return False
-    finally:
-        if connection:
-            cursor.close()
-            connection.close()
+        logger.exception("Ошибка при работе с PostgreSQL")
 
 
 def get_one(user_name, parametr):
@@ -104,7 +101,7 @@ def get_one(user_name, parametr):
         connection.close()
         return result
     except (Exception, Error) as error:
-        print("Ошибка при работе с PostgreSQL", error)
+        logger.exception("Ошибка при работе с PostgreSQL")
         return False
 
 
@@ -129,7 +126,7 @@ def check_repeat_email(user_email):
         connection.close()
         return result
     except (Exception, Error) as error:
-        print("Ошибка при работе с PostgreSQL", error)
+        logger.exception("Ошибка при работе с PostgreSQL")
         return False
 
 
@@ -152,9 +149,10 @@ def update_one_parametr(user_name, key, value):
         cursor.close()
         connection.close()
     except (Exception, Error) as error:
-        print("Ошибка при работе с PostgreSQL", error)
+        logger.exception("Ошибка при работе с PostgreSQL")
         return False
-    
+
+
 def update_all_parametr(user_name, data):
     """Обновление данных всех параметров"""
 
@@ -167,7 +165,7 @@ def update_all_parametr(user_name, data):
         connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
         # Курсор для выполнения операций с базой данных
         cursor = connection.cursor()
-        for key,value in data:
+        for key, value in data:
             cursor.execute(
                 f"""UPDATE users SET {key} = '{value}' WHERE user_name = {user_name}"""
             )
@@ -175,7 +173,7 @@ def update_all_parametr(user_name, data):
         cursor.close()
         connection.close()
     except (Exception, Error) as error:
-        print("Ошибка при работе с PostgreSQL", error)
+        logger.exception("Ошибка при работе с PostgreSQL")
         return False
 
 
@@ -200,7 +198,5 @@ def add(data):
 
         connection.close()
     except (Exception, Error) as error:
-        print("Ошибка при работе с PostgreSQL", error)
+        logger.exception("Ошибка при работе с PostgreSQL")
         return False
-
-

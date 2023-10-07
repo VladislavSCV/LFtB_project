@@ -1,5 +1,6 @@
 """ Hello, world! This is main branch!!!"""
 # Импорты django
+from pprint import pformat
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import send_mail
@@ -18,6 +19,8 @@ import random
 
 # Либа для работы со строками
 import string
+
+from loguru import logger
 
 # Импорты форм для дальнейшего вывода пользователю
 from .forms import userFormREG, userSearchEngine, userFormAUTH, select_theme
@@ -206,7 +209,7 @@ def MainPage(request):
             return HttpResponseRedirect("http://127.0.0.1:8000/Главная_страница./")
 
     except Exception as e:
-        print(e)
+        logger.exception("")
         return render(request, "main.html", {"forms": use})
 
 
@@ -300,7 +303,7 @@ def end_user_course(request, course):
     courses_el = db.get_one(userNameSession, "user_courses")
     # Перевод курсов из str в set
     courses = eval(courses_el[0])
-    print(courses)
+    logger.debug(f"Курсы пользователя '{userNameSession}': \n{pformat(courses)}")
 
     # Получаем set законченных курсов из бд. Тип данных: str
     # Вносим законченные курсы в переменную
@@ -312,7 +315,9 @@ def end_user_course(request, course):
     else:
         set_end_courses = set()
 
-    print(set_end_courses[0])
+    logger.debug(
+        f"Курсы пользователя '{userNameSession}': \n{pformat(set_end_courses)}"
+    )
 
     if course == "Backend" and "Backend разработка" not in set_end_courses:
         # Мы удаляем его из действующих курсов
@@ -398,7 +403,7 @@ def end_user_course(request, course):
         return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
 
     if course == "Data_science" and "Data science" not in set_end_courses:
-        print("Я В DS")
+        logger.warning("Я В DS")
         courses.remove("Data science")
         courses = str(courses)
 
@@ -510,7 +515,7 @@ def send_user_courses(request, course):
     # Получаем тему пользователя
     u_theme = db.get_one(userNameSession, "user_theme")
 
-    print(u_theme)
+    logger.debug(f"Тема пользователя '{userNameSession}': \n{u_theme}")
     if u_theme is None:
         u_theme = "theme1"
     else:
@@ -518,7 +523,7 @@ def send_user_courses(request, course):
 
     # Получаем действующие курс
     courses = db.get_one(userNameSession, "user_courses")
-    print(courses)
+    logger.debug(f"Курсы пользователя '{userNameSession}': \n{pformat(courses)}")
     if courses:
         courses = eval(courses[0])
     else:
@@ -527,7 +532,7 @@ def send_user_courses(request, course):
 
     course_set.update(courses)
 
-    print("User courses from db:", course_set)
+    logger.debug(f"User {userNameSession} courses from db:", course_set)
 
     # Если пользователь нажмет на кнопку 'начать курс' то он переходит в эти условия
     # В зависимости от кнопки пользователю добавляется определенный курс в бд
@@ -674,24 +679,25 @@ def User_page(request):
     res_img = db.get_one(user_name=userNameSession, parametr="photo_url")
 
     img_src = "https://brend-mebel.ru/image/no_image.jpg"
-    print(res_img, "res_img")
+    logger.debug(f"Изображение пользователя '{userNameSession}': \n{res_img}")
+
     if res_img:
         img_src = res_img[0]
 
     # ...Вывод описания профиля
     func_desc = take_desc(userNameSession)
 
-    print(func_desc, "desc_")
+    logger.debug(f"Описание пользователя '{userNameSession}': \n{func_desc}")
     if func_desc is None:
         func_desc = "Hello world!"
 
     # ...Вывод курсов пользователя
     user_courses = db.get_one(userNameSession, "user_courses")
 
-    print(user_courses)
+    logger.debug(f"Курсы пользователя '{userNameSession}': \n{pformat(user_courses)}")
     if user_courses:
         user_courses = eval(user_courses[0])
-    print(user_courses)
+    logger.debug(f"Курсы пользователя '{userNameSession}': \n{pformat(user_courses)}")
 
     # ...Вывод сертефикатов пользователя
 
@@ -699,12 +705,13 @@ def User_page(request):
 
     if user_certific:
         user_certific = eval(user_certific[0])
-    print(".............", user_certific)
+    logger.debug(f"Сертификаты пользователя '{userNameSession}': \n{user_certific}")
 
     # ...Вывод и изменение темы сайта
 
     u_theme = db.get_one(userNameSession, "user_theme")
-    print("u.............", u_theme)
+    logger.debug(f"Тема пользователя '{userNameSession}': \n{u_theme}")
+
     # maxz2024: добавил, не было проверки
     if u_theme is None:
         u_theme = "theme1"
@@ -779,7 +786,7 @@ def User_page(request):
     else:
         if func_desc:
             # Описание профиля есть
-            print("Есть функция, без pro")
+            # print("Есть функция, без pro")
             data = {
                 "userName": userNameSession,
                 "add": False,
@@ -882,11 +889,11 @@ def conf_to_reg(request):
                 userName = userform.cleaned_data["user_name_"]
                 userEmail = userform.cleaned_data["user_email_"]
                 userPassw = userform.cleaned_data["password_"]
-                print(userName, userEmail, userPassw)
-                print("Входим в проверку на дубликат")
+                logger.debug("Получена информация: ", userName, userEmail, userPassw)
+                logger.warning("Входим в проверку на дубликат")
                 res = db.check_repeat_email(userEmail)
-                print("All commit good!!!!!!!!")
-                print("выходим")
+                # print("All commit good!!!!!!!!")
+                logger.warning("выходим")
 
                 if res[0] >= 1:
                     return render(request, "email_InDB_exception.html")
@@ -905,7 +912,7 @@ def conf_to_reg(request):
                 return render(request, "confirmTOreg.html", context=data)
 
     except Exception as exc:
-        print(f"Exception: {exc}")
+        logger.exception("")
         u_excp = "Произошла какая-то ошибка. Попробуйте позже."
         return render(request, "exception.html", context={"u_excp": u_excp})
 
@@ -924,11 +931,16 @@ def confirm(request):
             userEmailSession = request.session.get("userEmailREG")
             userPasswSession = request.session.get("userPasswREG")
 
-            print(userNameSession, userEmailSession, userPasswSession)
-            print("Начинается проверка пароля!!!!!!")
+            logger.debug(
+                "Получена информация: ",
+                userNameSession,
+                userEmailSession,
+                userPasswSession,
+            )
+            logger.warning("Начинается проверка пароля!!!!!!")
             if userEnteredCode == generatedCode:
                 request.session["userName"] = userNameSession
-                print("Пароль подошел!")
+                logger.warning("Пароль подошел!")
 
                 datatodb = (
                     userNameSession,
@@ -939,16 +951,16 @@ def confirm(request):
                 )
                 # Вставляем в бд данные юзера
                 db.add(data=datatodb)
-                print("All commit good!!!!!!!!")
+                # print("All commit good!!!!!!!!")
 
                 return HttpResponseRedirect("http://127.0.0.1:8000/Главная_страница./")
             else:
-                print("Пароль не подошел!(")
+                logger.warning("Пароль не подошел!(")
                 # Коды не совпадают, выводим ошибку
                 u_excp = "Неверный код."
                 return render(request, "exception.html", context={"u_excp": u_excp})
     except Exception as e:
-        print(e)
+        logger.exception("")
         u_excp = "Произошла какая-то ошибка. Попробуйте позже."
         return render(request, "exception.html", context={"u_excp": u_excp})
 
@@ -961,7 +973,7 @@ def main_b_a(request):
         userNameSession = request.session.get("userName")
 
         u_theme = db.get_one(userNameSession, "user_theme")
-        print(u_theme)
+        logger.debug(f"Тема пользователя '{userNameSession}': \n{u_theme}")
         if u_theme is None:
             u_theme = "theme1"
         else:
@@ -976,7 +988,7 @@ def main_b_a(request):
 
         return render(request, "main_before_reg.html", context=data)
     except HttpResponseServerError("Server Error") as e:
-        print(e)
+        logger.exception("")
         HttpResponseServerError("Server Error")
 
 
@@ -986,7 +998,7 @@ def catalog(request):
     if userNameSession:
         try:
             u_theme = db.get_one(userNameSession, "user_theme")
-            print(u_theme)
+            logger.debug(f"Тема пользователя '{userNameSession}': \n{u_theme}")
             if u_theme is None:
                 u_theme = "theme1"
             else:
@@ -998,7 +1010,7 @@ def catalog(request):
                 {"userName": userNameSession, "u_theme": u_theme},
             )
         except Exception as e:
-            print(e)
+            logger.exception("")
             # http://127.0.0.1:8000/Регистрация/
             u_excp = "Произошла какая-то ошибка."
 
@@ -1017,7 +1029,7 @@ def catalog_Frontend(request):
         userNameSession = request.session.get("userName")
 
         u_theme = db.get_one(userNameSession, "user_theme")
-        print(u_theme)
+        logger.debug(f"Тема пользователя '{userNameSession}': \n{u_theme}")
         if u_theme is None:
             u_theme = "theme1"
         else:
@@ -1030,7 +1042,7 @@ def catalog_Frontend(request):
         )
 
     except Exception as e:
-        print(e)
+        logger.exception("")
         user_vision = False
         return render(
             request,
@@ -1043,7 +1055,7 @@ def catalog_Cyber_security(request):
     """Страница Кибербезопасности"""
     username = request.session.get("userName")
     u_theme = db.get_one(username, "user_theme")
-    print(u_theme)
+    logger.debug(f"Тема пользователя '{username}': \n{u_theme}")
     if u_theme is None:
         u_theme = "theme1"
     else:
@@ -1051,7 +1063,7 @@ def catalog_Cyber_security(request):
 
     result = db.get(username, "pro")
 
-    print(result)
+    logger.debug(f"Статус про пользователя '{username}': \n{result}")
     if result is not None:
         return render(
             request, r"all_courses/Ccyber_security.html", context={"u_theme": u_theme}
@@ -1066,14 +1078,14 @@ def catalog_Backend(request):
     """Страница Backend"""
     username = request.session.get("userName")
     u_theme = db.get_one(username, "user_theme")
-    print(u_theme)
+    logger.debug(f"Тема пользователя '{username}': \n{u_theme}")
     if u_theme is None:
         u_theme = "theme1"
     else:
         u_theme = u_theme[0]
 
     result = db.get(username, "pro")
-    print(result)
+    logger.debug(f"Статус про пользователя '{username}': \n{result}")
     if result:
         return render(
             request, r"all_courses/Cbackend.html", context={"u_theme": u_theme}
@@ -1088,7 +1100,7 @@ def catalog_Cifra_marketing(request):
     """Страница Цифрового маркетинга"""
     username = request.session.get("userName")
     u_theme = db.get_one(username, "user_theme")
-    print(u_theme)
+    logger.debug(f"Тема пользователя '{username}': \n{u_theme}")
     if u_theme is None:
         u_theme = "theme1"
     else:
@@ -1096,7 +1108,7 @@ def catalog_Cifra_marketing(request):
 
     result = db.get(username, "pro")
 
-    print(result)
+    logger.debug(f"Статус про пользователя '{username}': \n{result}")
     return render(request, r"all_courses/Ccm.html", context={"u_theme": u_theme})
 
 
@@ -1104,14 +1116,15 @@ def catalog_Data_scince(request):
     """Страница Data science"""
     username = request.session.get("userName")
     u_theme = db.get_one(username, "user_theme")
-    print(u_theme)
+    logger.debug(f"Тема пользователя '{username}': \n{u_theme}")
     if u_theme is None:
         u_theme = "theme1"
     else:
         u_theme = u_theme[0]
 
     result = db.get(username, "pro")
-
+    logger.debug(f"Статус про пользователя '{username}': \n{result}")
+    
     if result:
         return render(
             request, r"all_courses/Cdata_science.html", context={"u_theme": u_theme}
@@ -1126,7 +1139,7 @@ def catalog_Fin_analitic(request):
     """Страница Финансовой аналитики"""
     username = request.session.get("userName")
     u_theme = db.get_one(username, "user_theme")
-    print(u_theme)
+    logger.debug(f"Тема пользователя '{username}': \n{u_theme}")
     if u_theme is None:
         u_theme = "theme1"
     else:
@@ -1139,14 +1152,15 @@ def catalog_IOS(request):
     """Страница IOS"""
     username = request.session.get("userName")
     u_theme = db.get_one(username, "user_theme")
-    print(u_theme)
+    logger.debug(f"Тема пользователя '{username}': \n{u_theme}")
     if u_theme is None:
         u_theme = "theme1"
     else:
         u_theme = u_theme[0]
 
     result = db.get(username, "pro")
-
+    logger.debug(f"Статус про пользователя '{username}': \n{result}")
+    
     if result:
         return render(request, r"all_courses/Cios.html", context={"u_theme": u_theme})
     return render(
@@ -1158,14 +1172,14 @@ def catalog_SQL(request):
     """Страница SQL"""
     username = request.session.get("userName")
     u_theme = db.get_one(username, "user_theme")
-    print(u_theme)
+    logger.debug(f"Тема пользователя '{username}': \n{u_theme}")
     if u_theme is None:
         u_theme = "theme1"
     else:
         u_theme = u_theme[0]
 
     result = db.get(username, "pro")
-    print(result)
+    logger.debug(f"Статус про пользователя '{username}': \n{result}")
 
     return render(request, r"all_courses/Csql.html", context={"u_theme": u_theme})
 
@@ -1174,7 +1188,7 @@ def catalog_UX(request):
     """Страница UX/UI"""
     username = request.session.get("userName")
     u_theme = db.get_one(username, "user_theme")
-    print(u_theme)
+    logger.debug(f"Тема пользователя '{username}': \n{u_theme}")
     if u_theme is None:
         u_theme = "theme1"
     else:
@@ -1187,14 +1201,15 @@ def catalog_Blockchain(request):
     """Страница Блокчейна"""
     username = request.session.get("userName")
     u_theme = db.get_one(username, "user_theme")
-    print(u_theme)
+    logger.debug(f"Тема пользователя '{username}': \n{u_theme}")
     if u_theme is None:
         u_theme = "theme1"
     else:
         u_theme = u_theme[0]
 
     result = db.get(username, "pro")
-
+    logger.debug(f"Статус про пользователя '{username}': \n{result}")
+    
     if result:
         return render(request, r"all_courses/Cbc.html", context={"u_theme": u_theme})
 
@@ -1207,18 +1222,19 @@ def pro(request):
         userNameSession = request.session.get("userName")
 
         u_theme = db.get_one(userNameSession, "user_theme")
-        print(u_theme)
+        logger.debug(f"Тема пользователя '{userNameSession}': \n{u_theme}")
         if u_theme is None:
             u_theme = "theme1"
         else:
             u_theme = u_theme[0]
 
         result = db.get(userNameSession, "pro")
-
+        logger.debug(f"Статус про пользователя '{userNameSession}': \n{result}")
+        
         return render(request, "ADDpro.html", context={"u_theme": u_theme})
 
     except Exception as e:
-        print(e)
+        logger.exception("")
         u_excp = "Пожалуйста, войдите в учетную запись."
 
         return render(request, "exception.html", context={"u_excp": u_excp})
@@ -1230,10 +1246,10 @@ def quest(request):
     userNameSession = request.session.get("userName")
     if userNameSession:
         try:
-            print(userNameSession)
+            logger.debug(f"Пользователь '{userNameSession}'")
 
             u_theme = db.get_one(userNameSession, "user_theme")
-            print(u_theme)
+            logger.debug(f"Тема пользователя '{userNameSession}': \n{u_theme}")
             if u_theme is None:
                 u_theme = "theme1"
             else:
@@ -1241,7 +1257,7 @@ def quest(request):
 
             return render(request, "quest.html", context={"u_theme": u_theme})
         except Exception as e:
-            print(e)
+            logger.exception("")
             u_excp = "Произошла какая-то ошибка."
 
             return render(request, "exception.html", context={"u_excp": u_excp})
@@ -1255,7 +1271,7 @@ def theme(request):
     userNameSession = request.session.get("userName")
 
     u_theme = db.get_one(userNameSession, "user_theme")
-    print(u_theme)
+    logger.debug(f"Тема пользователя '{userNameSession}': \n{u_theme}")
     if u_theme is None:
         u_theme = "theme1"
     else:
@@ -1269,8 +1285,16 @@ def theme(request):
         user_theme = request.POST.get("user_theme")
 
         request.session["userName"] = user_name
-        
-        db.update_all_parametr(userNameSession, {"user_name":user_name, "user_desc":user_desc, "photo_url": user_photo, "user_theme": user_theme})
+
+        db.update_all_parametr(
+            userNameSession,
+            {
+                "user_name": user_name,
+                "user_desc": user_desc,
+                "photo_url": user_photo,
+                "user_theme": user_theme,
+            },
+        )
 
         return HttpResponseRedirect("http://127.0.0.1:8000/Главная_страница./Профиль/")
 
@@ -1289,8 +1313,9 @@ def test(request):
 
 def take_desc(username):
     """Получить описание пользователя из бд"""
-    result = db.get_one(user_name=username,parametr="users_desc")
-    print(result, "desc_res")
+    result = db.get_one(user_name=username, parametr="users_desc")
+    logger.debug(f"Описание пользователя '{username}': \n{result}")
+
     return result
 
 
@@ -1306,7 +1331,7 @@ def payments(request):
     # username = request.session.get("userName")
     try:
         userNameSession = request.session.get("userName")
-        print("UserNameSession", userNameSession)
+        logger.debug(f"Пользователь '{userNameSession}'")
 
         if userNameSession is not None:
             return render(request, "payments.html")
@@ -1315,7 +1340,7 @@ def payments(request):
 
             return render(request, "exception.html", context={"u_excp": u_excp})
     except Exception as e:
-        print(e)
+        logger.exception("")
 
         return render(
             request, "exception.html", context={"u_excp": "Произошла какая-то ошибка!"}
