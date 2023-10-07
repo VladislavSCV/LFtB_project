@@ -4,7 +4,6 @@ from pathlib import Path
 
 config_path = Path("config.json")
 
-
 def create():
     """Создание конфигурации"""
 
@@ -45,5 +44,4 @@ def update(key, value):
     with open(config_path, "w") as f:
         json.dump(data, f)
 
-if not config_path.exists():
-    create()
+

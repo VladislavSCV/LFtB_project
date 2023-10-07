@@ -4,6 +4,24 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from sites.utils import config
 
 
+def check_db():
+    """Проверка существования базы данных"""
+    
+    security_db = config.read()
+    check_security_db = security_db
+    
+    if not check_security_db.get("dbname"):
+        check_security_db["dbname"] = "lftb"
+        
+    try:
+        connection = psycopg2.connect(**check_security_db)
+        print(f"Удачное подключение к базе данных {connection.get_dsn_parameters()['dbname']}")
+        connection.close()
+    except psycopg2.OperationalError:
+        print("База данных создается.")
+        create_db()
+        check_db()
+    
 def create_db():
     """Создание бд"""
 
@@ -183,3 +201,5 @@ def add(data):
     except (Exception, Error) as error:
         print("Ошибка при работе с PostgreSQL", error)
         return False
+
+
