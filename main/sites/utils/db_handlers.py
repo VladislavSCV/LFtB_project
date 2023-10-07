@@ -12,14 +12,15 @@ def check_db():
     
     if not check_security_db.get("dbname"):
         check_security_db["dbname"] = "lftb"
-        
     try:
         connection = psycopg2.connect(**check_security_db)
         print(f"Удачное подключение к базе данных {connection.get_dsn_parameters()['dbname']}")
         connection.close()
+        config.update("dbname", "lftb")
     except psycopg2.OperationalError:
         print("База данных создается.")
         create_db()
+        create_table()
         check_db()
     
 def create_db():

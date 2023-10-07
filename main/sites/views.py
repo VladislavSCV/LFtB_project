@@ -24,7 +24,6 @@ from .forms import userFormREG, userSearchEngine, userFormAUTH, select_theme
 
 # Другие импорты
 from sites.utils import db_handlers as db
-from sites.utils import config
 
 # Строка для удаления сессии
 # del request.session['userName']
@@ -192,8 +191,6 @@ dct_res_text = {
 
 # Словарь для хранения
 dct = {}
-
-security_db = config.read()
 
 
 def MainPage(request):
