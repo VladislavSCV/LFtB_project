@@ -1,2 +1,6 @@
 __pycache__/
 .vscode
+
+# Файлы с данными
+main/config.json
+main/db.sqlite3
