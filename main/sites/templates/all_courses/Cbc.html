@@ -99,9 +99,13 @@
       background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
-      padding-top: 10px;
+      padding: 10px;
       color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
       background-color: #897ee3;
@@ -115,7 +119,17 @@
     }
     .centerGO{
     }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
 
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
     {% elif u_theme == "theme2"%}
     
     body {
@@ -210,13 +224,17 @@
 
     .contentMain{
       text-align: center;
-      background-color: #333333;
-      border-radius: 2%;
-      height: 600px;
-      
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      background-color: #ffffff;
+      border-radius: 2%;   
+      padding: 30px;
+      color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
+    
     .greyform{
       background-color: #897ee3;
       padding: 10px;
@@ -227,8 +245,12 @@
       position: relative;
       
     }
-    .centerGO{
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
+
     {% elif u_theme == "theme3"%}
     body {
       font-family: Arial, sans-serif;
@@ -322,14 +344,20 @@
 
     .contentMain{
       text-align: center;
-      background-color: #33025b;
+      background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      padding: 10px;
+      color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
+      word-break: break-all;
+            display: block;
       background-color: #897ee3;
       padding: 10px;
       border-radius: 5px;
@@ -340,6 +368,16 @@
       
     }
     .centerGO{
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
     {% endif %}
   </style>
@@ -382,6 +420,32 @@
 
   <div class="content">
       <div class="contentMain">
+      <div class="text">
+        <h1>Blockchain и Криптовалюты</h1>
+    
+    <h2>Что такое Blockchain?</h2>
+    <p>Blockchain (цепочка блоков) - это децентрализованная и распределенная технология хранения и передачи информации. Она базируется на концепции блоков, которые содержат записи о транзакциях и формируют непрерывную цепочку.</p>
+    
+    <h2>Принцип работы Blockchain</h2>
+    <ol>
+        <li>Распределенный реестр: Blockchain хранит информацию о транзакциях на множестве компьютеров, называемых узлами сети. Каждый узел имеет копию всего блокчейна, что позволяет обеспечить отказоустойчивость и устойчивость к цензуре.</li>
+        <li>Шифрование и хеширование: Каждый блок содержит хеш предыдущего блока. Это обеспечивает целостность блокчейна и защищает от возможных изменений данных.</li>
+        <li>Консенсус: Blockchain использует различные алгоритмы консенсуса, такие как Proof of Work (PoW) или Proof of Stake (PoS), чтобы определить правильную цепочку блоков и устранить возможность двойных трат.</li>
+    </ol>
+    
+    <h2>Криптовалюты</h2>
+    <p>Криптовалюта - это цифровая валюта, основанная на принципах шифрования и защищенная Blockchain. Она позволяет совершать безопасные и анонимные транзакции без участия посредников или банков.</p>
+    
+    <h2>Примеры криптовалют</h2>
+    <ul>
+        <li>Bitcoin (BTC): первая и наиболее известная криптовалюта. Биткойн был создан в 2009 году и стал основой для развития других криптовалют.</li>
+        <li>Ethereum (ETH): это платформа для создания смарт-контрактов и разработки децентрализованных приложений. Его криптовалютой является Ether, используемый для оплаты транзакций и работы в сети Ethereum.</li>
+        <li>Litecoin (LTC): создан в 2011 году, Litecoin был разработан как «серебро» для «золота» Bitcoin. Он предлагает более быстрые подтверждения транзакций и дополнительные улучшения по сравнению с Bitcoin.</li>
+    </ul>
+    
+    <h2>Заключение</h2>
+    <p>Blockchain и криптовалюты представляют собой инновационные технологии, которые меняют способ передачи и учета информации. Их применение распространяется на различные отрасли и внесло революцию в финансовую систему. Изучение и понимание этих концепций могут быть полезными в современном цифровом мире.</p>
+      </div>
         <div class="centerGO">
           <ul>
             <a href="{% url 'send_user_courses' course='Blockchain_и_криптовалюты' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->

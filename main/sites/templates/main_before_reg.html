@@ -1,7 +1,5 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -163,6 +161,11 @@ display: flex;
   text-align: center;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+}
+
+.new_features {
+  opacity: 0;
+  animation: ani 3s forwards;
 }
 
 .feature i {
@@ -480,6 +483,11 @@ a {
   padding: 80px 0;
   background-color: #2c2c2c;
   color: #fff;
+}
+
+.new_features {
+  opacity: 0;
+  animation: ani 3s forwards;
 }
 
 .features-grid {
@@ -820,6 +828,11 @@ a {
   color: white;
 }
 
+.new_features {
+  opacity: 0;
+  animation: ani 3s forwards;
+}
+
 .features-grid {
 display: flex;
   flex-wrap: wrap;
@@ -1134,4 +1147,60 @@ button{
     </div>
   </footer>
 </body>
+<script>
+  // {% comment %} Наши ОСОБЕННОСТИ {% endcomment %}
+  const header_nav = document.getElementById('feature')
+  const header_nav1 = document.getElementById('feature1')
+  const header_nav2 = document.getElementById('feature2')
+  let actionDone = false;
+  let actionDone1 = false;
+  let actionDone2 = false;
+  window.addEventListener('scroll', () => {
+    scroll_y = window.scrollY
+    console.log(scroll_y)
+    if (scroll_y > 180 && !actionDone){
+      header_nav.style.display = 'block';
+      header_nav.classList.toggle("new_features");
+      actionDone = true;
+    };
+    if (scroll_y > 180 && !actionDone1){
+      header_nav1.style.display = 'block';
+      header_nav1.classList.toggle("new_features");
+      actionDone1 = true;
+    };
+    if (scroll_y > 350 && !actionDone2){
+      header_nav2.style.display = 'block';
+      header_nav2.classList.toggle("new_features");
+      actionDone2 = true;
+    };
+      
+  });
+// {% comment %} Популярные Курсы {% endcomment %}
+  const course = document.getElementById('course')
+  const course1 = document.getElementById('course1')
+  const course2 = document.getElementById('course2')
+  let actionCDone = false;
+  let actionCDone1 = false;
+  let actionCDone2 = false;
+  window.addEventListener('scroll', () => {
+    scroll_y = window.scrollY
+    console.log(scroll_y)
+    if (scroll_y >= 900 && !actionCDone){
+      course.style.display = 'block';
+      course.classList.toggle("new_features");
+      actionCDone = true;
+    };
+    if (scroll_y >= 900 && !actionCDone1){
+      course1.style.display = 'block';
+      course1.classList.toggle("new_features");
+      actionCDone1 = true;
+    };
+    if (scroll_y >= 900 && !actionCDone2){
+      course2.style.display = 'block';
+      course2.classList.toggle("new_features");
+      actionCDone2 = true;
+    };
+      
+  });
+</script>
 </html>

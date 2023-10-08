@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>LFtB Цифровой маркетинг</title>
+
   <style>
     {% if u_theme == "theme1"%}
     body {
@@ -98,9 +100,13 @@
       background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
-      padding-top: 10px;
+      padding: 10px;
       color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
       background-color: #897ee3;
@@ -114,7 +120,17 @@
     }
     .centerGO{
     }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
 
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
     {% elif u_theme == "theme2"%}
     
     body {
@@ -209,13 +225,17 @@
 
     .contentMain{
       text-align: center;
-      background-color: #333333;
-      border-radius: 2%;
-      height: 600px;
-      
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      background-color: #ffffff;
+      border-radius: 2%;   
+      padding: 30px;
+      color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
+    
     .greyform{
       background-color: #897ee3;
       padding: 10px;
@@ -226,8 +246,12 @@
       position: relative;
       
     }
-    .centerGO{
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
+
     {% elif u_theme == "theme3"%}
     body {
       font-family: Arial, sans-serif;
@@ -321,14 +345,20 @@
 
     .contentMain{
       text-align: center;
-      background-color: #33025b;
+      background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      padding: 10px;
+      color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
+      word-break: break-all;
+            display: block;
       background-color: #897ee3;
       padding: 10px;
       border-radius: 5px;
@@ -339,6 +369,16 @@
       
     }
     .centerGO{
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
     {% endif %}
   </style>
@@ -381,6 +421,25 @@
 
   <div class="content">
       <div class="contentMain">
+      <div class="text">
+        <h1>Цифровой маркетинг</h1>
+        <p>Цифровой маркетинг — это использование цифровых каналов и инструментов для продвижения продуктов и услуг. Он охватывает различные аспекты маркетинга, включая онлайн-рекламу, социальные сети, электронную почту, поисковую оптимизацию и другие среды цифрового общения.</p>
+        <h2>Основные стратегии цифрового маркетинга</h2>
+        <p>Цифровой маркетинг включает различные стратегии и тактики для достижения маркетинговых целей. Некоторые из них включают:</p>
+        <ul>
+          <li>Создание привлекательного и функционального веб-сайта.</li>
+          <li>Оптимизация сайта для улучшения его видимости в поисковых системах (SEO).</li>
+          <li>Разработка рекламных кампаний в поисковых системах (SEM).</li>
+          <li>Использование социальных сетей для привлечения и взаимодействия с аудиторией.</li>
+          <li>Создание качественного контента для блогов, лендингов и других каналов.</li>
+          <li>Использование электронной почты для коммуникации с клиентами и потенциальными клиентами.</li>
+          <li>Анализ данных и метрик для оценки эффективности маркетинговых кампаний.</li>
+        </ul>
+        <h2>Значение цифрового маркетинга</h2>
+        <p>Цифровой маркетинг стал важным инструментом для компаний различных отраслей. Он позволяет достигать широкой аудитории, привлекать новых клиентов, улучшать узнаваемость бренда и увеличивать продажи. Более того, цифровой маркетинг обеспечивает более точную и персонализированную коммуникацию с клиентами, что помогает создать долгосрочные отношения и повысить уровень удовлетворенности покупателей.</p>
+        <h2>Заключение</h2>
+        <p>Цифровой маркетинг является неотъемлемой частью современной бизнес-стратегии. Он предоставляет компаниям возможность достичь успеха в цифровой эпохе, улучшать видимость онлайн и привлекать новых клиентов. Знание и применение стратегий цифрового маркетинга становятся все более важными для компаний, желающих оставаться конкурентоспособными в современной рыночной среде.</p>
+      </div>
         <div class="centerGO">
           <a href="{% url 'send_user_courses' course='Цифровой_маркетинг' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->
         </div>

@@ -99,14 +99,13 @@
       background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
       padding: 10px;
       color: black;
       width: 100%;
-  height: 30%;
+      height: 30%;
       position: relative;
       word-wrap: break-word;
-  overflow-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
       background-color: #897ee3;
@@ -120,7 +119,17 @@
     }
     .centerGO{
     }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
 
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
     {% elif u_theme == "theme2"%}
     
     body {
@@ -216,17 +225,16 @@
     .contentMain{
       text-align: center;
       background-color: #ffffff;
-      border-radius: 2%;
-      height: 600px;
-      
-      padding: 10px;
+      border-radius: 2%;   
+      padding: 30px;
       color: black;
       width: 100%;
-  height: 30%;
+      height: 30%;
       position: relative;
       word-wrap: break-word;
-  overflow-wrap: break-word;
+      overflow-wrap: break-word;
     }
+    
     .greyform{
       background-color: #897ee3;
       padding: 10px;
@@ -237,8 +245,12 @@
       position: relative;
       
     }
-    .centerGO{
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
+
     {% elif u_theme == "theme3"%}
     body {
       font-family: Arial, sans-serif;
@@ -335,14 +347,13 @@
       background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
       padding: 10px;
       color: black;
       width: 100%;
-  height: 30%;
+      height: 30%;
       position: relative;
       word-wrap: break-word;
-  overflow-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
       word-break: break-all;
@@ -357,6 +368,16 @@
       
     }
     .centerGO{
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
     {% endif %}
   </style>
@@ -400,122 +421,47 @@
 
   <div class="content">
       <div class="contentMain">
-        <h1>Введение в Frontend-разработку</h1>
-    
-    <h2>Что такое Frontend?</h2>
-    <p>Frontend - это область разработки, которая занимается созданием пользовательского интерфейса веб-приложений. Frontend-разработчики отвечают за то, как пользователи видят и взаимодействуют с веб-сайтом или приложением.</p>
-    
-    <h2>Мастерство Frontend-разработчика</h2>
-    <p>Frontend-разработчику необходимо обладать рядом навыков:</p>
-    
-    <ul>
-        <li>HTML - язык разметки, используемый для создания структуры веб-страницы.</li>
-        <li>CSS - язык таблиц стилей, который позволяет управлять внешним видом элементов на веб-странице.</li>
-        <li>JavaScript - язык программирования, используемый для создания интерактивных элементов на веб-странице.</li>
-        <li>Знание фреймворков и библиотек, таких как React, Angular или Vue.js, позволяет упростить и ускорить разработку.</li>
-        <li>Работа с инструментами разработки, такими как различные редакторы кода, системы контроля версий и среды разработки.</li>
-    </ul>
-    
-    <h2>Разработка Frontend-приложений</h2>
-    <p>Для разработки Frontend-приложений необходимо:</p>
-    
-    <ol>
-        <li>Создать структуру проекта с использованием HTML. Например:</li>
-        <pre>
-            <code>
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;Мой веб-сайт&lt;/title&gt;
-    &lt;link rel="stylesheet" type="text/css" href="style.css"&gt;
-&lt;/head&gt;
-&lt;body&gt;
+      <div class="text">
 
-    &lt;header&gt;
-        &lt;h1&gt;Мой веб-сайт&lt;/h1&gt;
-    &lt;/header&gt;
+          <h1>Введение в Frontend-разработку</h1>
+      
+      <h2>Что такое Frontend?</h2>
+      <p>Frontend - это область разработки, которая занимается созданием пользовательского интерфейса веб-приложений. Frontend-разработчики отвечают за то, как пользователи видят и взаимодействуют с веб-сайтом или приложением.</p>
+      
+      <h2>Мастерство Frontend-разработчика</h2>
+      <p>Frontend-разработчику необходимо обладать рядом навыков:</p>
+      
+      <ul>
+          <li>HTML - язык разметки, используемый для создания структуры веб-страницы.</li>
+          <li>CSS - язык таблиц стилей, который позволяет управлять внешним видом элементов на веб-странице.</li>
+          <li>JavaScript - язык программирования, используемый для создания интерактивных элементов на веб-странице.</li>
+          <li>Знание фреймворков и библиотек, таких как React, Angular или Vue.js, позволяет упростить и ускорить разработку.</li>
+          <li>Работа с инструментами разработки, такими как различные редакторы кода, системы контроля версий и среды разработки.</li>
+      </ul>
+      
+      <h2>Разработка Frontend-приложений</h2>
+      <p>Для разработки Frontend-приложений необходимо:</p>
+      
+      <ol>
+          <li>Создать структуру проекта с использованием HTML. Например:</li>
+          <pre>
+              <style type="text/css" scoped="scoped">.slgh,.slgh code,.slgh ul, .slgh ol{margin:0;padding:0;border:0;outline:0;background:none;text-align:left;float:none;vertical-align:baseline;position:static;left:auto;top:auto;right:auto;bottom:auto;height:auto;width:auto;line-height:1.1em;font-family:'Courier New', Courier, monospace;font-weight:normal;font-style:normal;font-size:1em;min-height:inherit;min-height:auto;}.slgh{background:#fff;width:99%;margin:1em 0;padding:1px;position:relative;overflow:auto;overflow-y:hidden;}.slgh ul{list-style:none;margin-left:.5em}.slgh ol{margin-left:3.5em}.slgh .bold {font-weight:bold;}.slgh .italic {font-style:italic;}.slgh .no-wrap li{white-space:pre;}.slgh li{padding-left:.5em;}.slgh li{border-left:3px solid #ccc;color:#666;}.slgh li.alt1{background:#fff;padding-left: 1em;}.slgh li.alt2{background:#F8F8F8;padding-left: 1em;}.slgh .plain, .slgh .plain a{color:#000;}.slgh .comments, .slgh .comments a{color:#008200;}.slgh .string, .slgh .string a{color:blue;}.slgh .keyword{color:#069;font-weight:bold;}.slgh .preprocessor {color:gray;}.slgh .variable{color:#a70;}.slgh .value{color:#090;}.slgh .functions{color:#ff1493;}.slgh .constants{color:#0066CC;}.slgh .script{background:yellow;}.slgh .color1,.slgh .color1 a{color:#808080;}.slgh .color2,.slgh .color2 a{color:#ff1493;}.slgh .color3,.slgh .color3 a{color:red;}.slghcr{margin:-.5em 1.2em}.slghcr a{color:#aaa;background:#fff;text-decoration:none;border-bottom:1px dotted #aaa;font-size:.6em;font-family:arial}</style><div id="hler_262501" class="slgh"><ol class="lines no-wrap"><li class="alt1"><code class="plain">&lt;!DOCTYPE html&gt;</code></li><li class="alt2"><code class="plain">&lt;</code><code class="keyword">html</code><code class="plain">&gt;</code></li><li class="alt1"><code class="plain">&lt;</code><code class="keyword">head</code><code class="plain">&gt;</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;</code><code class="keyword">title</code><code class="plain">&gt;Мой веб-сайт&lt;/</code><code class="keyword">title</code><code class="plain">&gt;</code></li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;</code><code class="keyword">link</code> <code class="color1">rel</code><code class="plain">=</code><code class="string">"stylesheet"</code> <code class="color1">type</code><code class="plain">=</code><code class="string">"text/css"</code> <code class="color1">href</code><code class="plain">=</code><code class="string">"style.css"</code><code class="plain">&gt;</code></li><li class="alt2"><code class="plain">&lt;/</code><code class="keyword">head</code><code class="plain">&gt;</code></li><li class="alt1"><code class="plain">&lt;</code><code class="keyword">body</code><code class="plain">&gt;</code></li><li class="alt2">&nbsp;</li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;</code><code class="keyword">header</code><code class="plain">&gt;</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;</code><code class="keyword">h1</code><code class="plain">&gt;Мой веб-сайт&lt;/</code><code class="keyword">h1</code><code class="plain">&gt;</code></li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;/</code><code class="keyword">header</code><code class="plain">&gt;</code></li><li class="alt2">&nbsp;</li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;</code><code class="keyword">nav</code><code class="plain">&gt;</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;</code><code class="keyword">ul</code><code class="plain">&gt;</code></li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;</code><code class="keyword">li</code><code class="plain">&gt;&lt;</code><code class="keyword">a</code> <code class="color1">href</code><code class="plain">=</code><code class="string">"#"</code><code class="plain">&gt;Главная&lt;/</code><code class="keyword">a</code><code class="plain">&gt;&lt;/</code><code class="keyword">li</code><code class="plain">&gt;</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;</code><code class="keyword">li</code><code class="plain">&gt;&lt;</code><code class="keyword">a</code> <code class="color1">href</code><code class="plain">=</code><code class="string">"#"</code><code class="plain">&gt;О нас&lt;/</code><code class="keyword">a</code><code class="plain">&gt;&lt;/</code><code class="keyword">li</code><code class="plain">&gt;</code></li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;</code><code class="keyword">li</code><code class="plain">&gt;&lt;</code><code class="keyword">a</code> <code class="color1">href</code><code class="plain">=</code><code class="string">"#"</code><code class="plain">&gt;Контакты&lt;/</code><code class="keyword">a</code><code class="plain">&gt;&lt;/</code><code class="keyword">li</code><code class="plain">&gt;</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;/</code><code class="keyword">ul</code><code class="plain">&gt;</code></li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;/</code><code class="keyword">nav</code><code class="plain">&gt;</code></li><li class="alt2">&nbsp;</li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;</code><code class="keyword">main</code><code class="plain">&gt;</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;</code><code class="keyword">h2</code><code class="plain">&gt;Добро пожаловать на мой веб-сайт!&lt;/</code><code class="keyword">h2</code><code class="plain">&gt;</code></li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;</code><code class="keyword">p</code><code class="plain">&gt;Здесь вы можете найти всю информацию о нашей компании.&lt;/</code><code class="keyword">p</code><code class="plain">&gt;</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;/</code><code class="keyword">main</code><code class="plain">&gt;</code></li><li class="alt1">&nbsp;</li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;</code><code class="keyword">footer</code><code class="plain">&gt;</code></li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;</code><code class="keyword">p</code><code class="plain">&gt;Все права защищены &amp;copy; 2022.&lt;/</code><code class="keyword">p</code><code class="plain">&gt;</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">&lt;/</code><code class="keyword">footer</code><code class="plain">&gt;</code></li><li class="alt1">&nbsp;</li><li class="alt2"><code class="plain">&lt;/</code><code class="keyword">body</code><code class="plain">&gt;</code></li><li class="alt1"><code class="plain">&lt;/</code><code class="keyword">html</code><code class="plain">&gt;</code></li></ol></div><div class="slghcr">Подсветка програмного кода</div>
+          </pre>
+          <li>Добавить стили с использованием CSS. Например, в файле style.css:</li>
+          <pre>
+              <style type="text/css" scoped="scoped">.slgh,.slgh code,.slgh ul, .slgh ol{margin:0;padding:0;border:0;outline:0;background:none;text-align:left;float:none;vertical-align:baseline;position:static;left:auto;top:auto;right:auto;bottom:auto;height:auto;width:auto;line-height:1.1em;font-family:'Courier New', Courier, monospace;font-weight:normal;font-style:normal;font-size:1em;min-height:inherit;min-height:auto;}.slgh{background:#fff;width:99%;margin:1em 0;padding:1px;position:relative;overflow:auto;overflow-y:hidden;}.slgh ul{list-style:none;margin-left:.5em}.slgh ol{margin-left:3.5em}.slgh .bold {font-weight:bold;}.slgh .italic {font-style:italic;}.slgh .no-wrap li{white-space:pre;}.slgh li{padding-left:.5em;}.slgh li{border-left:3px solid #ccc;color:#666;}.slgh li.alt1{background:#fff;padding-left: 1em;}.slgh li.alt2{background:#F8F8F8;padding-left: 1em;}.slgh .plain, .slgh .plain a{color:#000;}.slgh .comments, .slgh .comments a{color:#008200;}.slgh .string, .slgh .string a{color:blue;}.slgh .keyword{color:#069;font-weight:bold;}.slgh .preprocessor {color:gray;}.slgh .variable{color:#a70;}.slgh .value{color:#090;}.slgh .functions{color:#ff1493;}.slgh .constants{color:#0066CC;}.slgh .script{background:yellow;}.slgh .color1,.slgh .color1 a{color:#808080;}.slgh .color2,.slgh .color2 a{color:#ff1493;}.slgh .color3,.slgh .color3 a{color:red;}.slghcr{margin:-.5em 1.2em}.slghcr a{color:#aaa;background:#fff;text-decoration:none;border-bottom:1px dotted #aaa;font-size:.6em;font-family:arial}</style><div id="hler_391993" class="slgh"><ol class="lines no-wrap"><li class="alt1"><code class="plain">body {</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">font-family</code><code class="plain">: </code><code class="color1">Arial</code><code class="plain">, </code><code class="color1">sans-serif</code><code class="plain">;</code></li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">margin</code><code class="plain">: </code><code class="value">0</code><code class="plain">;</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">padding</code><code class="plain">: </code><code class="value">0</code><code class="plain">;</code></li><li class="alt1"><code class="plain">}</code></li><li class="alt2">&nbsp;</li><li class="alt1"><code class="plain">header {</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">background-color</code><code class="plain">: </code><code class="value">#333</code><code class="plain">;</code></li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">color</code><code class="plain">: </code><code class="value">#fff</code><code class="plain">;</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">padding</code><code class="plain">: </code><code class="value">20px</code><code class="plain">;</code></li><li class="alt1"><code class="plain">}</code></li><li class="alt2">&nbsp;</li><li class="alt1"><code class="plain">nav {</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">background-color</code><code class="plain">: </code><code class="value">#f5f5f5</code><code class="plain">;</code></li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">padding</code><code class="plain">: </code><code class="value">10px</code><code class="plain">;</code></li><li class="alt2"><code class="plain">}</code></li><li class="alt1">&nbsp;</li><li class="alt2"><code class="plain">nav ul {</code></li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">list-style-type</code><code class="plain">: </code><code class="value">none</code><code class="plain">;</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">padding</code><code class="plain">: </code><code class="value">0</code><code class="plain">;</code></li><li class="alt1"><code class="plain">}</code></li><li class="alt2">&nbsp;</li><li class="alt1"><code class="plain">nav li {</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">display</code><code class="plain">: </code><code class="value">inline</code><code class="plain">;</code></li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">margin-right</code><code class="plain">: </code><code class="value">10px</code><code class="plain">;</code></li><li class="alt2"><code class="plain">}</code></li><li class="alt1">&nbsp;</li><li class="alt2"><code class="plain">nav a {</code></li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">text-decoration</code><code class="plain">: </code><code class="value">none</code><code class="plain">;</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">color</code><code class="plain">: </code><code class="value">#333</code><code class="plain">;</code></li><li class="alt1"><code class="plain">}</code></li><li class="alt2">&nbsp;</li><li class="alt1"><code class="plain">main {</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">padding</code><code class="plain">: </code><code class="value">20px</code><code class="plain">;</code></li><li class="alt1"><code class="plain">}</code></li><li class="alt2">&nbsp;</li><li class="alt1"><code class="plain">footer {</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">background-color</code><code class="plain">: </code><code class="value">#333</code><code class="plain">;</code></li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">color</code><code class="plain">: </code><code class="value">#fff</code><code class="plain">;</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">padding</code><code class="plain">: </code><code class="value">20px</code><code class="plain">;</code></li><li class="alt1">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">text-align</code><code class="plain">: </code><code class="value">center</code><code class="plain">;</code></li><li class="alt2"><code class="plain">}</code></li></ol></div><div class="slghcr">Подсветка програмного кода</div>
+          </pre>
 
-    &lt;nav&gt;
-        &lt;ul&gt;
-            &lt;li&gt;&lt;a href="#"&gt;Главная&lt;/a&gt;&lt;/li&gt;
-            &lt;li&gt;&lt;a href="#"&gt;О нас&lt;/a&gt;&lt;/li&gt;
-            &lt;li&gt;&lt;a href="#"&gt;Контакты&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-    &lt;/nav&gt;
+          <li>Добавить интерактивность с использованием JavaScript. Например, в файле script.js:</li>
 
-    &lt;main&gt;
-        &lt;h2&gt;Добро пожаловать на мой веб-сайт!&lt;/h2&gt;
-        &lt;p&gt;Здесь вы можете найти всю информацию о нашей компании.&lt;/p&gt;
-    &lt;/main&gt;
-
-    &lt;footer&gt;
-        &lt;p&gt;Все права защищены &copy; 2022.&lt;/p&gt;
-    &lt;/footer&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;
-            </code>
-        </pre>
-        <li>Добавить стили с использованием CSS. Например, в файле style.css:</li>
-        <pre>
-            <code>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-}
-
-nav {
-    background-color: #f5f5f5;
-    padding: 10px;
-}
-
-nav ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-nav li {
-    display: inline;
-    margin-right: 10px;
-}
-
-nav a {
-    text-decoration: none;
-    color: #333;
-}
-
-main {
-    padding: 20px;
-}
-
-footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-}
-            </code>
-        </pre>
-        <li>Добавить интерактивность с использованием JavaScript. Например, в файле script.js:</li>
-        <pre>
-            <code>
-document.getElementById('myButton').addEventListener('click', function() {
-    alert('Кнопка была нажата!');
-});
-            </code>
-        </pre>
-    </ol>
-    
-    <h2>Заключение</h2>
-    <p>Frontend-разработка - это увлекательная область, которая объединяет технические и творческие навыки. Разрабатывая пользовательский интерфейс, вы можете создавать удобные и привлекательные веб-приложения.
-        
+          <pre>
+              <style type="text/css" scoped="scoped">.slgh,.slgh code,.slgh ul, .slgh ol{margin:0;padding:0;border:0;outline:0;background:none;text-align:left;float:none;vertical-align:baseline;position:static;left:auto;top:auto;right:auto;bottom:auto;height:auto;width:auto;line-height:1.1em;font-family:'Courier New', Courier, monospace;font-weight:normal;font-style:normal;font-size:1em;min-height:inherit;min-height:auto;}.slgh{background:#fff;width:99%;margin:1em 0;padding:1px;position:relative;overflow:auto;overflow-y:hidden;}.slgh ul{list-style:none;margin-left:.5em}.slgh ol{margin-left:3.5em}.slgh .bold {font-weight:bold;}.slgh .italic {font-style:italic;}.slgh .no-wrap li{white-space:pre;}.slgh li{padding-left:.5em;}.slgh li{border-left:3px solid #ccc;color:#666;}.slgh li.alt1{background:#fff;padding-left: 1em;}.slgh li.alt2{background:#F8F8F8;padding-left: 1em;}.slgh .plain, .slgh .plain a{color:#000;}.slgh .comments, .slgh .comments a{color:#008200;}.slgh .string, .slgh .string a{color:blue;}.slgh .keyword{color:#069;font-weight:bold;}.slgh .preprocessor {color:gray;}.slgh .variable{color:#a70;}.slgh .value{color:#090;}.slgh .functions{color:#ff1493;}.slgh .constants{color:#0066CC;}.slgh .script{background:yellow;}.slgh .color1,.slgh .color1 a{color:#808080;}.slgh .color2,.slgh .color2 a{color:#ff1493;}.slgh .color3,.slgh .color3 a{color:red;}.slghcr{margin:-.5em 1.2em}.slghcr a{color:#aaa;background:#fff;text-decoration:none;border-bottom:1px dotted #aaa;font-size:.6em;font-family:arial}</style><div id="hler_87347" class="slgh"><ol class="lines no-wrap"><li class="alt1"><code class="plain">document.getElementById(</code><code class="string">'myButton'</code><code class="plain">).addEventListener(</code><code class="string">'click'</code><code class="plain">, </code><code class="keyword">function</code><code class="plain">() {</code></li><li class="alt2">&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">alert(</code><code class="string">'Кнопка была нажата!'</code><code class="plain">);</code></li><li class="alt1"><code class="plain">});</code></li></ol></div><div class="slghcr">Подсветка програмного кода</div>
+          </pre>
+      </ol>
+      
+      <h2>Заключение</h2>
+    </div>Frontend-разработка - это увлекательная область, которая объединяет технические и творческие навыки. Разрабатывая пользовательский интерфейс, вы можете создавать удобные и привлекательные веб-приложения.
+      
       {% if user_vision == True%}
         <div class="centerGO">
             
@@ -526,7 +472,6 @@ document.getElementById('myButton').addEventListener('click', function() {
       {% endif %}
         <h2 style="
         position: relative;
-        left: -400px;
     ">Материалы и ресурсы</h2>
         <ul>
           <div class="greyform" style="padding-bottom: 10px;padding-right: 20px;height: 100px;width: 450px;">

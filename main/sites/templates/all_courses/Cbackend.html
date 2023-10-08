@@ -99,14 +99,13 @@
       background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
       padding: 10px;
       color: black;
       width: 100%;
-  height: 30%;
+      height: 30%;
       position: relative;
       word-wrap: break-word;
-  overflow-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
       background-color: #897ee3;
@@ -120,7 +119,17 @@
     }
     .centerGO{
     }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
 
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
     {% elif u_theme == "theme2"%}
     
     body {
@@ -216,17 +225,16 @@
     .contentMain{
       text-align: center;
       background-color: #ffffff;
-      border-radius: 2%;
-      height: 600px;
-      
-      padding: 10px;
+      border-radius: 2%;   
+      padding: 30px;
       color: black;
       width: 100%;
-  height: 30%;
+      height: 30%;
       position: relative;
       word-wrap: break-word;
-  overflow-wrap: break-word;
+      overflow-wrap: break-word;
     }
+    
     .greyform{
       background-color: #897ee3;
       padding: 10px;
@@ -237,8 +245,12 @@
       position: relative;
       
     }
-    .centerGO{
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
+
     {% elif u_theme == "theme3"%}
     body {
       font-family: Arial, sans-serif;
@@ -335,16 +347,17 @@
       background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
       padding: 10px;
       color: black;
       width: 100%;
-  height: 30%;
+      height: 30%;
       position: relative;
       word-wrap: break-word;
-  overflow-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
+      word-break: break-all;
+            display: block;
       background-color: #897ee3;
       padding: 10px;
       border-radius: 5px;
@@ -355,6 +368,16 @@
       
     }
     .centerGO{
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
     {% endif %}
   </style>
@@ -397,6 +420,7 @@
 
   <div class="content">
       <div class="contentMain">
+      <div class="text">
         <h1>Введение в Backend-разработку</h1>
     
         <h2>Что такое Backend?</h2>
@@ -438,7 +462,8 @@
         
         <h2>Заключение</h2>
         <p>Backend-разработка является важной частью создания веб-приложений и вовлекает в себя множество технологий и навыков. Разработка серверной части приложений позволяет обрабатывать данные, управлять бизнес-логикой и взаимодействовать с базами данных. Надеемся, что это введение в Backend-разработку было полезным!</p>
-          <div class="centerGO">
+      </div>
+        <div class="centerGO">
             <a href="{% url 'send_user_courses' course='Backend' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->
           </div>
 

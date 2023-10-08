@@ -99,9 +99,13 @@
       background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
-      padding-top: 10px;
+      padding: 10px;
       color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
       background-color: #897ee3;
@@ -115,7 +119,17 @@
     }
     .centerGO{
     }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
 
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
     {% elif u_theme == "theme2"%}
     
     body {
@@ -210,13 +224,17 @@
 
     .contentMain{
       text-align: center;
-      background-color: #333333;
-      border-radius: 2%;
-      height: 600px;
-      
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      background-color: #ffffff;
+      border-radius: 2%;   
+      padding: 30px;
+      color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
+    
     .greyform{
       background-color: #897ee3;
       padding: 10px;
@@ -227,8 +245,12 @@
       position: relative;
       
     }
-    .centerGO{
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
+
     {% elif u_theme == "theme3"%}
     body {
       font-family: Arial, sans-serif;
@@ -322,14 +344,20 @@
 
     .contentMain{
       text-align: center;
-      background-color: #33025b;
+      background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      padding: 10px;
+      color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
+      word-break: break-all;
+            display: block;
       background-color: #897ee3;
       padding: 10px;
       border-radius: 5px;
@@ -340,6 +368,16 @@
       
     }
     .centerGO{
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
     {% endif %}
   </style>
@@ -382,6 +420,29 @@
 
   <div class="content">
       <div class="contentMain">
+      <div class="text">
+        <h1>Роль IOS разработчика</h1>
+    
+        <h2>Что делает IOS разработчик?</h2>
+        <p>IOS разработчик занимается созданием приложений для устройств, работающих на операционной системе IOS, разработанной компанией Apple. Он отвечает за разработку, тестирование и развертывание приложений, а также за их поддержку и обновление.</p>
+        
+        <h2>Языки программирования и инструменты</h2>
+        <p>Основным языком программирования для IOS разработки является Swift, который разработан самой компанией Apple. Также IOS разработчики могут использовать Objective-C для создания приложений.</p>
+        <p>Для создания приложений IOS часто используются интегрированная среда разработки Xcode и iOS SDK (Software Development Kit), которые предоставляют необходимые инструменты и ресурсы для создания и тестирования приложений.</p>
+        
+        <h2>Основные навыки IOS разработчика</h2>
+        <ul>
+            <li>Знание Swift и Objective-C</li>
+            <li>Опыт работы с Xcode и iOS SDK</li>
+            <li>Понимание основных паттернов проектирования и принципов разработки приложений IOS</li>
+            <li>Умение работать с API и веб-сервисами</li>
+            <li>Навыки отладки и тестирования приложений</li>
+            <li>Понимание основных концепций пользовательского интерфейса и дизайна</li>
+        </ul>
+        
+        <h2>Заключение</h2>
+        <p>IOS разработчик играет важную роль в создании инновационных приложений для устройств Apple. Они должны иметь хорошее знание языков программирования Swift и Objective-C, а также опыт работы с инструментами разработки IOS. Благодаря своим навыкам и креативности, IOS разработчики могут создавать высококачественные и привлекательные приложения для миллионов пользователей по всему миру.</p>
+      </div>
         <div class="centerGO">
           <a href="{% url 'send_user_courses' course='IOS_разработчик' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->
 

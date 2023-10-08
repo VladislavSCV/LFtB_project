@@ -99,9 +99,13 @@
       background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
-      padding-top: 10px;
+      padding: 10px;
       color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
       background-color: #897ee3;
@@ -115,7 +119,17 @@
     }
     .centerGO{
     }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
 
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
     {% elif u_theme == "theme2"%}
     
     body {
@@ -210,13 +224,17 @@
 
     .contentMain{
       text-align: center;
-      background-color: #333333;
-      border-radius: 2%;
-      height: 600px;
-      
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      background-color: #ffffff;
+      border-radius: 2%;   
+      padding: 30px;
+      color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
+    
     .greyform{
       background-color: #897ee3;
       padding: 10px;
@@ -227,8 +245,12 @@
       position: relative;
       
     }
-    .centerGO{
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
+
     {% elif u_theme == "theme3"%}
     body {
       font-family: Arial, sans-serif;
@@ -322,14 +344,20 @@
 
     .contentMain{
       text-align: center;
-      background-color: #33025b;
+      background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      padding: 10px;
+      color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
+      word-break: break-all;
+            display: block;
       background-color: #897ee3;
       padding: 10px;
       border-radius: 5px;
@@ -340,6 +368,16 @@
       
     }
     .centerGO{
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
     {% endif %}
   </style>
@@ -382,6 +420,32 @@
 
   <div class="content">
       <div class="contentMain">
+      <div class="text">
+        <h1>Финансовый анализ</h1>
+  <p>Финансовый анализ - это процесс изучения финансовых данных и информации компании с целью оценивания ее текущего и будущего финансового состояния. Он включает в себя анализ финансовых отчетов, рассмотрение экономических показателей и оценку финансовой производительности организации.</p>
+  <h2>Цели финансового анализа</h2>
+  <p>Финансовый анализ выполняется с различными целями, включая:</p>
+  <ul>
+    <li>Оценка текущего финансового положения компании.</li>
+    <li>Идентификация финансовых проблем и рисков.</li>
+    <li>Определение эффективности использования ресурсов.</li>
+    <li>Прогнозирование будущей финансовой производительности.</li>
+    <li>Принятие информированных финансовых решений.</li>
+  </ul>
+  <h2>Методы финансового анализа</h2>
+  <p>Финансовый анализ может выполняться с использованием различных методов и подходов, включая:</p>
+  <ul>
+    <li>Анализ горизонтальных и вертикальных финансовых отчетов.</li>
+    <li>Сравнительный анализ с конкурентами и отраслевыми стандартами.</li>
+    <li>Коэффициентный анализ для оценки финансовых показателей.</li>
+    <li>Анализ трендов и прогнозирование финансовых результатов.</li>
+    <li>Анализ денежных потоков для изучения ликвидности и устойчивости.</li>
+  </ul>
+  <h2>Значение финансового анализа</h2>
+  <p>Финансовый анализ играет важную роль в принятии финансовых решений, планировании бюджета и оценке результатов предприятия. Он помогает выявить проблемы и просчитать возможные сценарии, чтобы предотвратить финансовые кризисы и оптимизировать использование ресурсов. Кроме того, финансовый анализ помогает инвесторам, кредиторам и другим заинтересованным сторонам понять и оценить риски и перспективы инвестиций.</p>
+  <h2>Заключение</h2>
+  <p>Финансовый анализ является неотъемлемой частью управления финансами и принятия решений. Он предоставляет важные данные и информацию, необходимые для оценки финансового состояния компании и прогнозирования ее будущих результатов. Умение проводить финансовый анализ позволяет принимать более обоснованные и информированные финансовые решения.</p>
+      </div>
         <div class="centerGO">
           <a href="{% url 'send_user_courses' course='Финансовый_анализ' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->
 

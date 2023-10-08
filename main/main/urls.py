@@ -26,16 +26,9 @@ urlpatterns = [
     re_path(r".*Изучение_(?P<course>[\w-]+)/$", siVi.send_user_courses, name='send_user_courses'),
     re_path(r".*Закончить_(?P<course>[\w-]+)/$", siVi.end_user_course, name='end_user_course'),
     # Страницы курса
-    re_path(r".*Frontend_разработка/$", siVi.catalog_Frontend),
-    re_path(r".*Backend_разработка/$", siVi.catalog_Backend),
-    re_path(r".*Blockchain/$", siVi.catalog_Blockchain),
-    re_path(r".*Цифровой_маркетинг/$", siVi.catalog_Cifra_marketing),
-    re_path(r".*Cyber_security/$", siVi.catalog_Cyber_security),
-    re_path(r".*Data_science/$", siVi.catalog_Data_scince),
-    re_path(r".*Финансовый_анализ/$", siVi.catalog_Fin_analitic),
-    re_path(r".*IOS_разработка/$", siVi.catalog_IOS),
-    re_path(r".*SQL_разработка/$", siVi.catalog_SQL),
-    re_path(r".*UX_UI_дизайн/$", siVi.catalog_UX),
+    re_path(r".*Курс_pro_(?P<course>[\w-]+)/$", siVi.catalog_courses_pro, name='catalog_courses_pro'),
+    re_path(r".*Курс_(?P<course>[\w-]+)/$", siVi.catalog_courses, name='catalog_courses'),
+    
     # Выход из учет. записи
     re_path(r".*Выход/$", siVi.quit),
     # Темы

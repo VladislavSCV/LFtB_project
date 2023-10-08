@@ -99,9 +99,13 @@
       background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
-      padding-top: 10px;
+      padding: 10px;
       color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
       background-color: #897ee3;
@@ -115,7 +119,17 @@
     }
     .centerGO{
     }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
 
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
     {% elif u_theme == "theme2"%}
     
     body {
@@ -210,13 +224,17 @@
 
     .contentMain{
       text-align: center;
-      background-color: #333333;
-      border-radius: 2%;
-      height: 600px;
-      
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      background-color: #ffffff;
+      border-radius: 2%;   
+      padding: 30px;
+      color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
+    
     .greyform{
       background-color: #897ee3;
       padding: 10px;
@@ -227,8 +245,12 @@
       position: relative;
       
     }
-    .centerGO{
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
+
     {% elif u_theme == "theme3"%}
     body {
       font-family: Arial, sans-serif;
@@ -322,14 +344,20 @@
 
     .contentMain{
       text-align: center;
-      background-color: #33025b;
+      background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      padding: 10px;
+      color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
+      word-break: break-all;
+            display: block;
       background-color: #897ee3;
       padding: 10px;
       border-radius: 5px;
@@ -340,6 +368,16 @@
       
     }
     .centerGO{
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
     {% endif %}
   </style>
@@ -382,10 +420,37 @@
 
   <div class="content">
       <div class="contentMain">
+      <div class="text">
+        <h1>Введение в Data Science</h1>
+    <p>Data Science - это интердисциплинарная область, которая объединяет статистику, математику, программирование и знание предметной области для извлечения полезной информации из данных.</p>
+    
+    <h2>Основные этапы в Data Science</h2>
+    <ol>
+        <li>Сбор данных: это включает в себя поиск, извлечение и очистку данных. Данные могут быть получены из различных источников, таких как базы данных, CSV файлы или API.</li>
+        <li>Исследовательский анализ данных (EDA): на этом этапе проводится исследование данных с использованием статистических и визуализационных методов. Это позволяет выявить особенности данных и их взаимосвязи.</li>
+        <li>Машинное обучение: на этом этапе строится модель, которая может предсказывать или классифицировать данные на основе обучения на исторических данных. Методы машинного обучения включают в себя регрессию, классификацию, кластеризацию и многое другое.</li>
+        <li>Оценка и интерпретация модели: после построения модели она должна быть оценена на тестовых данных. Это позволяет определить точность и эффективность модели. Затем результаты могут быть интерпретированы и использованы для принятия решений.</li>
+    </ol>
+    
+    <h2>Инструменты Data Science</h2>
+    <ul>
+        <li>Python: популярный язык программирования, часто используемый в Data Science. Он имеет множество библиотек, таких как NumPy, Pandas и Scikit-learn, которые облегчают работу с данными и моделями машинного обучения.</li>
+        <li>R: другой популярный язык программирования, который широко используется в статистическом анализе данных и построении моделей.</li>
+        <li>SQL: язык структурированных запросов, используемый для работы с базами данных и извлечения данных.</li>
+        <li>Tableau: инструмент для визуализации данных, который помогает представлять информацию в понятной и наглядной форме.</li>
+    </ul>
+    
+    <h2>Заключение</h2>
+    <p>Data Science - это ценный инструмент для анализа данных и принятия информированных решений. Он находит применение во многих отраслях и продолжает развиваться с развитием новых технологий и методов. Изучение Data Science позволяет обрести навыки, которые могут быть полезными в современном информационном обществе.</p>
+  </div>
+        {% if user_vision == True%}
         <div class="centerGO">
+            
           <a href="{% url 'send_user_courses' course='Data_science' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->
         </div>
-
+      {% else %}
+    
+      {% endif %}
     
         <h2 style="
         position: relative;

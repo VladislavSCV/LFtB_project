@@ -36,7 +36,8 @@ from .forms import userFormREG, userSearchEngine, userFormAUTH, select_theme
 5. Повторить доступ к описанию курса ко всем курсам(Frontend готов)
 6. Возможность входить в описание курса даже без pro. Но начать pro курс можно только с pro или по цене
 7. Добавить цены к курсам
-8. Добавить градиент фоном для темной темы в каталоге"""
+8. Добавить градиент фоном для темной темы в каталоге
+9. Добавить фичи в backend """
 
 
 # Изображение пользователя если нет своего фото
@@ -1213,268 +1214,7 @@ def catalog(request):
         return render(request, 'catalog_exc.html')
     
 
-""" На основе этой функции нужно сделать остальные. Но нужно учитывать доступность курсов! """
-def catalog_Frontend(request):
-    """ Страница Frontend разработки """
-    user_vision = True
-    try:
-        userNameSession = request.session.get("userName")
-        
-        conn = psycopg2.connect(**security_db)
-        cursor = conn.cursor()
-
-        cursor.execute(
-            """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
-        conn.commit()
-
-        u_theme = cursor.fetchone()[0]
-        if u_theme is None:
-            u_theme = "theme1"
-
-        print(u_theme)
-        cursor.close()
-        conn.close()
-
-        return render(request, r"all_courses/CFrontend.html", context={"u_theme": u_theme, "user_vision": user_vision})
-    
-    except Exception as e:
-        print(e)
-        user_vision = False
-        return render(request, r"all_courses/CFrontend.html", context={"u_theme": "theme1", "user_vision": user_vision})
-
-
-def catalog_Cyber_security(request):
-    """ Страница Кибербезопасности """
-    username = request.session.get("userName")
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute(
-        """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
-    conn.commit()
-
-    u_theme = cursor.fetchone()[0]
-    if u_theme is None:
-        u_theme = "theme1"
-
-    cursor.close()
-    conn.close()
-    conn = psycopg2.connect(dbname="LFtB", user="postgres",
-                        password="31415926", host="127.0.0.1")
-    cursor = conn.cursor()
-
-    cursor.execute(
-        "SELECT 1 FROM users WHERE user_name = %s and pro = true", (username, ))
-    
-    conn.commit()
-
-    result = cursor.fetchone()
-
-    cursor.close()
-    conn.close()
-
-    print(result)
-    if result is not None:
-
-        return render(request, r"all_courses/Ccyber_security.html", context={"u_theme": u_theme})
-    else:
-
-        return render(request, "exception.html", context={'u_excp': "Приобретите Pro версию."})
-
-
-def catalog_Backend(request):
-    """ Страница Backend """
-    username = request.session.get("userName")
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute(
-        """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
-    conn.commit()
-
-    u_theme = cursor.fetchone()[0]
-    if u_theme is None:
-        u_theme = "theme1"
-
-    cursor.close()
-    conn.close()
-    conn = psycopg2.connect(dbname="LFtB", user="postgres",
-                        password="31415926", host="127.0.0.1")
-    cursor = conn.cursor()
-    cursor.execute(
-        "SELECT 1 FROM users WHERE user_name = %s and pro = true", (username, ))
-
-    conn.commit()
-    result = cursor.fetchone()
-    cursor.close()
-    conn.close()
-
-    if result:
-
-        return render(request, r"all_courses/Cbackend.html", context={"u_theme": u_theme})
-    
-    return render(request, "exception.html", context={'u_excp': "Приобретите Pro версию."})
-
-
-def catalog_Cifra_marketing(request):
-    """ Страница Цифрового маркетинга """
-    username = request.session.get("userName")
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute(
-        """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
-    conn.commit()
-
-    u_theme = cursor.fetchone()[0]
-    print("Theme", u_theme)
-    if u_theme is None:
-        u_theme = "theme1"
-
-    cursor.close()
-    conn.close()
-    conn = psycopg2.connect(dbname="LFtB", user="postgres",
-                        password="31415926", host="127.0.0.1")
-    cursor = conn.cursor()
-    cursor.execute(
-        "SELECT 1 FROM users WHERE user_name = %s and pro = true", (username, ))
-
-    conn.commit()
-    result = cursor.fetchone()
-    cursor.close()
-    conn.close()
-
-    print(result)
-
-    return render(request, r"all_courses/Ccm.html", context={"u_theme": u_theme})
-
-
-def catalog_Data_scince(request):
-    """ Страница Data science """
-    username = request.session.get("userName")
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute(
-        """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
-    conn.commit()
-
-    u_theme = cursor.fetchone()[0]
-    print("Theme", u_theme)
-    if u_theme is None:
-        u_theme = "theme1"
-
-    cursor.close()
-    conn.close()
-
-    conn = psycopg2.connect(dbname="LFtB", user="postgres",
-                        password="31415926", host="127.0.0.1")
-    cursor = conn.cursor()
-    cursor.execute(
-        "SELECT 1 FROM users WHERE user_name = %s and pro = true", (username, ))
-
-    conn.commit()
-    result = cursor.fetchone()
-    cursor.close()
-    conn.close()
-
-    if result:
-
-        return render(request, r"all_courses/Cdata_science.html", context={"u_theme": u_theme})
-    
-    return render(request, "exception.html", context={'u_excp': "Приобретите Pro версию."})
-
-
-def catalog_Fin_analitic(request):
-    """ Страница Финансовой аналитики """
-    username = request.session.get("userName")
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute(
-        """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
-    conn.commit()
-
-    u_theme = cursor.fetchone()[0]
-    print("Theme", u_theme)
-    if u_theme is None:
-        u_theme = "theme1"
-
-    cursor.close()
-    conn.close()
-    
-    return render(request, r"all_courses/Cfa.html", context={"u_theme": u_theme})
-
-
-def catalog_IOS(request):
-    """ Страница IOS """
-    """ Страница Data science """
-    username = request.session.get("userName")
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute(
-        """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
-    conn.commit()
-
-    u_theme = cursor.fetchone()[0]
-    print("Theme", u_theme)
-    if u_theme is None:
-        u_theme = "theme1"
-
-    cursor.close()
-    conn.close()
-
-    conn = psycopg2.connect(dbname="LFtB", user="postgres",
-                        password="31415926", host="127.0.0.1")
-    cursor = conn.cursor()
-    cursor.execute(
-        "SELECT 1 FROM users WHERE user_name = %s and pro = true", (username, ))
-
-    conn.commit()
-    result = cursor.fetchone()
-    cursor.close()
-    conn.close()
-    
-    if result:
-        return render(request, r"all_courses/Cios.html", context={"u_theme": u_theme})
-    return render(request, "exception.html", context={'u_excp': "Приобретите Pro версию."})
-
-
-def catalog_SQL(request):
-    """ Страница SQL """
-    username = request.session.get("userName")
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    cursor.execute(
-        """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
-    conn.commit()
-
-    u_theme = cursor.fetchone()[0]
-    print("Theme", u_theme)
-    if u_theme is None:
-        u_theme = "theme1"
-
-    cursor.close()
-    conn.close()
-    
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-    cursor.execute(
-        "SELECT 1 FROM users WHERE user_name = %s and pro = true", (username, ))
-
-    conn.commit()
-    result = cursor.fetchone()
-    cursor.close()
-    conn.close()
-    print(result)
-
-    return render(request, r"all_courses/Csql.html", context={"u_theme": u_theme})
-
-
-def catalog_UX(request):
-    """ Страница UX/UI """
+def catalog_courses(request, course):
     username = request.session.get("userName")
     conn = psycopg2.connect(**security_db)
     cursor = conn.cursor()
@@ -1484,19 +1224,26 @@ def catalog_UX(request):
     conn.commit()
 
     u_theme = cursor.fetchone()
-    print(u_theme)
     if u_theme is None:
         u_theme = "theme1"
     else:
         u_theme = u_theme[0]
     cursor.close()
     conn.close()
+    match course:
+        case "Frontend_разработка":
+            return render(request, r"all_courses/CFrontend.html", context={"u_theme": u_theme})
+        case "Цифровой_маркетинг":
+            return render(request, r"all_courses/Ccm.html", context={"u_theme": u_theme})
+        case "Финансовый_анализ":
+            return render(request, r"all_courses/Cfa.html", context={"u_theme": u_theme})
+        case "UX_UI_дизайн":
+            return render(request, r"all_courses/CuxUi.html", context={"u_theme": u_theme}) 
+        case "SQL_разработка":
+            return render(request, r"all_courses/Csql.html", context={"u_theme": u_theme})
 
-    return render(request, r"all_courses/CuxUi.html", context={"u_theme": u_theme})
 
-
-def catalog_Blockchain(request):
-    """ Страница Блокчейна """
+def catalog_courses_pro(request, course):
     username = request.session.get("userName")
     conn = psycopg2.connect(**security_db)
     cursor = conn.cursor()
@@ -1506,65 +1253,32 @@ def catalog_Blockchain(request):
     conn.commit()
 
     u_theme = cursor.fetchone()
-    print(u_theme)
     if u_theme is None:
         u_theme = "theme1"
     else:
         u_theme = u_theme[0]
+
     cursor.close()
     conn.close()
-
-    username = request.session.get("userName")
-    conn = psycopg2.connect(dbname="LFtB", user="postgres",
-                        password="31415926", host="127.0.0.1")
-    cursor = conn.cursor()
-
-    cursor.execute(
-        "SELECT 1 FROM users WHERE user_name = %s and pro = true", (username, ))
-
-    conn.commit()
-    result = cursor.fetchone()
-    cursor.close()
-    conn.close()
+    user_vision = True if username else False
     
-    if result:
-
-        return render(request, r"all_courses/Cbc.html", context={"u_theme": u_theme})
-    
-    return render(request, "exception.html")
-
-
-def pro(request):
-    """ Страница с плюсами про версии """
-    try:
-        userNameSession = request.session.get("userName")
-
-        conn = psycopg2.connect(dbname="LFtB", user="postgres",
-                                password="31415926", host="127.0.0.1")
-        cursor = conn.cursor()
-
-        cursor.execute(
-            """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
-
-        conn.commit()
-
-        u_theme = cursor.fetchone()[0]
-        print(u_theme)
-        if u_theme is None:
-            u_theme = "theme1"
-        else:
-            u_theme = u_theme
-        cursor.close()
-        conn.close()
-
-        return render(request, "ADDpro.html", context={"u_theme": u_theme})
-    
-    except Exception as e:
-        print(e)
-        u_excp = "Пожалуйста, войдите в учетную запись."
-
-        return render(request, "exception.html", context={"u_excp": u_excp})
-
+    match course:
+        case "Data_science":
+            return render(request, r"all_courses/Cdata_science.html", context={"u_theme": u_theme, 
+                                                                               "user_vision": user_vision})
+        case "Backend_разработка":
+            return render(request, r"all_courses/Cbackend.html", context={"u_theme": u_theme,
+                                                                          "user_vision": user_vision})
+        case "Blockchain":
+            return render(request, r"all_courses/Cbc.html", context={"u_theme": u_theme, 
+                                                                     "user_vision": user_vision})
+        case "IOS_разработка":
+            return render(request, r"all_courses/Cios.html", context={"u_theme": u_theme,
+                                                                      "user_vision": user_vision})
+        case "Cyber_security":
+            return render(request, r"all_courses/Ccyber_security.html", context={"u_theme": u_theme,
+                                                                                 "user_vision": user_vision})
+            
 
 def quest(request):
     """ Квесты """
@@ -1615,7 +1329,12 @@ def theme(request):
         """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
     conn.commit()
 
-    u_theme = cursor.fetchone()[0] or "theme1"
+    u_theme = cursor.fetchone()[0]
+    print(u_theme)
+    if u_theme is None:
+        u_theme = "theme1"
+    else:
+        u_theme = u_theme
     print(u_theme)
     cursor.close()
     conn.close()
@@ -1694,6 +1413,35 @@ def quit(request):
 
     return HttpResponseRedirect("http://127.0.0.1:8000/")
 
+
+def pro(request):
+    """ Страница с плюсами про версии """
+    try:
+        userNameSession = request.session.get("userName")
+
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                                password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
+
+        cursor.execute(
+            """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
+
+        conn.commit()
+
+        u_theme = cursor.fetchone()[0]
+        if u_theme is None:
+            u_theme = "theme1"
+        else:
+            u_theme = u_theme
+        cursor.close()
+        conn.close()
+
+        return render(request, "ADDpro.html", context={"u_theme": u_theme})
+    
+    except Exception as e:
+        print(e)
+        return render(request, "ADDpro.html", context={"u_theme": "theme1"})
+    
 
 def payments(request):
     """ Страница с вводом данных карты """

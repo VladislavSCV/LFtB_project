@@ -99,9 +99,13 @@
       background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
-      padding-top: 10px;
+      padding: 10px;
       color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
       background-color: #897ee3;
@@ -115,7 +119,17 @@
     }
     .centerGO{
     }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
 
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
     {% elif u_theme == "theme2"%}
     
     body {
@@ -210,13 +224,17 @@
 
     .contentMain{
       text-align: center;
-      background-color: #333333;
-      border-radius: 2%;
-      height: 600px;
-      
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      background-color: #ffffff;
+      border-radius: 2%;   
+      padding: 30px;
+      color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
+    
     .greyform{
       background-color: #897ee3;
       padding: 10px;
@@ -227,8 +245,12 @@
       position: relative;
       
     }
-    .centerGO{
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
+
     {% elif u_theme == "theme3"%}
     body {
       font-family: Arial, sans-serif;
@@ -322,14 +344,20 @@
 
     .contentMain{
       text-align: center;
-      background-color: #33025b;
+      background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      padding: 10px;
+      color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
+      word-break: break-all;
+            display: block;
       background-color: #897ee3;
       padding: 10px;
       border-radius: 5px;
@@ -340,6 +368,16 @@
       
     }
     .centerGO{
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
     {% endif %}
   </style>
@@ -382,6 +420,58 @@
 
   <div class="content">
       <div class="contentMain">
+      <div class="text">
+        <h1>Введение в SQL</h1>
+    
+    <p>SQL (Structured Query Language) — это язык программирования, используемый для управления базами данных. SQL позволяет выполнять различные операции с данными, такие как создание, чтение, обновление и удаление (CRUD).</p>
+    
+    <h2>Базовые операторы SQL</h2>
+    
+    <p>SQL включает в себя несколько базовых операторов:</p>
+    
+    <ul>
+        <li><code>SELECT</code>: Используется для извлечения данных из базы данных.</li>
+        <li><code>INSERT</code>: Используется для добавления новых записей в таблицу.</li>
+        <li><code>UPDATE</code>: Используется для обновления существующих записей в таблице.</li>
+        <li><code>DELETE</code>: Используется для удаления записей из таблицы.</li>
+    </ul>
+    
+    <h2>Примеры запросов SQL</h2>
+    
+    <p>Вот несколько примеров запросов SQL:</p>
+    
+    <ul>
+        <li>Выбрать все записи из таблицы "users":</li>
+        
+        <pre><code>
+            SELECT * FROM users;
+        </code></pre>
+        
+        <li>Добавить новую запись в таблицу "users":</li>
+        
+        <pre><code>
+            INSERT INTO users (name, age) VALUES ('John', 25);
+        </code></pre>
+        
+        <li>Обновить возраст для записи с идентификатором 1 в таблице "users":</li>
+        
+        <pre><code>
+            UPDATE users SET age = 30 WHERE id = 1;
+        </code></pre>
+        
+        <li>Удалить запись с идентификатором 1 из таблицы "users":</li>
+        
+        <pre><code>
+            DELETE FROM users WHERE id = 1;
+        </code></pre>
+    </ul>
+    
+    <h2>Расширенные возможности SQL</h2>
+    
+    <p>SQL также предлагает множество дополнительных функций, таких как сортировка данных (<code>ORDER BY</code>), фильтрация данных (<code>WHERE</code>), группировка данных (<code>GROUP BY</code>) и создание связей между таблицами (с использованием внешних ключей).</p>
+    
+    <p>Это был простой пример SQL. Существует гораздо больше возможностей, которые можно изучить для работы с базами данных.</p>
+      </div>
         <div class="centerGO">
           <a href="{% url 'send_user_courses' course='SQL' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->
 

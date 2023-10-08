@@ -99,9 +99,13 @@
       background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
-      padding-top: 10px;
+      padding: 10px;
       color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
       background-color: #897ee3;
@@ -115,7 +119,17 @@
     }
     .centerGO{
     }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
 
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
     {% elif u_theme == "theme2"%}
     
     body {
@@ -210,13 +224,17 @@
 
     .contentMain{
       text-align: center;
-      background-color: #333333;
-      border-radius: 2%;
-      height: 600px;
-      
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      background-color: #ffffff;
+      border-radius: 2%;   
+      padding: 30px;
+      color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
+    
     .greyform{
       background-color: #897ee3;
       padding: 10px;
@@ -227,8 +245,12 @@
       position: relative;
       
     }
-    .centerGO{
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
+
     {% elif u_theme == "theme3"%}
     body {
       font-family: Arial, sans-serif;
@@ -322,14 +344,20 @@
 
     .contentMain{
       text-align: center;
-      background-color: #33025b;
+      background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      padding: 10px;
+      color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
+      word-break: break-all;
+            display: block;
       background-color: #897ee3;
       padding: 10px;
       border-radius: 5px;
@@ -340,6 +368,16 @@
       
     }
     .centerGO{
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
     {% endif %}
   </style>
@@ -382,6 +420,19 @@
 
   <div class="content">
       <div class="contentMain">
+      <div class="text">
+        <h1>Введение в UX/UI дизайн</h1>
+        <p>UX (User Experience) и UI (User Interface) дизайн являются ключевыми аспектами разработки продуктов, которые обеспечивают взаимодействие пользователя с интерфейсом. Они работают вместе, чтобы создать интуитивно понятный, функциональный и приятный визуальный опыт для пользователей.</p>
+        <h2>UX дизайн</h2>
+        <p>UX дизайн фокусируется на создании позитивного опыта пользователя. Он основан на изучении поведения и потребностей пользователей, и на основе этой информации разрабатываются стратегии и решения для удовлетворения этих потребностей. Этот процесс включает в себя исследования, анализ данных, создание пользовательских путей и создание продуктов с подходящей функциональностью.</p>
+        <h2>UI дизайн</h2>
+        <p>UI дизайн, с другой стороны, нацелен на визуальное представление и организацию интерфейса продукта. Это включает в себя выбор цветовой схемы, шрифтов, компоновку элементов и создание привлекательных визуальных элементов. Цель UI дизайна - создать красивый и привлекательный интерфейс, который легко понять и использовать.</p>
+        <h2>Значимость UX/UI дизайна</h2>
+        <p>Хороший UX/UI дизайн является критически важным для успеха любого продукта или сервиса. Он помогает сделать взаимодействие пользователя с продуктом интуитивно понятным и эффективным. Когда пользователи имеют положительный опыт и наслаждаются использованием продукта, они склонны продолжать его использование и рекомендовать его другим.</p>
+        <p>Также UX/UI дизайн помогает увеличить конкурентоспособность продукта на рынке. Компании, которые инвестируют в качественный дизайн, показывают заботу о своих пользователях и стремятся предоставить им наилучший опыт. Это может привести к увеличению продаж, лояльности клиентов и укреплению бренда.</p>
+        <h2>Заключение</h2>
+        <p>UX/UI дизайн является важной составляющей разработки продуктов. Хороший UX/UI дизайн может иметь значительный положительный эффект на пользователей и на успех продукта в целом. Использование знаний и лучших практик UX/UI дизайна поможет создать продукт, который будет удовлетворять потребности пользователей и выделяться на рынке.</p>
+      </div>
         <div class="centerGO">
           <a href="{% url 'send_user_courses' course='UX_UI_дизайн' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->
         </div>

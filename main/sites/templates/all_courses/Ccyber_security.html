@@ -99,9 +99,13 @@
       background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
-      padding-top: 10px;
+      padding: 10px;
       color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
       background-color: #897ee3;
@@ -115,7 +119,17 @@
     }
     .centerGO{
     }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
 
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
     {% elif u_theme == "theme2"%}
     
     body {
@@ -210,13 +224,17 @@
 
     .contentMain{
       text-align: center;
-      background-color: #333333;
-      border-radius: 2%;
-      height: 600px;
-      
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      background-color: #ffffff;
+      border-radius: 2%;   
+      padding: 30px;
+      color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
+    
     .greyform{
       background-color: #897ee3;
       padding: 10px;
@@ -227,8 +245,12 @@
       position: relative;
       
     }
-    .centerGO{
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
+
     {% elif u_theme == "theme3"%}
     body {
       font-family: Arial, sans-serif;
@@ -322,14 +344,20 @@
 
     .contentMain{
       text-align: center;
-      background-color: #33025b;
+      background-color: #ffffff;
       border-radius: 2%;
       height: 600px;
-      
-      padding-top: 10px;
-      color: rgb(255, 255, 255);
+      padding: 10px;
+      color: black;
+      width: 100%;
+      height: 30%;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .greyform{
+      word-break: break-all;
+            display: block;
       background-color: #897ee3;
       padding: 10px;
       border-radius: 5px;
@@ -340,6 +368,16 @@
       
     }
     .centerGO{
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
+    }
+    .text{
+      margin-right: 70px;
+    margin-top: 10px;
+    margin-left: 70px;
     }
     {% endif %}
   </style>
@@ -382,6 +420,38 @@
 
   <div class="content">
       <div class="contentMain">
+      <div class="text">
+        <h1>Кибербезопасность</h1>
+
+<p>Кибербезопасность - это практика защиты компьютерных систем, сетей и данных от киберугроз. В современном цифровом мире, где сети и компьютерные системы играют огромную роль в нашей повседневной жизни, кибербезопасность становится все более важной.</p>
+
+<h2>Угрозы в киберпространстве</h2>
+
+<p>Киберпреступники разрабатывают разнообразные методы для атак на компьютерные системы и кражи информации. Вот некоторые из наиболее распространенных угроз:</p>
+
+<ul>
+  <li>Вирусы и вредоносное ПО: программа, которая может внедриться в компьютерную систему и нанести ущерб, кражу данных или замедлить работу системы.</li>
+  <li>Фишинг: попытка мошенничества, при которой злоумышленники выдают себя за доверенные организации и запрашивают личную информацию у пользователей.</li>
+  <li>ДДоС-атаки: атака, при которой злоумышленник перегружает сеть или сервер, что приводит к отказу в обслуживании для обычных пользователей.</li>
+  <li>Социальная инженерия: метод атаки, при котором злоумышленники используют манипуляцию и обман, чтобы получить доступ к конфиденциальной информации.</li>
+</ul>
+
+<h2>Меры по обеспечению кибербезопасности</h2>
+
+<p>Существует несколько мер для обеспечения кибербезопасности и защиты компьютерных систем:</p>
+
+<ol>
+  <li>Использование сильных паролей: уникальные и сложные пароли помогают защитить ваши аккаунты от несанкционированного доступа.</li>
+  <li>Обновление программного обеспечения: регулярное обновление операционных систем и программной составляющей помогает закрывать уязвимости и предотвращать атаки.</li>
+  <li>Установка антивирусного программного обеспечения: антивирусная программа помогает обнаруживать и устранять вредоносное ПО на компьютере.</li>
+  <li>Обучение пользователей: обучение сотрудников основам кибербезопасности и как распознавать подозрительные сообщения электронной почты или веб-сайты.</li>
+  <li>Регулярное создание резервных копий данных: регулярное создание резервных копий важных данных помогает восстановить информацию в случае утраты или атаки.</li>
+</ol>
+
+<h2>Заключение</h2>
+
+<p>В современном цифровом мире, кибербезопасность играет решающую роль в защите нашей частной и корпоративной информации. Понимание основных угроз и принятие соответствующих мер по обеспечению безопасности может помочь минимизировать риски и защитить наши компьютерные системы и данные.</p>
+      </div>
         <div class="centerGO">
           <a href="{% url 'send_user_courses' course='Кибербезопасность' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->
 
