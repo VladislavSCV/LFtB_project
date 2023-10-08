@@ -2,10 +2,17 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-
+from sites.utils import config  as config, db_handlers as db
 
 def main():
     """Run administrative tasks."""
+    # Проверка конфигурации
+    if not config.config_path.exists():
+        config.create()
+    
+    # Проверка бд
+    db.check_db()
+    
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'main.settings')
     try:
         from django.core.management import execute_from_command_line
