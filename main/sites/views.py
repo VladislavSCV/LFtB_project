@@ -207,7 +207,6 @@ def end_user_course(request, course):
     # Получение ника из сессий
     userNameSession = request.session.get("userName")
 
-
     conn = psycopg2.connect(dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1")
     cursor = conn.cursor()
 
@@ -223,7 +222,6 @@ def end_user_course(request, course):
     # Закрытие курсора и подключения
     cursor.close()
     conn.close()
-
 
     conn = psycopg2.connect(dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1")
     cursor = conn.cursor()
@@ -241,7 +239,6 @@ def end_user_course(request, course):
     # Закрытие курсора и подключения
     cursor.close()
     conn.close()
-
 
     conn = psycopg2.connect(dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1")
     cursor = conn.cursor()
