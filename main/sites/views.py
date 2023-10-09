@@ -18,8 +18,6 @@ import random
 # Либа для работы со строками
 import string
 
-
-
 # Либа для postgresql
 import psycopg2
 
