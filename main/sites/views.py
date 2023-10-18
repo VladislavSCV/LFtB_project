@@ -81,27 +81,6 @@ security_db = {"dbname": "LFtB", "user": "postgres", "password": "31415926", "ho
 def MainPage(request):
     """ Вывод главной страницы курса.
     Когда пользователь еще не зарегистрирован или не вошел в уч запись"""
-
-#     # Создание бд | После добавления бд на сервер. Нужно УДАЛИТЬ эту часть кода
-
-#     conn = psycopg2.connect(security_db)
-#     cursor = conn.cursor()
-#     cursor.execute("""CREATE TABLE IF NOT EXISTS public.users
-# (
-#     id integer NOT NULL DEFAULT nextval('users_id_seq'::regclass),
-#     user_name character varying(50) COLLATE pg_catalog."default" NOT NULL,
-#     user_email character varying COLLATE pg_catalog."default" NOT NULL,
-#     user_passw character varying(50) COLLATE pg_catalog."default" NOT NULL,
-#     pro boolean DEFAULT false,
-#     photo_url text COLLATE pg_catalog."default",
-#     user_desc text COLLATE pg_catalog."default",
-#     user_courses text COLLATE pg_catalog."default",
-#     user_certific text COLLATE pg_catalog."default",
-#     xp integer,
-#     user_achiv text COLLATE pg_catalog."default",
-#     user_theme text COLLATE pg_catalog."default",
-#     PRIMARY KEY (id)
-# )""")
     
     use = userSearchEngine()
 # Если юзер зайдет через обычную ссылку и не выйдет из учетной записи, то 
@@ -1220,11 +1199,11 @@ def catalog_courses(request, course):
         """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
     conn.commit()
 
-    u_theme = cursor.fetchone()
+    u_theme = cursor.fetchone()[0]
     if u_theme is None:
         u_theme = "theme1"
     else:
-        u_theme = u_theme[0]
+        u_theme = u_theme
     cursor.close()
     conn.close()
     match course:
@@ -1249,11 +1228,11 @@ def catalog_courses_pro(request, course):
         """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
     conn.commit()
 
-    u_theme = cursor.fetchone()
+    u_theme = cursor.fetchone()[0]
     if u_theme is None:
         u_theme = "theme1"
     else:
-        u_theme = u_theme[0]
+        u_theme = u_theme
 
     cursor.close()
     conn.close()
