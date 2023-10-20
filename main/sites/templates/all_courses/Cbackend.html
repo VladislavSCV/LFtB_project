@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LFtB Backend разработка</title>
+  <title>TechEd+ Backend разработка</title>
   <style>
     {% if u_theme == "theme1"%}
     body {
@@ -463,9 +463,14 @@
         <h2>Заключение</h2>
         <p>Backend-разработка является важной частью создания веб-приложений и вовлекает в себя множество технологий и навыков. Разработка серверной части приложений позволяет обрабатывать данные, управлять бизнес-логикой и взаимодействовать с базами данных. Надеемся, что это введение в Backend-разработку было полезным!</p>
       </div>
+      {% if user_vision == True%}
         <div class="centerGO">
             <a href="{% url 'send_user_courses' course='Backend' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->
           </div>
+      {% else %}
+    
+      {% endif %}
+        
 
     
         <h2 style="

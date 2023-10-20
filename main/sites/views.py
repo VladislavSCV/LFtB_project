@@ -10,12 +10,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
 import random
-
-# from yoomoney import Quickpay
-# from yoomoney import Client
-# import asyncio
-
-# Либа для работы со строками
 import string
 
 # Либа для postgresql
@@ -60,20 +54,17 @@ dct_courses = {
 
 # Словарь для вывода данных на страницу где пользователь может почитать о курсе и перейти к прохождению курса 
 dct_res_text = {
-    "Frontend Development": ["Frontend Development", "Фронтенд-разработчики занимаются созданием пользовательского интерфейса для веб-приложений и сайтов, используя языки программирования HTML, CSS и JavaScript.", "Frontend_разработка/"],
-    "Data Science": ["Data Science", "Этот курс расскажет о базовых принципах анализа данных и машинного обучения. Студенты изучат методы сбора, обработки и интерпретации данных, а также научатся применять статистические модели для прогнозирования и принятия решений.", "Data_science/"],
-    "Backend Development": ["Backend Development", "Этот курс предлагает изучение серверной разработки, языков программирования и инструментов для создания мощных веб-приложений. Вы освоите Python, Ruby или Node.js, а также научитесь работать с базами данных, разрабатывать API и обеспечивать безопасность приложения.", "Backend_разработка/"],
-    "Цифровой маркетинг": ["Цифровой маркетинг", "Курс по цифровому маркетингу научит вас использовать социальные сети, контент-маркетинг и SEO для привлечения трафика и достижения бизнес-целей. Вы освоите создание и оптимизацию цифровых маркетинговых кампаний.", "Цифровой_маркетинг/"],
-    "Финансовый анализ": ["Финансовый анализ", "Этот курс представляет изучение основ финансового анализа и оценки состояния компаний. Студенты освоят различные инструменты и модели, необходимые для принятия обоснованных финансовых решений.", "Финансовый_анализ/"],
-    "Blockchain и криптовалюты": ["Blockchain и криптовалюты", "Курс, который позволяет понять концепции и технологии блокчейн, а также различные типы криптовалют. Вы научитесь использовать блокчейн для создания безопасных и надежных систем передачи данных и управления с децентрализованной структурой.", "Blockchain/"],
-    "UX/UI дизайн": ["UX/UI дизайн", "Этот курс научит создавать удобные и привлекательные пользовательские интерфейсы. Обучение включает основы UI/UX-дизайна, а также применение современных инструментов и методов для создания и тестирования дизайна.", "UX_UI_дизайн/"],
-    "IOS разработчик": ["IOS разработчик", "Курс по разработке мобильных приложений для устройств iOS с использованием языка программирования Swift и инструментов Apple. Студенты научатся создавать, поддерживать и обновлять приложения для iPhone, iPad и других устройств, работающих на iOS.", "IOS_разработка/"],
-    "SQL": ["SQL", "Декларативный язык программирования, применяемый для создания, модификации и управления данными в реляционной базе данных, управляемой соответствующей системой управления базами данных.", "SQL_разработка/"],
+    "Frontend Development": ["Frontend Development", "Фронтенд-разработчики занимаются созданием пользовательского интерфейса для веб-приложений и сайтов, используя языки программирования HTML, CSS и JavaScript.", "Курс_Frontend_разработка/"],
+    "Data Science": ["Data Science", "Этот курс расскажет о базовых принципах анализа данных и машинного обучения. Студенты изучат методы сбора, обработки и интерпретации данных, а также научатся применять статистические модели для прогнозирования и принятия решений.", "Курс_pro_Data_science/"],
+    "Backend Development": ["Backend Development", "Этот курс предлагает изучение серверной разработки, языков программирования и инструментов для создания мощных веб-приложений. Вы освоите Python, Ruby или Node.js, а также научитесь работать с базами данных, разрабатывать API и обеспечивать безопасность приложения.", "Курс_pro_Backend_разработка/"],
+    "Цифровой маркетинг": ["Цифровой маркетинг", "Курс по цифровому маркетингу научит вас использовать социальные сети, контент-маркетинг и SEO для привлечения трафика и достижения бизнес-целей. Вы освоите создание и оптимизацию цифровых маркетинговых кампаний.", "Курс_Цифровой_маркетинг/"],
+    "Финансовый анализ": ["Финансовый анализ", "Этот курс представляет изучение основ финансового анализа и оценки состояния компаний. Студенты освоят различные инструменты и модели, необходимые для принятия обоснованных финансовых решений.", "Курс_Финансовый_анализ/"],
+    "Blockchain и криптовалюты": ["Blockchain и криптовалюты", "Курс, который позволяет понять концепции и технологии блокчейн, а также различные типы криптовалют. Вы научитесь использовать блокчейн для создания безопасных и надежных систем передачи данных и управления с децентрализованной структурой.", "Курс_pro_Blockchain/"],
+    "UX/UI дизайн": ["UX/UI дизайн", "Этот курс научит создавать удобные и привлекательные пользовательские интерфейсы. Обучение включает основы UI/UX-дизайна, а также применение современных инструментов и методов для создания и тестирования дизайна.", "Курс_UX_UI_дизайн/"],
+    "IOS разработчик": ["IOS разработчик", "Курс по разработке мобильных приложений для устройств iOS с использованием языка программирования Swift и инструментов Apple. Студенты научатся создавать, поддерживать и обновлять приложения для iPhone, iPad и других устройств, работающих на iOS.", "Курс_pro_IOS_разработка/"],
+    "SQL": ["SQL", "Декларативный язык программирования, применяемый для создания, модификации и управления данными в реляционной базе данных, управляемой соответствующей системой управления базами данных.", "Курс_SQL_разработка/"],
     "Кибербезопасность": ["Кибербезопасность", "Направление связанное с разработкой и управлением систем информационной безопасности в организации.", "Cyber_security/"]
 }
-
-# Словарь для хранения
-dct = {}
 
 security_db = {"dbname": "LFtB", "user": "postgres", "password": "31415926", "host": "127.0.0.1"}
 
@@ -1052,7 +1043,7 @@ def conf_to_reg(request):
                 # Генерируем рандомный пароль
                 random_code = ''.join(random.choices(string.ascii_uppercase+string.digits, k=6))
                 
-                send_email(userEmail, 'LFtB-код подтверждение', random_code)
+                send_email(userEmail, 'TechEd+-код подтверждение', random_code)
                 
                 request.session['generated_password'] = random_code
                 request.session['userNameREG'] = userName
@@ -1118,7 +1109,15 @@ def confirm(request):
 
 
 def main_b_a(request):
-    """ Главная страница после регестрации """
+    """
+    Main page after registration.
+    
+    Args:
+        request: The HTTP request object.
+        
+    Returns:
+        The HTTP response object.
+    """
     try:
         use = userSearchEngine()
 
@@ -1155,7 +1154,11 @@ def main_b_a(request):
 
 
 def catalog(request):
-    """ Каталог курсов """
+    """
+    Catalog view function.
+    Retrieves the user's theme from the database and renders the catalog.html template with the user's name and theme.
+    If there is an error, renders the exception.html template.
+    """
     userNameSession = request.session.get("userName")
     if userNameSession:
         try:
@@ -1191,6 +1194,16 @@ def catalog(request):
     
 
 def catalog_courses(request, course):
+    """
+     Render the catalog courses based on the user's theme.
+    
+    Args:
+        request (HttpRequest): The HTTP request object.
+        course (str): The course name.
+        
+    Returns:
+        HttpResponse: The rendered HTML page of the catalog course.
+    """
     username = request.session.get("userName")
     conn = psycopg2.connect(**security_db)
     cursor = conn.cursor()
@@ -1198,14 +1211,22 @@ def catalog_courses(request, course):
     cursor.execute(
         """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
     conn.commit()
-
-    u_theme = cursor.fetchone()[0]
-    if u_theme is None:
-        u_theme = "theme1"
+    if username is None:
+        u_theme = cursor.fetchone()
+        if u_theme is None:
+            u_theme = "theme1"
+        else:
+            u_theme = u_theme[0]
+        
     else:
-        u_theme = u_theme
+        u_theme = cursor.fetchone()[0]
+        if u_theme is None:
+            u_theme = "theme1"
+        else:
+            u_theme = u_theme
     cursor.close()
     conn.close()
+    
     match course:
         case "Frontend_разработка":
             return render(request, r"all_courses/CFrontend.html", context={"u_theme": u_theme})
@@ -1220,23 +1241,59 @@ def catalog_courses(request, course):
 
 
 def catalog_courses_pro(request, course):
+    """
+    Renders the specified course page based on the user's theme and visibility settings.
+    Args:
+        request (HttpRequest): The HTTP request object.
+        course (str): The name of the course.
+    Returns:
+        HttpResponse: The rendered course page.
+    Raises:
+        None
+    """
     username = request.session.get("userName")
+    
+    # Take the user's theme
     conn = psycopg2.connect(**security_db)
     cursor = conn.cursor()
 
     cursor.execute(
         """SELECT user_theme FROM users WHERE user_name = %s""", (username, ))
     conn.commit()
-
-    u_theme = cursor.fetchone()[0]
-    if u_theme is None:
-        u_theme = "theme1"
+    if username is None:
+        u_theme = cursor.fetchone()
+        if u_theme is None:
+            u_theme = "theme1"
+        else:
+            u_theme = u_theme[0]
+        
     else:
-        u_theme = u_theme
+        u_theme = cursor.fetchone()[0]
+        if u_theme is None:
+            u_theme = "theme1"
+        else:
+            u_theme = u_theme
+    cursor.close()
+    conn.close()
+    
+    # Take the user's status
+    conn = psycopg2.connect(**security_db)
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """SELECT 1 FROM users WHERE user_name = %s AND pro = %s""", (username, True))
+    conn.commit()
+
+    u_pro = cursor.fetchone()
+    if u_pro is not None:
+        u_pro = u_pro[0]
+    else:
+        u_pro = False
 
     cursor.close()
     conn.close()
-    user_vision = True if username else False
+    
+    user_vision = True if username and u_pro else False
     
     match course:
         case "Data_science":
@@ -1246,7 +1303,7 @@ def catalog_courses_pro(request, course):
             return render(request, r"all_courses/Cbackend.html", context={"u_theme": u_theme,
                                                                           "user_vision": user_vision})
         case "Blockchain":
-            return render(request, r"all_courses/Cbc.html", context={"u_theme": u_theme, 
+            return render(request, r"all_courses/Cblockchain.html", context={"u_theme": u_theme, 
                                                                      "user_vision": user_vision})
         case "IOS_разработка":
             return render(request, r"all_courses/Cios.html", context={"u_theme": u_theme,

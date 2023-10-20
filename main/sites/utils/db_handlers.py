@@ -14,9 +14,9 @@ def create_db():
         connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
         # Курсор для выполнения операций с базой данных
         cursor = connection.cursor()
-        sql_create_database = f"create database Lftb"
+        sql_create_database = f"create database TechEd+"
         cursor.execute(sql_create_database)
-        config.update("dbname", "lftb")
+        config.update("dbname", "TechEd+")
     except (Exception, Error) as error:
         print("Ошибка при работе с PostgreSQL", error)
         return False

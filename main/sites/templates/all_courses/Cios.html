@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LFtB IOS разработчик</title>
+  <title>TechEd+ IOS разработчик</title>
   <style>
     {% if u_theme == "theme1"%}
     body {
@@ -443,10 +443,14 @@
         <h2>Заключение</h2>
         <p>IOS разработчик играет важную роль в создании инновационных приложений для устройств Apple. Они должны иметь хорошее знание языков программирования Swift и Objective-C, а также опыт работы с инструментами разработки IOS. Благодаря своим навыкам и креативности, IOS разработчики могут создавать высококачественные и привлекательные приложения для миллионов пользователей по всему миру.</p>
       </div>
-        <div class="centerGO">
+      {% if user_vision == True%}
+      <div class="centerGO">
           <a href="{% url 'send_user_courses' course='IOS_разработчик' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->
-
         </div>
+      {% else %}
+    
+      {% endif %}
+        
 
     
         <h2 style="

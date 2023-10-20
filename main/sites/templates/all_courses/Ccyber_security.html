@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LFtB Cyber Security</title>
+  <title>TechEd+ Cyber Security</title>
   <style>
     {% if u_theme == "theme1"%}
     body {
@@ -452,10 +452,15 @@
 
 <p>В современном цифровом мире, кибербезопасность играет решающую роль в защите нашей частной и корпоративной информации. Понимание основных угроз и принятие соответствующих мер по обеспечению безопасности может помочь минимизировать риски и защитить наши компьютерные системы и данные.</p>
       </div>
-        <div class="centerGO">
+      {% if user_vision == True%}
+      <div class="centerGO">
           <a href="{% url 'send_user_courses' course='Кибербезопасность' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->
 
         </div>
+      {% else %}
+    
+      {% endif %}
+        
 
     
         <h2 style="

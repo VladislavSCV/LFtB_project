@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LFtB Blockchain и криптовалюты</title>
+  <title>TechEd+ Blockchain и криптовалюты</title>
   <style>
     {% if u_theme == "theme1"%}
     body {
@@ -446,11 +446,16 @@
     <h2>Заключение</h2>
     <p>Blockchain и криптовалюты представляют собой инновационные технологии, которые меняют способ передачи и учета информации. Их применение распространяется на различные отрасли и внесло революцию в финансовую систему. Изучение и понимание этих концепций могут быть полезными в современном цифровом мире.</p>
       </div>
-        <div class="centerGO">
+      {% if user_vision == True%}
+      <div class="centerGO">
           <ul>
             <a href="{% url 'send_user_courses' course='Blockchain_и_криптовалюты' %}"><button type="button">Изучать</button></a>            <!-- <a href=""><button type="button"> Закончить изучение</button></a> -->
 
         </div>
+      {% else %}
+    
+      {% endif %}
+        
 
     
         <h2 style="

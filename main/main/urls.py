@@ -28,7 +28,6 @@ urlpatterns = [
     # Страницы курса
     re_path(r".*Курс_pro_(?P<course>[\w-]+)/$", siVi.catalog_courses_pro, name='catalog_courses_pro'),
     re_path(r".*Курс_(?P<course>[\w-]+)/$", siVi.catalog_courses, name='catalog_courses'),
-    
     # Выход из учет. записи
     re_path(r".*Выход/$", siVi.quit),
     # Темы
