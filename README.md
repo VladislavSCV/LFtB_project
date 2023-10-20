@@ -1,4 +1,4 @@
-# LFtB_project
+# TechEd+_project
 Hello world!
 # Для запуска проекта:
 cd main ......

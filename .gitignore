@@ -4,3 +4,7 @@ __pycache__/
 # Файлы с данными
 main/config.json
 main/db.sqlite3
+
+
+# Данные связанные с оплатой
+main\secret_data.txt
