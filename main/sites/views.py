@@ -70,8 +70,10 @@ security_db = {"dbname": "LFtB", "user": "postgres", "password": "31415926", "ho
 
 
 def MainPage(request):
-    """ Вывод главной страницы курса.
-    Когда пользователь еще не зарегистрирован или не вошел в уч запись"""
+    """
+    Renders the main page of the course.
+    When the user is not registered or logged in.
+    """
     
     use = userSearchEngine()
 # Если юзер зайдет через обычную ссылку и не выйдет из учетной записи, то 
@@ -79,7 +81,7 @@ def MainPage(request):
 # В общем работае как авто сохранение в учетке
     try:
         if request.session["userName"]:
-            return HttpResponseRedirect("http://127.0.0.1:8000/Главная_страница./")
+            return HttpResponseRedirect("127.0.0.1:8000/Главная_страница./")
 
     except Exception as e:
         print(e)
@@ -87,6 +89,14 @@ def MainPage(request):
     
 
 def levenshtein_distance(word1, word2):
+    """
+    Calculates the Levenshtein distance between two words.
+    Parameters:
+    word1 (str): The first word.
+    word2 (str): The second word.
+    Returns:
+    int: The minimum number of single-character edits (insertions, deletions, or substitutions) required to change word1 into word2.
+    """
     m = len(word1)
     n = len(word2)
     # Создаем матрицу для хранения расстояний Левенштейна между префиксами слов
@@ -114,8 +124,15 @@ def levenshtein_distance(word1, word2):
 
 
 def res_search(request):
-    """ Вывод результатов поиска """
-    """ Тут было бы неплохо из запросов сделать транзакции """
+    """
+    Display search results
+    
+    Args:
+        request: HTTP request object
+        
+    Returns:
+        HTTP response object
+    """
 
     global dct_courses, dct_res_text
 
@@ -313,7 +330,7 @@ def end_user_course(request, course):
         cursor.close()
         conn.close()
         # Переадресация юзера на страницу профиля | В будущем возможно изменим, чтобы он уходил в каталог
-        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
+        return HttpResponseRedirect("127.0.0.1:8000/Авторизация/Профиль/")
 
     if course == "Цифровой_маркетинг" and "Цифровой маркетинг" not in set_end_courses:
         courses.remove("Цифровой маркетинг")
@@ -347,7 +364,7 @@ def end_user_course(request, course):
 
         cursor.close()
         conn.close()
-        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
+        return HttpResponseRedirect("127.0.0.1:8000/Авторизация/Профиль/")
 
     if course == "Кибербезопасность" and "Кибербезопасность" not in set_end_courses:
         courses.remove("Кибербезопасность")
@@ -381,7 +398,7 @@ def end_user_course(request, course):
 
         cursor.close()
         conn.close()
-        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
+        return HttpResponseRedirect("127.0.0.1:8000/Авторизация/Профиль/")
 
     if course == "Data_science" and "Data science" not in set_end_courses:
         print("Я В DS")
@@ -416,7 +433,7 @@ def end_user_course(request, course):
 
         cursor.close()
         conn.close()
-        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
+        return HttpResponseRedirect("127.0.0.1:8000/Авторизация/Профиль/")
 
     if course == "Финансовый_анализ" and "Финансовый анализ" not in set_end_courses:
         courses.remove("Финансовый анализ")
@@ -450,7 +467,7 @@ def end_user_course(request, course):
 
         cursor.close()
         conn.close()
-        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
+        return HttpResponseRedirect("127.0.0.1:8000/Авторизация/Профиль/")
     if course == "Frontend" and "Frontend разработка" not in set_end_courses:
         courses.remove("Frontend разработка")
         courses = str(courses)
@@ -484,7 +501,7 @@ def end_user_course(request, course):
 
         cursor.close()
         conn.close()
-        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
+        return HttpResponseRedirect("127.0.0.1:8000/Авторизация/Профиль/")
 
     if course == "IOS_разработчик" and "IOS разработчик" not in set_end_courses:
         courses.remove("IOS разработчик")
@@ -518,7 +535,7 @@ def end_user_course(request, course):
 
         cursor.close()
         conn.close()
-        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
+        return HttpResponseRedirect("127.0.0.1:8000/Авторизация/Профиль/")
 
     if course == "SQL" and "SQL" not in set_end_courses:
         courses.remove("SQL")
@@ -552,7 +569,7 @@ def end_user_course(request, course):
 
         cursor.close()
         conn.close()
-        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
+        return HttpResponseRedirect("127.0.0.1:8000/Авторизация/Профиль/")
 
     if course == "UX/UI_дизайн" and "UX/UI дизайн" not in set_end_courses:
         courses.remove("UX/UI дизайн")
@@ -586,15 +603,23 @@ def end_user_course(request, course):
 
         cursor.close()
         conn.close()
-        return HttpResponseRedirect("http://127.0.0.1:8000/Авторизация/Профиль/")
+        return HttpResponseRedirect("127.0.0.1:8000/Авторизация/Профиль/")
     else:
         u_excp = "Произошла какая-то ошибка. Попробуйте позже."
         return render(request, "exception.html", context={"u_excp": u_excp})
 
 
 def send_user_courses(request, course):
-    """ Добавление курсов в бд """
-    """ Тут было бы неплохо из запросов сделать транзакции """
+    """
+    A function to add courses to the database for a user.
+    It updates the user's course list based on the selected course.
+    It also retrieves the user's theme from the database.
+    Args:
+        request: The HTTP request object.
+        course (str): The selected course.
+    Returns:
+        The HTTP response object.
+    """
 
     userNameSession = request.session.get("userName")
 
@@ -775,7 +800,9 @@ def send_user_courses(request, course):
     
 
 def User_page(request):
-    """ Вывод всей информации о пользователе на домашней странице """
+    """
+    Render the user's homepage with all the user information.
+    """
 
     global img_src
     userNameSession = request.session.get("userName")
@@ -812,7 +839,7 @@ def User_page(request):
     conn.close()
 
 # ...Вывод описания профиля
-    func_desc = take_desc(userNameSession)
+    func_desc = get_user_description(userNameSession)
 
     print(func_desc, "desc_")
     if func_desc is None:
@@ -960,7 +987,12 @@ def User_page(request):
 
 
 def Auth(request):
-    """Страница аутентификации"""
+    """Authenticate the user.
+    Args:
+        request (HttpRequest): The HTTP request object.
+    Returns:
+        HttpResponse: The response object.
+    """
 
     ufa = userFormAUTH()
     if request.method == "POST":
@@ -978,7 +1010,7 @@ def Auth(request):
         conn.close()
         # Если пользователь в бд, то переходим на главную страницу для авторизованных
         if result:
-            return HttpResponseRedirect("http://127.0.0.1:8000/Главная_страница./")
+            return HttpResponseRedirect("127.0.0.1:8000/Главная_страница./")
         else:
             # Иначе выводим ошибку
             u_excp = "Проверьте правильность ввода."
@@ -988,16 +1020,28 @@ def Auth(request):
 
 
 def reg(request):
-    """ Страница регистрации """
+    """
+    Renders the registration page.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        A rendered HTML template with the registration form.
+
+    """
     userform = userFormREG()
     return render(request, "reg.html", {"form": userform})
 
 
 def send_email(to_email, subj, text):
-    """ Отпрака email пользователю
-    Первый параметр это email нужного нам пользователя
-    Второй - Тема письма
-    Третий - Текст письма"""
+    """
+    Sends an email to the specified user.
+    Args:
+        to_email (str): The email address of the recipient.
+        subject (str): The subject of the email.
+        text (str): The body of the email.
+    """
     msg = MIMEMultipart()
     msg['From'] = 'mighty.hiper@yandex.ru'
     msg['To'] = to_email
@@ -1014,7 +1058,15 @@ def send_email(to_email, subj, text):
 
 
 def conf_to_reg(request):
-    """ Отправка кода подтверждения пользователю! """
+    """
+    This function sends a confirmation code to the user.
+    
+    Args:
+        request (HttpRequest): The HTTP request object.
+    
+    Returns:
+        HttpResponse: The HTTP response object.
+    """
     try:
         if request.method == "POST":
             userform = userFormREG(request.POST)
@@ -1059,7 +1111,15 @@ def conf_to_reg(request):
 
 
 def confirm(request):
-    """ Проверка кода из email """
+    """
+    Validates the code entered by the user against the generated code,
+    and inserts user data into the database if the codes match.
+    Args:
+        request: The HTTP request object.
+    Returns:
+        If the codes match, redirects the user to the main page.
+        Otherwise, renders an error page.
+    """
     try:
         if request.method == "POST":
 
@@ -1096,7 +1156,7 @@ def confirm(request):
 
                 cursor.close()
                 conn.close()
-                return HttpResponseRedirect("http://127.0.0.1:8000/Главная_страница./")
+                return HttpResponseRedirect("127.0.0.1:8000/Главная_страница./")
             else:
                 print("Пароль не подошел!(")
                 # Коды не совпадают, выводим ошибку
@@ -1184,7 +1244,7 @@ def catalog(request):
             return render(request, "catalog.html", {"userName": userNameSession, "u_theme": u_theme})
         except Exception as e:
             print(e)
-            # http://127.0.0.1:8000/Регистрация/
+            # 127.0.0.1:8000/Регистрация/
             u_excp = "Произошла какая-то ошибка."
 
             return render(request, "exception.html", context={"u_excp": u_excp})
@@ -1314,105 +1374,143 @@ def catalog_courses_pro(request, course):
             
 
 def quest(request):
-    """ Квесты """
+    """
+    This function handles requests related to quests.
 
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The HTTP response object.
+
+    Raises:
+        Exception: If an error occurs during database interaction.
+
+    """
+    # Get the user name from the session
     userNameSession = request.session.get("userName")
+    
+    # Check if the user name exists in the session
     if userNameSession:
         try:
+            # Print the user name for debugging
             print(userNameSession)
 
+            # Connect to the database
             conn = psycopg2.connect(dbname="LFtB", user="postgres",
                                     password="31415926", host="127.0.0.1")
             cursor = conn.cursor()
 
+            # Retrieve the user theme from the database
             cursor.execute(
                 """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
 
             conn.commit()
 
+            # Fetch the user theme
             u_theme = cursor.fetchone()[0]
             print(u_theme)
+            
+            # If the user theme is not set, use "theme1" as the default
             if u_theme is None:
                 u_theme = "theme1"
-            else:
-                u_theme = u_theme
+            
             cursor.close()
             conn.close()
 
+            # Render the quest page with the user theme
             return render(request, "quest.html", context={"u_theme": u_theme})
         except Exception as e:
+            # Handle exception by rendering the exception page
             print(e)
             u_excp = "Произошла какая-то ошибка."
 
             return render(request, "exception.html", context={"u_excp": u_excp})
     else:
-
+        # Render the quest page with the default theme
         return render(request, 'quest.html', context={"u_theme": "theme1"})
 
 
 def theme(request):
-    """ Вывод и работа с настройками """
+    """
+    View function for handling themes and settings.
 
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        If the request method is POST, it redirects to the profile page.
+        Otherwise, it renders the themes.html template with the form and the current theme.
+    """
+
+    # Get the username from the session
     userNameSession = request.session.get("userName")
 
+    # Connect to the database
     conn = psycopg2.connect(**security_db)
     cursor = conn.cursor()
 
-    cursor.execute(
-        """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
+    # Retrieve the user's theme
+    cursor.execute("""SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
     conn.commit()
-
     u_theme = cursor.fetchone()[0]
-    print(u_theme)
+
+    # If the user's theme is None, set it to "theme1"
     if u_theme is None:
         u_theme = "theme1"
-    else:
-        u_theme = u_theme
-    print(u_theme)
+
+    # Close the database connection
     cursor.close()
     conn.close()
 
+    # Get the available themes
     st = select_theme()
-    if request.method == "POST":
 
+    if request.method == "POST":
+        # Get the form data
         user_name = request.POST.get("usernameSET")
         user_desc = request.POST.get("description")
         user_photo = request.POST.get("user_photo_url")
         user_theme = request.POST.get("user_theme")
 
-        conn = psycopg2.connect(dbname="LFtB", user="postgres",
-                                password="31415926", host="127.0.0.1")
+        # Connect to the database
+        conn = psycopg2.connect(dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1")
         cursor = conn.cursor()
         conn.set_client_encoding('UTF8')
-        # Если пользователь изменит хотя бы один параметр, то изменения уйдут в бд
+
+        # Update the user's name if provided
         if user_name:
-            cursor.execute(
-                "UPDATE users SET user_name = %s WHERE user_name = %s", (user_name, userNameSession))
-            
+            cursor.execute("UPDATE users SET user_name = %s WHERE user_name = %s", (user_name, userNameSession))
             request.session['userName'] = user_name
+
+        # Update the user's description if provided
         if user_desc:
-            print(user_desc)
-            cursor.execute(
-                "UPDATE users SET user_desc = %s WHERE user_name = %s", (user_desc, userNameSession))
+            cursor.execute("UPDATE users SET user_desc = %s WHERE user_name = %s", (user_desc, userNameSession))
+
+        # Update the user's photo URL if provided
         if user_photo:
-            cursor.execute(
-                "UPDATE users SET photo_url = %s WHERE user_name = %s", (user_photo, userNameSession))
-            print("changes photo")
+            cursor.execute("UPDATE users SET photo_url = %s WHERE user_name = %s", (user_photo, userNameSession))
+
+        # Update the user's theme if provided
         if user_theme:
-            cursor.execute(
-                "UPDATE users SET user_theme = %s WHERE user_name = %s", (user_theme, userNameSession))
+            cursor.execute("UPDATE users SET user_theme = %s WHERE user_name = %s", (user_theme, userNameSession))
+
+        # Commit the changes to the database
         conn.commit()
 
+        # Close the database connection
         cursor.close()
         conn.close()
 
-        return HttpResponseRedirect("http://127.0.0.1:8000/Главная_страница./Профиль/")
+        # Redirect to the profile page
+        return HttpResponseRedirect("127.0.0.1:8000/Главная_страница./Профиль/")
 
+    # Render the themes.html template with the form and the current theme
     return render(request, "themes.html", {"form": st, "u_theme": u_theme})
 
 
 def test(request):
-    """ Тестовая функция | ДЛя проверки фич"""
+    """ Тестовая функция | Для проверки фич"""
     subject = 'Test Email'
     message = 'Hello, this is a test email.'
     from_email = 'vladnety134@gmail.com'
@@ -1422,63 +1520,93 @@ def test(request):
     return HttpResponse("Hello")
 
 
-def take_desc(username):
-    """ Получить описание пользователя из бд """
+def get_user_description(username):
+    """Get user description from the database.
+
+    Args:
+        username (str): The name of the user.
+
+    Returns:
+        str: The description of the user.
+
+    """
+    # Connect to the database
     conn = psycopg2.connect(**security_db)
     cursor = conn.cursor()
 
+    # Execute the query to fetch the user description
     cursor.execute(
         "SELECT user_desc FROM users WHERE user_name = %s", (username, ))
 
+    # Fetch the result and print it
     result = cursor.fetchone()[0]
     print(result, "desc_res")
 
+    # Close the cursor and the connection
     cursor.close()
     conn.close()
 
+    # Return the user description
     return result
 
 
-# Выход из учетной записи на главной странице
 def quit(request):
-
+    """
+    Remove the 'userName' key from the session and redirect to the home page.
+    """
     del request.session['userName']
-
-    return HttpResponseRedirect("http://127.0.0.1:8000/")
+    return HttpResponseRedirect("127.0.0.1:8000/") 
 
 
 def pro(request):
-    """ Страница с плюсами про версии """
+    """
+    Render the page with advantages of the versions.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        The rendered HTML template with the user theme.
+    """
     try:
+        # Get the user name from the session
         userNameSession = request.session.get("userName")
 
-        conn = psycopg2.connect(dbname="LFtB", user="postgres",
-                                password="31415926", host="127.0.0.1")
+        # Connect to the database
+        conn = psycopg2.connect(dbname="LFtB", user="postgres", password="31415926", host="127.0.0.1")
         cursor = conn.cursor()
 
-        cursor.execute(
-            """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
-
+        # Fetch the user theme from the database
+        cursor.execute("""SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
         conn.commit()
-
         u_theme = cursor.fetchone()[0]
+
+        # Set the default user theme if it is None
         if u_theme is None:
             u_theme = "theme1"
-        else:
-            u_theme = u_theme
+
         cursor.close()
         conn.close()
 
+        # Render the template with the user theme
         return render(request, "ADDpro.html", context={"u_theme": u_theme})
     
     except Exception as e:
+        # Print the exception and render the template with the default user theme
         print(e)
         return render(request, "ADDpro.html", context={"u_theme": "theme1"})
     
 
 def payments(request):
-    """ Страница с вводом данных карты """
-    # username = request.session.get("userName")
+    """
+    Renders the payment page if the user is logged in, otherwise renders an exception page.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The rendered payment page or exception page.
+    """
     try:
         userNameSession = request.session.get("userName")
         print("UserNameSession", userNameSession)

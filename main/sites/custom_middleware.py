@@ -10,7 +10,7 @@ class ErrorHandlerMiddleware400:
         response = self.get_response(request)
         if response.status_code == 400:
             
-            return redirect('http://127.0.0.1:8000/')
+            return redirect('127.0.0.1:8000/')
         return response
 
 
@@ -22,6 +22,6 @@ class ErrorHandlerMiddleware500:
     def __call__(self, request):
         response = self.get_response(request)
         if response.status_code == 500:
-            return redirect('http://127.0.0.1:8000/')
+            return redirect('127.0.0.1:8000/')
         return response
     
