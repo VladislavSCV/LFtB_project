@@ -7,6 +7,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
     /* Global Styles */
+
+html{
+  min-width: 40%;
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
@@ -47,6 +52,9 @@ a {
 }
 
 .btn-primary {
+  text-align: center;
+  max-width: 100%;
+  min-width: 90%;
   background-color: #3f51b5;
   color: #fff;
 }
@@ -58,6 +66,7 @@ a {
 }
 
 .btn-secondary {
+  min-width: 30%;
   background-color: #fff;
   color: #3f51b5;
   border-color: #3f51b5;
@@ -67,6 +76,49 @@ a {
   background-color: #3f51b5;
   color: #fff;
 }
+
+
+.btn_footer {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  border: 2px solid transparent;
+  border-radius: 30px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-primary_footer {
+  text-align: center;
+  max-width: 100%;
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+.btn-primary_footer:hover {
+  background-color: #fff;
+  border-color: #3f51b5;
+  color: #3f51b5;
+}
+
+.btn-secondary_footer {
+  background-color: #fff;
+  color: #3f51b5;
+  border-color: #3f51b5;
+}
+
+.btn-secondary_footer:hover {
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+.distance{
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
 
 /* Header Styles */
 .header {
@@ -100,11 +152,22 @@ a {
 
 .menu {
   display: flex;
+  justify-content: center;
   align-items: center;
+
+
+}
+.menu li {
+  margin-right: 10px; /* Add margin between the items */
 }
 
+.menu li:last-child {
+  margin-right: 0; /* Remove margin from the last item */
+}
 .menu-item {
-  margin-right: 20px;
+  flex: 0 1 50%;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .hero {
@@ -367,7 +430,24 @@ display: flex;
   margin-top: 0;
   margin-bottom: 0;
 }
-@media screen and (min-width:200px) and (max-width:1024px) {
+@media screen and (max-width: 990px) {
+  .menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .menu-item {
+    flex: 0 1 50%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+.popular-courses-grid {
+  grid-template-columns: 1fr;
+  text-align: center;
+}
+
 }
   </style>
 </head>
@@ -376,21 +456,26 @@ display: flex;
   <header class="header">
     <div class="container">
       <nav class="nav" id='nav'>
-        <img src="https://im.wampi.ru/2023/10/22/ClipDropImage1697959550309.png" style="width: 125px;">
-        <ul class="menu">
-          <li class="menu-item"><a href="Каталог_курсов/">Курсы</a></li>
-          <li class="menu-item"><a href="PRO/">PRO</a></li>
-          <li class="menu-item"><a href="Квесты/">Квесты</a></li>
-          <a href="Авторизация/" class="btn btn-primary">Авторизация</a>
-          <br>
-        <a href="Регистрация/" class="btn btn-primary">Регистрация</a>
-        </ul>
+        <img src="https://ie.wampi.ru/2023/07/19/ClipDropImage1689779800774.png" style="width: 125px;">
+        <div class="menu">
+
+          <div class="distance"><a href="PRO/"><button class="btn btn-primary">PRO</button></a></div>
+          
+          <div class="distance"><a href="Каталог_курсов/"><button class="btn btn-primary">Курсы</button></a></div>
+
+          <div class="distance"><a href="Квесты/"><button class="btn btn-primary">Квесты</button></a></div>
+
+          <div class="distance"><a href="Авторизация/"><button class="btn btn-primary">Авторизация</button></a></div>
+
+          <div class="distance"><a href="Регистрация/"><button class="btn btn-primary">Регистрация</button></a></div>
+
+        </class>
         
       </nav>
       
       {% csrf_token %}
       <div class="hero">
-        <h1 class="hero-heading">TechEd+ -  Tech Education +</h1>
+        <h1 class="hero-heading">TechEd+ - Технологии вокруг тебя</h1>
         <p class="hero-text">Получите доступ к сотням онлайн-курсов, от ведущих экспертов отрасли</p>
         <form class="hero-form" method="post" action="Search/">
           {% csrf_token %}
@@ -425,7 +510,7 @@ display: flex;
   </section>
   <section class="popular-courses">
     <div class="container">
-      <h2 class="section-heading">Популярные курсы</h2>
+    <h2 class="section-heading">Популярные курсы</h2>
       <div class="popular-courses-grid">
         <div class="course" id="course" style="display: none;">
             <img src="https://www.itreeni.com/wp-content/uploads/2017/07/frontend-development.png" alt="Course Image" class="course-image">
@@ -436,7 +521,7 @@ display: flex;
                 <span class="course-length">6+ Hours</span>
                 <span class="course-rating">4.7</span>
               </div>
-              <a href="127.0.0.1:8000/Каталог_курсов/Курс_Frontend_разработка/" class="btn btn-primary">Подробнее</a>
+              <a href="http://127.0.0.1:8000/Каталог_курсов/Курс_Frontend_разработка/" class="btn btn-primary_footer">Подробнее</a>
             </div>
           </div>
         <div class="course" id="course1" style="display: none;">
@@ -448,7 +533,7 @@ display: flex;
               <span class="course-length">10+ Hours</span>
               <span class="course-rating">4.6</span>
             </div>
-            <a href="127.0.0.1:8000/Каталог_курсов/Курс_pro_Data_science/" class="btn btn-primary">Подробнее</a>
+            <a href="http://127.0.0.1:8000/Каталог_курсов/Курс_pro_Data_science/" class="btn btn-primary_footer">Подробнее</a>
           </div>
         </div>
 
@@ -461,7 +546,7 @@ display: flex;
                 <span class="course-length">9+ Hours</span>
                 <span class="course-rating">4.9</span>
               </div>
-              <a href="127.0.0.1:8000/Каталог_курсов/Курс_pro_Backend_разработка/" class="btn btn-primary">Подробнее</a>
+              <a href="http://127.0.0.1:8000/Каталог_курсов/Курс_pro_Backend_разработка/" class="btn btn-primary_footer">Подробнее</a>
             </div>
           </div>
       
@@ -474,9 +559,9 @@ display: flex;
       <nav class="nav">
         <a href="#" class="logo">TechEd+</a>
         <ul class="menu">
-          <li class="menu-item"><a href="Каталог_курсов/">Курсы</a></li>
-          <li class="menu-item"><a href="PRO/">PRO</a></li>
-          <li class="menu-item"><a href="Квесты/">Квесты</a></li>
+          <class="menu-item"><a href="Каталог_курсов/">Курсы</a></class=>
+          <class="menu-item"><a href="PRO/">PRO</a></class=>
+          <class="menu-item"><a href="Квесты/">Квесты</a></class=>
         </ul>
       </nav>
       <p class="footer-text">© 2023. TechEd+. Все права защищены</p>
