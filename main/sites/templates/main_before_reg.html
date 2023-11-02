@@ -6,8 +6,13 @@
   <title>Online Courses TechEd+</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    {% if u_theme == "theme1"%}
+    {% if u_theme == "theme1" %}
     /* Global Styles */
+
+html{
+  min-width: 40%;
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
@@ -48,6 +53,9 @@ a {
 }
 
 .btn-primary {
+  text-align: center;
+  max-width: 100%;
+  min-width: 40%;
   background-color: #3f51b5;
   color: #fff;
 }
@@ -59,6 +67,7 @@ a {
 }
 
 .btn-secondary {
+  min-width: 30%;
   background-color: #fff;
   color: #3f51b5;
   border-color: #3f51b5;
@@ -68,6 +77,48 @@ a {
   background-color: #3f51b5;
   color: #fff;
 }
+
+
+.btn_footer {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  border: 2px solid transparent;
+  border-radius: 30px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-primary_footer {
+  text-align: center;
+  max-width: 100%;
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+.btn-primary_footer:hover {
+  background-color: #fff;
+  border-color: #3f51b5;
+  color: #3f51b5;
+}
+
+.btn-secondary_footer {
+  background-color: #fff;
+  color: #3f51b5;
+  border-color: #3f51b5;
+}
+
+.btn-secondary_footer:hover {
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+.distance {
+  margin-right: 10px;
+}
+
 
 /* Header Styles */
 .header {
@@ -79,9 +130,23 @@ a {
 
 .nav {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.nav img {
+  width: 125px;
+}
+
+.new_nav {
+  position: fixed;
+  display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
+  width: 90%;
+  background-color: #252a5c;
 }
 
 .logo {
@@ -91,11 +156,33 @@ a {
 
 .menu {
   display: flex;
+}
+
+#pop_up_menu{
+  display: none;
+}
+
+.menu.show {
+  display: block;
+  justify-content: center;
   align-items: center;
 }
 
+.menu li {
+  margin-right: 10px; /* Add margin between the items */
+}
+
+.menu li:last-child {
+  margin-right: 0; /* Remove margin from the last item */
+}
 .menu-item {
-  margin-right: 20px;
+  flex: 0 1 50%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#back {
+  display: none;
 }
 
 .hero {
@@ -142,8 +229,19 @@ a {
 
 /* Features Styles */
 .features {
+  min-height: 600px;
+  max-height: 100%;
   padding: 80px 0;
   background-color: #4661f7;
+}
+
+.new_features {
+  opacity: 0;
+  animation: ani 3s forwards;
+}
+@keyframes ani {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
 }
 
 .features-grid {
@@ -161,11 +259,7 @@ display: flex;
   text-align: center;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-}
-
-.new_features {
-  opacity: 0;
-  animation: ani 3s forwards;
+  display: none;
 }
 
 .feature i {
@@ -191,9 +285,12 @@ display: flex;
 /* Popular Courses Styles */
 .popular-courses {
   padding: 80px ;
+  min-height: 600px;
+  max-height: 100%;
 }
 
 .popular-courses-grid {
+  
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 40px;
@@ -208,10 +305,20 @@ display: flex;
   overflow: hidden;
 }
 
+.new_features {
+  opacity: 0;
+  animation: mation 3s forwards;
+}
+
+@keyframes mation {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
 .course-image {
-  width: 100%;
   height: 200px;
+  width: 100%;
   object-fit: cover;
+  overflow: hidden;
 }
 
 .course-heading {
@@ -254,6 +361,7 @@ display: flex;
 .course-rating {
   font-size: 18px;
   font-weight: 700;
+  margin-right: 10px;
 }
 
 /* Testimonial Styles */
@@ -337,358 +445,128 @@ display: flex;
   margin-top: 0;
   margin-bottom: 0;
 }
-button{
-  border-radius: 10px;
-}
-
-
-{% elif u_theme == "theme2"%}
-
-
-/* Global Styles */
-body {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  margin: 0;
-  padding: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.section-heading {
-  text-align: center;
-  margin-bottom: 50px;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 32px;
-}
-
-.btn {
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 24px;
-  text-transform: uppercase;
-  padding: 16px 32px;
-  border: 2px solid transparent;
-  border-radius: 30px;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-  cursor: pointer;
-}
-
-.btn-primary {
-  background-color: #000000;
-  color: #fff;
-}
-
-.btn-primary:hover {
-  background-color: #fff;
-  border-color: #2b2b2b;
-  color: #6d6d6d;
-}
-
-.btn-secondary {
-  background-color: #fff;
-  color: #383838;
-  border-color: #c8c8c8;
-}
-
-.btn-secondary:hover {
-  background-color: #232323;
-  color: #fff;
-}
-
-/* Header Styles */
-.header {
-  background-color: #232323;
-  color: #fff;
-  padding: 40px 0;
-  position: relative;
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 30px;
-}
-
-.logo {
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.menu {
-  display: flex;
-  align-items: center;
-}
-
-.menu-item {
-  margin-right: 20px;
-}
 
 .hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
 }
 
 .hero-heading {
+  font-size: 32px;
   margin-bottom: 20px;
-  margin-top: 0;
-  font-size: 48px;
-  font-weight: 700;
-  text-align: center;
 }
 
 .hero-text {
-  margin-top: 0;
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 1.5;
-  text-align: center;
-  margin-bottom: 40px;
+  font-size: 18px;
+  margin-bottom: 20px;
 }
 
 .hero-form {
-  display: flex;
-  width: 100%;
-  max-width: 500px;
+  display: inline-block;
 }
 
-.hero-form input[type="text"] {
-  padding: 16px;
-  font-size: 16px;
-  line-height: 24px;
-  border-radius: 90px;
-  border: none;
-  flex-grow: 1;
+@media screen and (max-width: 990px) {
+  #pop_up_menu{
+    display: block;
+  }
+  #back{
+    display: block;
+  }
+  .menu {
+  display: none;
 }
 
-.hero-form button[type="submit"] {
-  padding: 16px 32px;
-}
-
-/* Features Styles */
-.features {
-  padding: 80px 0;
-  background-color: #2c2c2c;
-  color: #fff;
-}
-
-.new_features {
-  opacity: 0;
-  animation: ani 3s forwards;
-}
-
-.features-grid {
-display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-
-.feature {
-  flex: 0 1 300px;
-  background-color: #fff;
-  padding: 40px;
-  margin: 20px;
-  text-align: center;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  color: #000000;
-}
-
-.feature i {
-  font-size: 64px;
-  color: #d9d9d9;
-  margin-bottom: 20px;
-}
-
-.feature-heading {
-  margin-top: 0;
-  margin-bottom: 20px;
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.feature-text {
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: 18px;
-  font-weight: 400;
-}
-
-/* Popular Courses Styles */
-.popular-courses {
-  padding: 80px ;
-  background-color: #232323;
-  color: #fff;
-}
-
-.popular-courses-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 40px;
-  justify-items: center;
-  align-items: center;
-}
-
-.course {
-  background-color: #fff;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
-  color: #000000;
-}
-
-.course-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.course-heading {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-size: 24px;
-  font-weight: 700;
-  text-align: center;
-}
-
-.course-description {
-  margin-top: 0;
-  margin-bottom: 30px;
-  font-size: 18px;
-  font-weight: 400;
-  text-align: center;
-  margin-right: 10px;
-  margin-left: 10px;
-}
-
-.course-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  .distance button {
+    font-size: 14px;
+    padding: 8px 16px;
+    margin-bottom: 10px;
+  }
+  .menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #f9f9f9;
   padding: 10px;
-  background-color: #cbc6c6;
+  z-index: 1;
 }
 
-.course-info {
-  display: flex;
-  align-items: center;
+.pop_up_menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
 }
-
-.course-length {
-  margin-right: 20px;
-  font-size: 18px;
-  font-weight: 400;
-}
-
-.course-rating {
-  font-size: 18px;
-  font-weight: 700;
-}
-
-/* Testimonial Styles */
-.testimonial {
-  padding: 80px 0;
-}
-
-.testimonial-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 40px;
-  justify-items: center;
-  align-items: center;
-}
-
-.testimonial-item {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  max-width: 400px;
-}
-
-.testimonial-image {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 20px;
-}
-
-.testimonial-text {
-  margin-top: 0;
-  margin-bottom: 20px;
-  font-size: 18px;
-  font-weight: 400;
-}
-
-.student-name {
-  margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.student-course {
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: 18px;
-  font-weight: 400;
-  color: #7e7e7e;
-}
-
-/* Footer Styles */
-.footer {
-  background-color: #000000;
-  color: #fff;
-  padding: 40px 0;
+  
+  .menu-item {
+    flex: 0 1 50%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+.popular-courses-grid {
+  grid-template-columns: 1fr;
   text-align: center;
 }
 
-.footer-menu {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 30px;
 }
 
-.footer-menu .menu {
-  margin-left: 20px;
+@media screen and (max-width: 420px) {
+  .menu {
+  display: none;
+}
+  .distance button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+  .menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #f9f9f9;
+  padding: 10px;
+  z-index: 1;
 }
 
-.footer-menu .menu-item {
-  margin-right: 20px;
+.pop_up_menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
 }
 
-.footer-text {
-  font-size: 16px;
-  font-weight: 400;
-  margin-top: 0;
-  margin-bottom: 0;
+  
+  .distance {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  .hero-heading {
+    font-size: 24px;
+  }
+  
+  .hero-text {
+    font-size: 16px;
+  }
+  
+  .hero-form {
+    display: block;
+    margin: 0 auto;
+  }
+  .nav {
+    box-shadow: none; /* Remove the box shadow when the screen size is reduced */
+  }
+  .section-heading {
+  width: 100%;
+  box-sizing: border-box;
 }
-button{
-  border-radius: 10px;
 }
 
+    {% elif u_theme == "theme2" %}
+    /* Global Styles */
 
-{% elif u_theme == "theme3"%}
+html{
+  min-width: 40%;
+}
 
-
-/* Global Styles */
 body {
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
@@ -729,30 +607,76 @@ a {
 }
 
 .btn-primary {
-  background-color: #200037;
-  color: #ffffff;
+  text-align: center;
+  max-width: 100%;
+  min-width: 40%;
+  background-color: #3f51b5;
+  color: #fff;
 }
 
 .btn-primary:hover {
   background-color: #fff;
-  border-color: #47006d;
-  color: #45026e;
+  border-color: #3f51b5;
+  color: #3f51b5;
 }
 
 .btn-secondary {
+  min-width: 30%;
   background-color: #fff;
-  color: #530488;
-  border-color: #000000;
+  color: #3f51b5;
+  border-color: #3f51b5;
 }
 
 .btn-secondary:hover {
-  background-color: #480279;
+  background-color: #3f51b5;
   color: #fff;
 }
 
+
+.btn_footer {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  border: 2px solid transparent;
+  border-radius: 30px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-primary_footer {
+  text-align: center;
+  max-width: 100%;
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+.btn-primary_footer:hover {
+  background-color: #fff;
+  border-color: #3f51b5;
+  color: #3f51b5;
+}
+
+.btn-secondary_footer {
+  background-color: #fff;
+  color: #3f51b5;
+  border-color: #3f51b5;
+}
+
+.btn-secondary_footer:hover {
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+.distance {
+  margin-right: 10px;
+}
+
+
 /* Header Styles */
 .header {
-  background-color: #1f0034;
+  background-color: #252a5c;
   color: #fff;
   padding: 40px 0;
   position: relative;
@@ -760,9 +684,23 @@ a {
 
 .nav {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.nav img {
+  width: 125px;
+}
+
+.new_nav {
+  position: fixed;
+  display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
+  width: 90%;
+  background-color: #252a5c;
 }
 
 .logo {
@@ -772,11 +710,33 @@ a {
 
 .menu {
   display: flex;
+}
+
+#pop_up_menu{
+  display: none;
+}
+
+.menu.show {
+  display: block;
+  justify-content: center;
   align-items: center;
 }
 
+.menu li {
+  margin-right: 10px; /* Add margin between the items */
+}
+
+.menu li:last-child {
+  margin-right: 0; /* Remove margin from the last item */
+}
 .menu-item {
-  margin-right: 20px;
+  flex: 0 1 50%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#back {
+  display: none;
 }
 
 .hero {
@@ -823,14 +783,19 @@ a {
 
 /* Features Styles */
 .features {
+  min-height: 600px;
+  max-height: 100%;
   padding: 80px 0;
-  background-color: #360060;
-  color: white;
+  background-color: #4661f7;
 }
 
 .new_features {
   opacity: 0;
   animation: ani 3s forwards;
+}
+@keyframes ani {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
 }
 
 .features-grid {
@@ -848,7 +813,7 @@ display: flex;
   text-align: center;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  color: #000000;
+  display: none;
 }
 
 .feature i {
@@ -874,11 +839,12 @@ display: flex;
 /* Popular Courses Styles */
 .popular-courses {
   padding: 80px ;
-  color: white;
-  background-color: #1f0034;
+  min-height: 600px;
+  max-height: 100%;
 }
 
 .popular-courses-grid {
+  
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 40px;
@@ -891,13 +857,22 @@ display: flex;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
-  color: #000000;
 }
 
+.new_features {
+  opacity: 0;
+  animation: mation 3s forwards;
+}
+
+@keyframes mation {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
 .course-image {
-  width: 100%;
   height: 200px;
+  width: 100%;
   object-fit: cover;
+  overflow: hidden;
 }
 
 .course-heading {
@@ -940,6 +915,7 @@ display: flex;
 .course-rating {
   font-size: 18px;
   font-weight: 700;
+  margin-right: 10px;
 }
 
 /* Testimonial Styles */
@@ -996,7 +972,7 @@ display: flex;
 
 /* Footer Styles */
 .footer {
-  background-color: #2a014e;
+  background-color: #25345c;
   color: #fff;
   padding: 40px 0;
   text-align: center;
@@ -1023,44 +999,735 @@ display: flex;
   margin-top: 0;
   margin-bottom: 0;
 }
-button{
-  border-radius: 10px;
+
+.hero {
+  text-align: center;
 }
-.user_name_exit{
-  text-align: right;
+
+.hero-heading {
+  font-size: 32px;
+  margin-bottom: 20px;
 }
-{% endif %} 
+
+.hero-text {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.hero-form {
+  display: inline-block;
+}
+
+@media screen and (max-width: 990px) {
+  #pop_up_menu{
+    display: block;
+  }
+  #back{
+    display: block;
+  }
+  .menu {
+  display: none;
+}
+
+  .distance button {
+    font-size: 14px;
+    padding: 8px 16px;
+    margin-bottom: 10px;
+  }
+  .menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #f9f9f9;
+  padding: 10px;
+  z-index: 1;
+}
+
+.pop_up_menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+}
+  
+  .menu-item {
+    flex: 0 1 50%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+.popular-courses-grid {
+  grid-template-columns: 1fr;
+  text-align: center;
+}
+
+}
+
+@media screen and (max-width: 420px) {
+  .menu {
+  display: none;
+}
+  .distance button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+  .menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #f9f9f9;
+  padding: 10px;
+  z-index: 1;
+}
+
+.pop_up_menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+}
+
+  
+  .distance {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  .hero-heading {
+    font-size: 24px;
+  }
+  
+  .hero-text {
+    font-size: 16px;
+  }
+  
+  .hero-form {
+    display: block;
+    margin: 0 auto;
+  }
+  .nav {
+    box-shadow: none; /* Remove the box shadow when the screen size is reduced */
+  }
+  .section-heading {
+  width: 100%;
+  box-sizing: border-box;
+}
+}
+
+    {% elif u_theme == "theme3" %}
+    /* Global Styles */
+
+html{
+  min-width: 40%;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 50px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 32px;
+}
+
+.btn {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  border: 2px solid transparent;
+  border-radius: 30px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-primary {
+  text-align: center;
+  max-width: 100%;
+  min-width: 40%;
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+.btn-primary_userName {
+  text-align: center;
+  max-width: 100%;
+  min-width: 40%;
+  background-color: #7403d7;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #fff;
+  border-color: #3f51b5;
+  color: #3f51b5;
+}
+
+.btn-secondary {
+  min-width: 30%;
+  background-color: #fff;
+  color: #3f51b5;
+  border-color: #3f51b5;
+}
+
+.btn-secondary:hover {
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+
+.btn_footer {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  border: 2px solid transparent;
+  border-radius: 30px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-primary_footer {
+  text-align: center;
+  max-width: 100%;
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+.btn-primary_footer:hover {
+  background-color: #fff;
+  border-color: #3f51b5;
+  color: #3f51b5;
+}
+
+.btn-secondary_footer {
+  background-color: #fff;
+  color: #3f51b5;
+  border-color: #3f51b5;
+}
+
+.btn-secondary_footer:hover {
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+.distance {
+  margin-right: 10px;
+}
+
+
+/* Header Styles */
+.header {
+  background-color: #252a5c;
+  color: #fff;
+  padding: 40px 0;
+  position: relative;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.nav img {
+  width: 125px;
+}
+
+.new_nav {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  width: 90%;
+  background-color: #252a5c;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.menu {
+  display: flex;
+}
+
+#pop_up_menu{
+  display: none;
+}
+
+.menu.show {
+  display: block;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu li {
+  margin-right: 10px; /* Add margin between the items */
+}
+
+.menu li:last-child {
+  margin-right: 0; /* Remove margin from the last item */
+}
+.menu-item {
+  flex: 0 1 50%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#back {
+  display: none;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-heading {
+  margin-bottom: 20px;
+  margin-top: 0;
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.hero-text {
+  margin-top: 0;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.hero-form {
+  display: flex;
+  width: 100%;
+  max-width: 500px;
+}
+
+.hero-form input[type="text"] {
+  padding: 16px;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 90px;
+  border: none;
+  flex-grow: 1;
+}
+
+.hero-form button[type="submit"] {
+  padding: 16px 32px;
+}
+
+/* Features Styles */
+.features {
+  min-height: 600px;
+  max-height: 100%;
+  padding: 80px 0;
+  background-color: #4661f7;
+}
+
+.new_features {
+  opacity: 0;
+  animation: ani 3s forwards;
+}
+@keyframes ani {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+.features-grid {
+display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.feature {
+  flex: 0 1 300px;
+  background-color: #fff;
+  padding: 40px;
+  margin: 20px;
+  text-align: center;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: none;
+}
+
+.feature i {
+  font-size: 64px;
+  color: #25345c;
+  margin-bottom: 20px;
+}
+
+.feature-heading {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.feature-text {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+/* Popular Courses Styles */
+.popular-courses {
+  padding: 80px ;
+  min-height: 600px;
+  max-height: 100%;
+}
+
+.popular-courses-grid {
+  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 40px;
+  justify-items: center;
+  align-items: center;
+}
+
+.course {
+  background-color: #fff;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.new_features {
+  opacity: 0;
+  animation: mation 3s forwards;
+}
+
+@keyframes mation {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+.course-image {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.course-heading {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.course-description {
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.course-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #cbc6c6;
+}
+
+.course-info {
+  display: flex;
+  align-items: center;
+}
+
+.course-length {
+  margin-right: 20px;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.course-rating {
+  font-size: 18px;
+  font-weight: 700;
+  margin-right: 10px;
+}
+
+/* Testimonial Styles */
+.testimonial {
+  padding: 80px 0;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 40px;
+  justify-items: center;
+  align-items: center;
+}
+
+.testimonial-item {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 400px;
+}
+
+.testimonial-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.testimonial-text {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.student-name {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.student-course {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 18px;
+  font-weight: 400;
+  color: #7e7e7e;
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #25345c;
+  color: #fff;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.footer-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.footer-menu .menu {
+  margin-left: 20px;
+}
+
+.footer-menu .menu-item {
+  margin-right: 20px;
+}
+
+.footer-text {
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.hero {
+  text-align: center;
+}
+
+.hero-heading {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.hero-text {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.hero-form {
+  display: inline-block;
+}
+
+@media screen and (max-width: 990px) {
+  #pop_up_menu{
+    display: block;
+  }
+  #back{
+    display: block;
+  }
+  .menu {
+  display: none;
+}
+
+  .distance button {
+    font-size: 14px;
+    padding: 8px 16px;
+    margin-bottom: 10px;
+  }
+  .menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #f9f9f9;
+  padding: 10px;
+  z-index: 1;
+}
+
+.pop_up_menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+}
+  
+  .menu-item {
+    flex: 0 1 50%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+.popular-courses-grid {
+  grid-template-columns: 1fr;
+  text-align: center;
+}
+
+}
+
+@media screen and (max-width: 420px) {
+  .menu {
+  display: none;
+}
+  .distance button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+  .menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #f9f9f9;
+  padding: 10px;
+  z-index: 1;
+}
+
+.pop_up_menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+}
+
+  
+  .distance {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  .hero-heading {
+    font-size: 24px;
+  }
+  
+  .hero-text {
+    font-size: 16px;
+  }
+  
+  .hero-form {
+    display: block;
+    margin: 0 auto;
+  }
+  .nav {
+    box-shadow: none; /* Remove the box shadow when the screen size is reduced */
+  }
+  .section-heading {
+  width: 100%;
+  box-sizing: border-box;
+}
+}
+{% endif %}
   </style>
 </head>
 <!-- vladnety134@gmail.com -->
 <body>
   <header class="header">
     <div class="container">
-      <div class="stage">
-      <nav class="nav">
+      <nav class="nav" id='nav'>
         <img src="https://ie.wampi.ru/2023/07/19/ClipDropImage1689779800774.png" style="width: 125px;">
-      <div class="user_name_exit">
-        <!-- Нужно адаптировать Имя и выход -->
+        <img src="https://ie.wampi.ru/2023/11/02/menu-burger.png" id="pop_up_menu" style="max-width: 55px;left: 80%;top: auto;margin-top: 40px;">
+        <div class="menu" style="border-radius: 20px;">
+          <img src="https://im.wampi.ru/2023/11/02/cross.png" id="back" style="width: 30px;position: inherit;left: 70%;top: auto;">
+          <div class="distance">
+            <a href="PRO/">
+              <button class="btn btn-primary">PRO</button>
+            </a>
+          </div>
+          <div class="distance">
+            <a href="Каталог_курсов/">
+              <button class="btn btn-primary">Курсы</button>
+            </a>
+          </div>
+          <div class="distance">
+            <a href="Квесты/">
+              <button class="btn btn-primary">Квесты</button>
+            </a>
+          </div>
+          <div class="distance">
+            <a href="Профиль/">
+              <button class="btn btn-primary_userName">{{ userName }}</button>
+            </a>
+          </div>
+          <div class="distance">
+            <a href="Выход/">
+              <button class="btn btn-primary_userName" style="background-color: rgb(236, 0, 0); color: black;">Выход</button>
+            </a>
+          </div>
+
+
+        
         </div>
-        <ul class="menu">
-          <li class="menu-item"><a href="Каталог_курсов/">Курсы</a></li>
-          <li class="menu-item"><a href="PRO/">PRO</a></li>
-          <li class="menu-item"><a href="Квесты/">Квесты</a></li>
-          <a href = "Профиль/"><h2>{{ userName }}</h2></a>
-          
-        </ul>
-        <a href="127.0.0.1:8000/Выход">Выйти</a>
+        
+
       </nav>
       
-    </div>
       {% csrf_token %}
       <div class="hero">
-        <h1 class="hero-heading">TechEd+ - Learn From the Best</h1>
+        <h1 class="hero-heading">TechEd+ - Технологии вокруг тебя</h1>
         <p class="hero-text">Получите доступ к сотням онлайн-курсов, от ведущих экспертов отрасли</p>
         <form class="hero-form" method="post" action="Search/">
           {% csrf_token %}
           {{ forms }}
-          <button class="btn btn-secondary">Search</button>
+          <button class="btn btn-secondary" style="margin-top: 10px;">Search</button>
         </form>
       </div>
     </div>
@@ -1070,17 +1737,17 @@ button{
     <div class="container">
       <h2 class="section-heading">НАШИ ОСОБЕННОСТИ</h2>
       <div class="features-grid">
-        <div class="feature">
+        <div class="feature" id="feature">
           <i class="fas fa-play-circle"></i>
           <h3 class="feature-heading">Видео уроки</h3>
           <p class="feature-text">Смотрите видеоуроки от экспертов отрасли в своем собственном темпе.</p>
         </div>
-        <div class="feature">
+        <div class="feature" id="feature1">
           <i class="fas fa-user-graduate"></i>
           <h3 class="feature-heading">Планы от экспертов</h3>
           <p class="feature-text">Учитесь у инструкторов, которые являются лидерами в своей области.</p>
        </div>
-        <div class="feature">
+        <div class="feature" id="feature2">
           <i class="fas fa-certificate"></i>
           <h3 class="feature-heading">Сертификат</h3>
           <p class="feature-text">Получите реальные сертификаты, демонстрирующие ваши навыки.</p>
@@ -1090,9 +1757,9 @@ button{
   </section>
   <section class="popular-courses">
     <div class="container">
-      <h2 class="section-heading">Популярные курсы</h2>
+      <h2 class="section-heading">ТОП КУРСОВ</h2>
       <div class="popular-courses-grid">
-        <div class="course">
+        <div class="course" id="course" style="display: none;">
             <img src="https://www.itreeni.com/wp-content/uploads/2017/07/frontend-development.png" alt="Course Image" class="course-image">
             <h3 class="course-heading">Frontend Development</h3>
             <p class="course-description">Изучите HTML, CSS и JS. И Напишите свой первый сайт!</p>
@@ -1101,10 +1768,10 @@ button{
                 <span class="course-length">6+ Hours</span>
                 <span class="course-rating">4.7</span>
               </div>
-              <a href="127.0.0.1:8000/Каталог_курсов/Курс_Frontend_разработка/" class="btn btn-primary">Подробнее</a>
+              <a href="Курс_Frontend_разработка/" class="btn btn-primary_footer">Подробнее</a>
             </div>
           </div>
-        <div class="course">
+        <div class="course" id="course1" style="display: none;">
           <img src="https://repository-images.githubusercontent.com/440900695/d868cd36-0a8e-447d-ba62-9a4935716d80" alt="Course Image" class="course-image">
           <h3 class="course-heading">Data Science для начинающих</h3>
           <p class="course-description">Изучите основы Data Science и машинного обучения с помощью Python.</p>
@@ -1113,11 +1780,11 @@ button{
               <span class="course-length">10+ Hours</span>
               <span class="course-rating">4.6</span>
             </div>
-            <a href="127.0.0.1:8000/Каталог_курсов/Курс_pro_Data_science/" class="btn btn-primary">Подробнее</a>
+            <a href="Курс_pro_Data_science/" class="btn btn-primary_footer">Подробнее</a>
           </div>
         </div>
 
-          <div class="course" >
+          <div class="course" id="course2" style="display: none;">
             <img src="https://sun9-41.userapi.com/impg/Ehhuv9PUq7Aq0QcLgKewQxG-QZir-csfh2gpGw/eY05m0u4h6E.jpg?size=1200x520&quality=96&sign=9aaeeea7c6c56b886834d07e85ac90c9&type=album" alt="Course Image" class="course-image">
             <h3 class="course-heading">Backend Development</h3>
             <p class="course-description">Начните работать с python. Вы Изучите множество библиотек, фреймворков и SQL</p>
@@ -1126,11 +1793,12 @@ button{
                 <span class="course-length">9+ Hours</span>
                 <span class="course-rating">4.9</span>
               </div>
-              <a href="127.0.0.1:8000/Каталог_курсов/Курс_pro_Backend_разработка/" class="btn btn-primary">Подробнее</a>
+              <a href="Курс_pro_Backend_разработка/" class="btn btn-primary_footer">Подробнее</a>
             </div>
           </div>
-      </div>
-      <a href="Каталог_курсов/" class="btn btn-secondary">Все курсы</a>
+      
+      <!-- <a href="Каталог_курсов/" class="btn btn-secondary" style="margin-top: auto;">Все курсы</a> -->
+    </div>
     </div>
   </section>
   <footer class="footer">
@@ -1138,9 +1806,9 @@ button{
       <nav class="nav">
         <a href="#" class="logo">TechEd+</a>
         <ul class="menu">
-          <li class="menu-item"><a href="Каталог_курсов/">Курсы</a></li>
-          <li class="menu-item"><a href="#">PRO</a></li>
-          <li class="menu-item"><a href="#">Квесты</a></li>
+          <class="menu-item"><a href="Каталог_курсов/">Курсы</a></class=>
+          <class="menu-item"><a href="PRO/">PRO</a></class=>
+          <class="menu-item"><a href="Квесты/">Квесты</a></class=>
         </ul>
       </nav>
       <p class="footer-text">© 2023. TechEd+. Все права защищены</p>
@@ -1202,5 +1870,23 @@ button{
     };
       
   });
+
+  document.getElementById("pop_up_menu").addEventListener("click", function() {
+  var menu = document.querySelector('.menu');
+  menu.classList.toggle('show');
+});
+document.getElementById("pop_up_menu").addEventListener("click", function() {
+  var menu = document.querySelector('.menu');
+  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+});
+
+document.getElementById("back").addEventListener("click", function() {
+  var menu = document.querySelector('.menu');
+  menu.style.display = 'none';
+});
+
+
+
+
 </script>
 </html>

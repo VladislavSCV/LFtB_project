@@ -54,7 +54,7 @@ a {
 .btn-primary {
   text-align: center;
   max-width: 100%;
-  min-width: 90%;
+  min-width: 40%;
   background-color: #3f51b5;
   color: #fff;
 }
@@ -114,9 +114,8 @@ a {
   color: #fff;
 }
 
-.distance{
+.distance {
   margin-right: 10px;
-  margin-bottom: 5px;
 }
 
 
@@ -130,9 +129,13 @@ a {
 
 .nav {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 30px;
+  align-items: center;
+  padding: 10px;
+}
+
+.nav img {
+  width: 125px;
 }
 
 .new_nav {
@@ -152,11 +155,18 @@ a {
 
 .menu {
   display: flex;
+}
+
+#pop_up_menu{
+  display: none;
+}
+
+.menu.show {
+  display: block;
   justify-content: center;
   align-items: center;
-
-
 }
+
 .menu li {
   margin-right: 10px; /* Add margin between the items */
 }
@@ -168,6 +178,10 @@ a {
   flex: 0 1 50%;
     text-align: center;
     margin-bottom: 10px;
+}
+
+#back {
+  display: none;
 }
 
 .hero {
@@ -430,13 +444,57 @@ display: flex;
   margin-top: 0;
   margin-bottom: 0;
 }
+
+.hero {
+  text-align: center;
+}
+
+.hero-heading {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.hero-text {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.hero-form {
+  display: inline-block;
+}
+
 @media screen and (max-width: 990px) {
-  .menu {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+  #pop_up_menu{
+    display: block;
   }
+  #back{
+    display: block;
+  }
+  .menu {
+  display: none;
+}
+
+  .distance button {
+    font-size: 14px;
+    padding: 8px 16px;
+    margin-bottom: 10px;
+  }
+  .menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #f9f9f9;
+  padding: 10px;
+  z-index: 1;
+}
+
+.pop_up_menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+}
   
   .menu-item {
     flex: 0 1 50%;
@@ -449,6 +507,58 @@ display: flex;
 }
 
 }
+
+@media screen and (max-width: 420px) {
+  .menu {
+  display: none;
+}
+  .distance button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+  .menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #f9f9f9;
+  padding: 10px;
+  z-index: 1;
+}
+
+.pop_up_menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+}
+
+  
+  .distance {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  .hero-heading {
+    font-size: 24px;
+  }
+  
+  .hero-text {
+    font-size: 16px;
+  }
+  
+  .hero-form {
+    display: block;
+    margin: 0 auto;
+  }
+  .nav {
+    box-shadow: none; /* Remove the box shadow when the screen size is reduced */
+  }
+  .section-heading {
+  width: 100%;
+  box-sizing: border-box;
+}
+}
+
   </style>
 </head>
 <!-- vladnety134@gmail.com -->
@@ -457,20 +567,37 @@ display: flex;
     <div class="container">
       <nav class="nav" id='nav'>
         <img src="https://ie.wampi.ru/2023/07/19/ClipDropImage1689779800774.png" style="width: 125px;">
-        <div class="menu">
-
-          <div class="distance"><a href="PRO/"><button class="btn btn-primary">PRO</button></a></div>
-          
-          <div class="distance"><a href="Каталог_курсов/"><button class="btn btn-primary">Курсы</button></a></div>
-
-          <div class="distance"><a href="Квесты/"><button class="btn btn-primary">Квесты</button></a></div>
-
-          <div class="distance"><a href="Авторизация/"><button class="btn btn-primary">Авторизация</button></a></div>
-
-          <div class="distance"><a href="Регистрация/"><button class="btn btn-primary">Регистрация</button></a></div>
-
-        </class>
+        <img src="https://ie.wampi.ru/2023/11/02/menu-burger.png" id="pop_up_menu" style="max-width: 55px;left: 80%;top: auto;margin-top: 40px;">
+        <div class="menu" style="border-radius: 20px;">
+          <img src="https://im.wampi.ru/2023/11/02/cross.png" id="back" style="width: 30px;position: inherit;left: 70%;top: auto;">
+          <div class="distance">
+            <a href="PRO/">
+              <button class="btn btn-primary">PRO</button>
+            </a>
+          </div>
+          <div class="distance">
+            <a href="Каталог_курсов/">
+              <button class="btn btn-primary">Курсы</button>
+            </a>
+          </div>
+          <div class="distance">
+            <a href="Квесты/">
+              <button class="btn btn-primary">Квесты</button>
+            </a>
+          </div>
+          <div class="distance">
+            <a href="Авторизация/">
+              <button class="btn btn-primary">Авторизация</button>
+            </a>
+          </div>
+          <div class="distance">
+            <a href="Регистрация/">
+              <button class="btn btn-primary">Регистрация</button>
+            </a>
+          </div>
+        </div>
         
+
       </nav>
       
       {% csrf_token %}
@@ -480,7 +607,7 @@ display: flex;
         <form class="hero-form" method="post" action="Search/">
           {% csrf_token %}
           {{ forms }}
-          <button class="btn btn-secondary">Search</button>
+          <button class="btn btn-secondary" style="margin-top: 10px;">Search</button>
         </form>
       </div>
     </div>
@@ -510,7 +637,7 @@ display: flex;
   </section>
   <section class="popular-courses">
     <div class="container">
-    <h2 class="section-heading">Популярные курсы</h2>
+      <h2 class="section-heading">ТОП КУРСОВ</h2>
       <div class="popular-courses-grid">
         <div class="course" id="course" style="display: none;">
             <img src="https://www.itreeni.com/wp-content/uploads/2017/07/frontend-development.png" alt="Course Image" class="course-image">
@@ -521,7 +648,7 @@ display: flex;
                 <span class="course-length">6+ Hours</span>
                 <span class="course-rating">4.7</span>
               </div>
-              <a href="http://127.0.0.1:8000/Каталог_курсов/Курс_Frontend_разработка/" class="btn btn-primary_footer">Подробнее</a>
+              <a href="Курс_Frontend_разработка/" class="btn btn-primary_footer">Подробнее</a>
             </div>
           </div>
         <div class="course" id="course1" style="display: none;">
@@ -533,7 +660,7 @@ display: flex;
               <span class="course-length">10+ Hours</span>
               <span class="course-rating">4.6</span>
             </div>
-            <a href="http://127.0.0.1:8000/Каталог_курсов/Курс_pro_Data_science/" class="btn btn-primary_footer">Подробнее</a>
+            <a href="Курс_pro_Data_science/" class="btn btn-primary_footer">Подробнее</a>
           </div>
         </div>
 
@@ -546,7 +673,7 @@ display: flex;
                 <span class="course-length">9+ Hours</span>
                 <span class="course-rating">4.9</span>
               </div>
-              <a href="http://127.0.0.1:8000/Каталог_курсов/Курс_pro_Backend_разработка/" class="btn btn-primary_footer">Подробнее</a>
+              <a href="Курс_pro_Backend_разработка/" class="btn btn-primary_footer">Подробнее</a>
             </div>
           </div>
       
@@ -623,5 +750,23 @@ display: flex;
     };
       
   });
+
+  document.getElementById("pop_up_menu").addEventListener("click", function() {
+  var menu = document.querySelector('.menu');
+  menu.classList.toggle('show');
+});
+document.getElementById("pop_up_menu").addEventListener("click", function() {
+  var menu = document.querySelector('.menu');
+  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+});
+
+document.getElementById("back").addEventListener("click", function() {
+  var menu = document.querySelector('.menu');
+  menu.style.display = 'none';
+});
+
+
+
+
 </script>
 </html>

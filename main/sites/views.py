@@ -81,46 +81,54 @@ def MainPage(request):
 # В общем работае как авто сохранение в учетке
     try:
         if request.session["userName"]:
-            return HttpResponseRedirect("127.0.0.1:8000/Главная_страница./")
+            return HttpResponseRedirect("Главная_страница./")
 
     except Exception as e:
         print(e)
         return render(request, "main.html", {'forms': use})
     
-
-def levenshtein_distance(word1, word2):
+    
+def main_b_a(request):
     """
-    Calculates the Levenshtein distance between two words.
-    Parameters:
-    word1 (str): The first word.
-    word2 (str): The second word.
+    Main page after registration.
+    
+    Args:
+        request: The HTTP request object.
+        
     Returns:
-    int: The minimum number of single-character edits (insertions, deletions, or substitutions) required to change word1 into word2.
+        The HTTP response object.
     """
-    m = len(word1)
-    n = len(word2)
-    # Создаем матрицу для хранения расстояний Левенштейна между префиксами слов
-    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    try:
+        use = userSearchEngine()
 
-    # Инициализируем первую строку и первый столбец матрицы
-    for i in range(m + 1):
-        dp[i][0] = i
-    for j in range(n + 1):
-        dp[0][j] = j
+        userNameSession = request.session.get("userName")
+        
+        conn = psycopg2.connect(dbname="LFtB", user="postgres",
+                                password="31415926", host="127.0.0.1")
+        cursor = conn.cursor()
 
-    # Заполняем оставшуюся часть матрицы
-    for i in range(1, m + 1):
-        for j in range(1, n + 1):
-            if word1[i - 1] == word2[j - 1]:
-                dp[i][j] = dp[i - 1][j - 1]
-            else:
-                dp[i][j] = min(
-                    dp[i - 1][j] + 1,   # Удаление символа
-                    dp[i][j - 1] + 1,   # Вставка символа
-                    dp[i - 1][j - 1] + 1  # Замена символа
-                )
+        cursor.execute(
+            """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
+        conn.commit()
 
-    return dp[m][n]
+        u_theme = cursor.fetchone()
+        
+        if u_theme[0] is None:
+            u_theme = "theme1"
+        else:
+            u_theme = u_theme[0]
+        cursor.close()
+        conn.close()
+        data = {"forms": use, "userName": userNameSession, "u_theme": u_theme}
+        if request.method == "POST":
+            if use.is_valid():
+                return render(request, "search_results.html")
+
+        return render(request, "main_before_reg.html", context=data)
+    
+    except HttpResponseServerError("Server Error") as e:
+        print(e)
+        HttpResponseServerError("Server Error")
 
 
 def res_search(request):
@@ -1010,7 +1018,7 @@ def Auth(request):
         conn.close()
         # Если пользователь в бд, то переходим на главную страницу для авторизованных
         if result:
-            return HttpResponseRedirect("127.0.0.1:8000/Главная_страница./")
+            return HttpResponseRedirect("Главная_страница./")
         else:
             # Иначе выводим ошибку
             u_excp = "Проверьте правильность ввода."
@@ -1093,7 +1101,7 @@ def conf_to_reg(request):
                 if res[0] >= 1:
                     return render(request, "email_InDB_exception.html")
                 # Генерируем рандомный пароль
-                random_code = ''.join(random.choices(string.ascii_uppercase+string.digits, k=6))
+                random_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
                 
                 send_email(userEmail, 'TechEd+-код подтверждение', random_code)
                 
@@ -1166,51 +1174,6 @@ def confirm(request):
         print(e)
         u_excp = "Произошла какая-то ошибка. Попробуйте позже."
         return render(request, "exception.html", context={"u_excp": u_excp})
-
-
-def main_b_a(request):
-    """
-    Main page after registration.
-    
-    Args:
-        request: The HTTP request object.
-        
-    Returns:
-        The HTTP response object.
-    """
-    try:
-        use = userSearchEngine()
-
-        userNameSession = request.session.get("userName")
-        
-        conn = psycopg2.connect(dbname="LFtB", user="postgres",
-                                password="31415926", host="127.0.0.1")
-        cursor = conn.cursor()
-
-        cursor.execute(
-            """SELECT user_theme FROM users WHERE user_name = %s""", (userNameSession, ))
-
-        conn.commit()
-
-        u_theme = cursor.fetchone()
-        print(u_theme)
-        if u_theme[0] is None:
-            u_theme = "theme1"
-        else:
-            u_theme = u_theme[0]
-        cursor.close()
-        conn.close()
-        data = {"forms": use, "userName": userNameSession, "u_theme": u_theme}
-        if request.method == "POST":
-            if use.is_valid():
-                # userRequest = use.cleaned_data["search_engine"]
-
-                return render(request, "search_results.html")
-
-        return render(request, "main_before_reg.html", context=data)
-    except HttpResponseServerError("Server Error") as e:
-        print(e)
-        HttpResponseServerError("Server Error")
 
 
 def catalog(request):
@@ -1509,53 +1472,12 @@ def theme(request):
     return render(request, "themes.html", {"form": st, "u_theme": u_theme})
 
 
-def test(request):
-    """ Тестовая функция | Для проверки фич"""
-    subject = 'Test Email'
-    message = 'Hello, this is a test email.'
-    from_email = 'vladnety134@gmail.com'
-    recipient_list = ['vladnety134@gmail.com']
-    send_mail(subject, message, from_email,
-              recipient_list, fail_silently=False)
-    return HttpResponse("Hello")
-
-
-def get_user_description(username):
-    """Get user description from the database.
-
-    Args:
-        username (str): The name of the user.
-
-    Returns:
-        str: The description of the user.
-
-    """
-    # Connect to the database
-    conn = psycopg2.connect(**security_db)
-    cursor = conn.cursor()
-
-    # Execute the query to fetch the user description
-    cursor.execute(
-        "SELECT user_desc FROM users WHERE user_name = %s", (username, ))
-
-    # Fetch the result and print it
-    result = cursor.fetchone()[0]
-    print(result, "desc_res")
-
-    # Close the cursor and the connection
-    cursor.close()
-    conn.close()
-
-    # Return the user description
-    return result
-
-
 def quit(request):
     """
     Remove the 'userName' key from the session and redirect to the home page.
     """
     del request.session['userName']
-    return HttpResponseRedirect("127.0.0.1:8000/") 
+    return HttpResponseRedirect("Главная_страница/") 
 
 
 def pro(request):
@@ -1621,3 +1543,82 @@ def payments(request):
         print(e)
 
         return render(request, "exception.html", context={"u_excp": "Произошла какая-то ошибка!"})
+    
+    
+""" Вспомогательные функции """
+    
+    
+def levenshtein_distance(word1, word2):
+    """
+    Calculates the Levenshtein distance between two words.
+    Parameters:
+    word1 (str): The first word.
+    word2 (str): The second word.
+    Returns:
+    int: The minimum number of single-character edits (insertions, deletions, or substitutions) required to change word1 into word2.
+    """
+    m = len(word1)
+    n = len(word2)
+    # Создаем матрицу для хранения расстояний Левенштейна между префиксами слов
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+    # Инициализируем первую строку и первый столбец матрицы
+    for i in range(m + 1):
+        dp[i][0] = i
+    for j in range(n + 1):
+        dp[0][j] = j
+
+    # Заполняем оставшуюся часть матрицы
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if word1[i - 1] == word2[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1]
+            else:
+                dp[i][j] = min(
+                    dp[i - 1][j] + 1,   # Удаление символа
+                    dp[i][j - 1] + 1,   # Вставка символа
+                    dp[i - 1][j - 1] + 1  # Замена символа
+                )
+
+    return dp[m][n]
+
+
+def get_user_description(username):
+    """Get user description from the database.
+
+    Args:
+        username (str): The name of the user.
+
+    Returns:
+        str: The description of the user.
+
+    """
+    # Connect to the database
+    conn = psycopg2.connect(**security_db)
+    cursor = conn.cursor()
+
+    # Execute the query to fetch the user description
+    cursor.execute(
+        "SELECT user_desc FROM users WHERE user_name = %s", (username, ))
+
+    # Fetch the result and print it
+    result = cursor.fetchone()[0]
+    print(result, "desc_res")
+
+    # Close the cursor and the connection
+    cursor.close()
+    conn.close()
+
+    # Return the user description
+    return result
+
+
+def test(request):
+    """ Тестовая функция | Для проверки фич"""
+    subject = 'Test Email'
+    message = 'Hello, this is a test email.'
+    from_email = 'vladnety134@gmail.com'
+    recipient_list = ['vladnety134@gmail.com']
+    send_mail(subject, message, from_email,
+              recipient_list, fail_silently=False)
+    return HttpResponse("Hello")
